@@ -1,170 +1,236 @@
-﻿using System;
-using System.Collections.Generic;
+﻿// Copyright 2017 Google Inc. All Rights Reserved.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+using System;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.Text.RegularExpressions;
 
 namespace TimeBox
 {
     /// <summary>
-    /// Follow steps 1a or 1b and then 2 to use this custom control in a XAML file.
-    ///
-    /// Step 1a) Using this custom control in a XAML file that exists in the current project.
-    /// Add this XmlNamespace attribute to the root element of the markup file where it is 
-    /// to be used:
-    ///
-    ///     xmlns:MyNamespace="clr-namespace:TimeBox"
-    ///
-    ///
-    /// Step 1b) Using this custom control in a XAML file that exists in a different project.
-    /// Add this XmlNamespace attribute to the root element of the markup file where it is 
-    /// to be used:
-    ///
-    ///     xmlns:MyNamespace="clr-namespace:TimeBox;assembly=TimeBox"
-    ///
-    /// You will also need to add a project reference from the project where the XAML file lives
-    /// to this project and Rebuild to avoid compilation errors:
-    ///
-    ///     Right click on the target project in the Solution Explorer and
-    ///     "Add Reference"->"Projects"->[Select this project]
-    ///
-    ///
-    /// Step 2)
-    /// Go ahead and use your control in the XAML file.
-    ///
-    ///     <MyNamespace:CustomControl1/>
-    ///
+    /// Define AM/PM as enums.
     /// </summary>
-    //public class TimeBox : Control
-    //{
-    //    static TimeBox()
-    //    {
-    //        DefaultStyleKeyProperty.OverrideMetadata(typeof(TimeBox), new FrameworkPropertyMetadata(typeof(TimeBox)));
-    //    }
-    //}
-
     [Serializable]
     public enum TimeType { AM, PM }
 
-    [TemplatePart(Name = "PART_HourEditor", Type = typeof(TextBox))]
-    [TemplatePart(Name = "PART_MinuteEditor", Type = typeof(TextBox))]
-    [TemplatePart(Name = "PART_SecondEditor", Type = typeof(TextBox))]
-    [TemplatePart(Name = "PART_UpButton", Type = typeof(RepeatButton))]
-    [TemplatePart(Name = "PART_DownButton", Type = typeof(RepeatButton))]
-    [TemplatePart(Name = "PART_Time", Type = typeof(ComboBox))]
+    /// <summary>
+    /// Custom control for time input.
+    /// </summary>
+    [TemplatePart(Name = "PART_HourBox", Type = typeof(TextBox))]
+    [TemplatePart(Name = "PART_MinuteBox", Type = typeof(TextBox))]
+    [TemplatePart(Name = "PART_SecondBox", Type = typeof(TextBox))]
+    [TemplatePart(Name = "PART_UpArrow", Type = typeof(RepeatButton))]
+    [TemplatePart(Name = "PART_DownArrow", Type = typeof(RepeatButton))]
+    [TemplatePart(Name = "PART_TimeType", Type = typeof(ComboBox))]
     public class TimeBox : Control
     {
-        static TimeBox()
-        {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(TimeBox), new FrameworkPropertyMetadata(typeof(TimeBox)));
-        }
+        private RepeatButton _upButton, _downButton;
+        private TextBox _hourBox, _minuteBox, _secondBox;
+        private ComboBox _timeTypeCombo;
+        private TextBox[] TimeParts => new TextBox[] { _hourBox, _minuteBox, _secondBox };
 
-        static bool HourValidateValue(object value)
-        {
-            int t = (int)value;
-            return !(t < 0 || t > 12);
-        }
-        static bool MinuteValidateValue(object value)
-        {
-            int t = (int)value;
-            return !(t < 0 || t > 60);
-        }
-        static bool SecondValidateValue(object value)
-        {
-            int t = (int)value;
-            return !(t < 0 || t > 60);
-        }
+        public static readonly DependencyProperty TimeTypeProperty =
+            DependencyProperty.Register("TimeType",
+                typeof(TimeType),
+                typeof(TimeBox),
+                new FrameworkPropertyMetadata(TimeType.AM, OnTimePartPropertyChanged, null));
 
-        public DateTime Time
-        {
-            get
-            {
-                return new DateTime(0, 0, 0, Hour, Minute, Second);
-            }
+        public static readonly DependencyProperty TimeProperty =
+            DependencyProperty.Register(
+                "Time",
+                typeof(TimeSpan),
+                typeof(TimeBox),
+                new FrameworkPropertyMetadata(default(TimeSpan), OnTimePropertyChanged, null),
+                ValidateTimeSpan);
 
-            set
-            {
-                Hour = value.Hour;
-                Minute = value.Minute;
-                Second = value.Second;
-            }
-        }
+        public static readonly DependencyProperty HourProperty =
+            DependencyProperty.Register(
+                "Hour",
+                typeof(int),
+                typeof(TimeBox),
+                new FrameworkPropertyMetadata(0, OnTimePartPropertyChanged, null),
+                ValidateHour);
 
+        public static readonly DependencyProperty MinuteProperty =
+            DependencyProperty.Register(
+                "Minute",
+                typeof(int),
+                typeof(TimeBox),
+                new FrameworkPropertyMetadata(0, OnTimePartPropertyChanged, null),
+                ValidateMinute);
+
+        public static readonly DependencyProperty SecondProperty =
+            DependencyProperty.Register(
+                "Second",
+                typeof(int),
+                typeof(TimeBox),
+                new FrameworkPropertyMetadata(0, OnTimePartPropertyChanged, null),
+                ValidateSecond);
+
+        /// <summary>
+        /// The hour value for hour textbox.
+        /// </summary>
         public int Hour
         {
-            get
-            {
-                var hour = (int)GetValue(HourProperty);
-                return TimeType == TimeType.AM ? hour : (hour % 12) + 12;
-            }
-
-            set
-            {
-                TimeType = TimeType.AM;
-                var h = value;
-                if (h >= 12)
-                {
-                    h = value - 12;
-                    TimeType = TimeType.PM;
-                }
-                if (h == 0)
-                {
-                    h = 12;
-                }
-
-                SetValue(HourProperty, h);
-            }
+            get { return (int)GetValue(HourProperty); }
+            set { SetValue(HourProperty, value); }
         }
+
+        /// <summary>
+        /// The minute value for minute textbox.
+        /// </summary>
         public int Minute
         {
             get { return (int)GetValue(MinuteProperty); }
             set { SetValue(MinuteProperty, value); }
         }
+
+        /// <summary>
+        /// The second value for second textbox.
+        /// </summary>
         public int Second
         {
             get { return (int)GetValue(SecondProperty); }
             set { SetValue(SecondProperty, value); }
         }
+
+        /// <summary>
+        /// AM or PM Combobox value.
+        /// </summary>
         public TimeType TimeType
         {
             get { return (TimeType)GetValue(TimeTypeProperty); }
             set { SetValue(TimeTypeProperty, value); }
         }
+
+        /// <summary>
+        /// The aggregated time value.
+        /// </summary>
+        public TimeSpan Time
+        {
+            get { return (TimeSpan)GetValue(TimeProperty); }
+            set { SetValue(TimeProperty, value); }
+        }
+
+        static TimeBox()
+        {
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(TimeBox), new FrameworkPropertyMetadata(typeof(TimeBox)));
+        }
+
+        /// <summary>
+        /// Initialize the control template.
+        /// </summary>
         public override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
-            this.upButton = this.Template.FindName("PART_UpButton", this) as RepeatButton;
-            this.downButton = this.Template.FindName("PART_DownButton", this) as RepeatButton;
-            this.hourEditor = this.Template.FindName("PART_HourEditor", this) as TextBox;
-            this.minuteEditor = this.Template.FindName("PART_MinuteEditor", this) as TextBox;
-            this.secondEditor = this.Template.FindName("PART_SecondEditor", this) as TextBox;
-            this.upButton.Click += RepeatButton_Click;
-            this.downButton.Click += RepeatButton_Click;
-            foreach (var textBox in TextBoxParts)
-            {
+            _upButton = Template.FindName("PART_UpArrow", this) as RepeatButton;
+            _downButton = Template.FindName("PART_DownArrow", this) as RepeatButton;
+            _hourBox = Template.FindName("PART_HourBox", this) as TextBox;
+            _minuteBox = Template.FindName("PART_MinuteBox", this) as TextBox;
+            _secondBox = Template.FindName("PART_SecondBox", this) as TextBox;
+            _timeTypeCombo = Template.FindName("PART_TimeType", this) as ComboBox;
+            _upButton.Click += RepeatButton_Click;
+            _downButton.Click += RepeatButton_Click;
+            foreach (var textBox in TimeParts)
+            {   
                 textBox.PreviewKeyDown += TextBox_PreviewKeyDown;
                 textBox.PreviewTextInput += TextBox_PreviewTextInput;
-                //textBox.TextChanged += TextBox_TextChanged;
             }
         }
 
-
-        private int SenderIndex(object sender)
+        private static void OnTimePropertyChanged(DependencyObject source, DependencyPropertyChangedEventArgs e)
         {
-            for (int i = 0; i < TextBoxParts.Length; ++i)
+            TimeBox control = source as TimeBox;
+            TimeSpan newValue = (TimeSpan)e.NewValue;
+            TimeSpan oldValue = (TimeSpan)e.OldValue;
+            if (newValue != oldValue)
             {
-                if (TextBoxParts[i] == sender as TextBox)
+                control.SetTimeParts(newValue);
+            }
+        }
+
+        private static void OnTimePartPropertyChanged(DependencyObject source, DependencyPropertyChangedEventArgs e)
+        {
+            TimeBox control = source as TimeBox;
+            int newValue = (int)e.NewValue;
+            int oldValue = (int)e.OldValue;
+            if (newValue != oldValue)
+            {
+                control.Time = control.ComposeTime();
+            }
+        }
+
+        /// <summary>
+        /// Compose the hour, minute, second into <seealso cref="TimeSpan"/>
+        /// </summary>
+        private TimeSpan ComposeTime()
+        {
+            var h = Hour;
+            var hour = TimeType == TimeType.AM ? h : (h % 12) + 12;
+            return new TimeSpan(hour, Minute, Second);
+        }
+
+        /// <summary>
+        /// Set time parts value when <seealso cref="TimeProperty"/> changes.
+        /// </summary>
+        private void SetTimeParts(TimeSpan time)
+        { 
+            TimeType ampm = TimeType.AM;
+            var h = time.Hours;
+            if (h >= 12)
+            {
+                h = time.Hours - 12;
+                ampm = TimeType.PM;
+            }
+
+            if (h == 0)
+            {
+                h = 12;
+            }
+
+            if (ampm != TimeType)
+            {
+                TimeType = ampm;
+            }
+
+            if (Hour != h)
+            {
+                Hour = h;
+            }
+
+            if (Minute != time.Minutes)
+            {
+                Minute = time.Minutes;
+            }
+
+            if (Second != time.Seconds)
+            {
+                Second = time.Seconds;
+            }
+        }
+
+        /// <summary>
+        /// Gets the time part input text box index at TextBoxParts array.
+        /// </summary>
+        private int GetSenderIndex(object sender)
+        {
+            for (int i = 0; i < TimeParts.Length; ++i)
+            {
+                if (TimeParts[i] == sender as TextBox)
                 {
                     return i;
                 }
@@ -173,23 +239,11 @@ namespace TimeBox
             return -1;
         }
 
-        private void MoveToNextBox(object sender)
-        {
-            int idx = SenderIndex(sender);
-            if (idx >= 0 && idx < 2)
-            {
-                TextBoxParts[idx + 1].Focus();
-            }
-        }
+        private static bool IsTextAllowed(string text) => text == null ? false : text.All(char.IsDigit);
 
-        private TextBox[] TextBoxParts => new TextBox[] { hourEditor, minuteEditor, secondEditor };
-
-        private static bool IsTextAllowed(string text)
-        {
-            Regex regex = new Regex("[^0-9.-]+"); //regex that matches disallowed text
-            return !regex.IsMatch(text);
-        }
-
+        /// <summary>
+        /// Disables non-digits input.
+        /// </summary>
         private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             if (!IsTextAllowed(e.Text))
@@ -199,52 +253,60 @@ namespace TimeBox
             }
         }
 
+        private void UpDownPropertyValue(DependencyProperty dp, bool increase)
+        {
+            int max = 59, min = 0;
+            if (dp == HourProperty)
+            {
+                max = 12;
+                min = 1;
+            }
 
-        //private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
-        //{
-        //    var textBox = sender as TextBox;
-        //    if (textBox.Text.Length >= 2)
-        //    {
-        //        MoveToNextBox(sender);
-        //    }
-        //}
+            int oldValue = (int)GetValue(dp);
+            int newValue = increase ? oldValue + 1 : oldValue - 1;
+            if (newValue > max)
+            {
+                newValue = min;
+            }
+            if (newValue < min)
+            {
+                newValue = max;
+            }
 
+            SetValue(dp, newValue);
+        }
+
+        /// <summary>
+        /// Response to RepeatButton click event that updates the time part input box value.
+        /// </summary>
         private void RepeatButton_Click(object sender, RoutedEventArgs e)
         {
-            if (!(hourEditor.IsFocused || minuteEditor.IsFocused || secondEditor.IsFocused))
+            if (_timeTypeCombo.IsFocused)
             {
-                hourEditor.Focus();
+                TimeType = TimeType == TimeType.AM ? TimeType.PM : TimeType.AM;
+                return;
             }
 
-            DependencyProperty dp = null;
-            int maxValue = 60;
-            if (this.hourEditor.IsFocused)
+            DependencyProperty dp = HourProperty;
+            if (_minuteBox.IsFocused)
             {
-                dp = HourProperty;
-                maxValue = 12;
+                dp = MinuteProperty;
             }
-            if (this.minuteEditor.IsFocused) dp = MinuteProperty;
-            if (this.secondEditor.IsFocused) dp = SecondProperty;
-            if (dp == null) return;
-            int value = (int)this.GetValue(dp);
-            if (e.Source == this.upButton)
-                ++value;
-            else
-                --value;
-            if (value < 0 || value > maxValue) return;
-            this.SetValue(dp, value);
+            else if (_secondBox.IsFocused)
+            {
+                dp = SecondProperty;
+            }
+
+            UpDownPropertyValue(dp, e.Source == _upButton);
         }
-        public static readonly DependencyProperty TimeTypeProperty =
-        DependencyProperty.Register("TimeType", typeof(TimeType), typeof(TimeBox), new FrameworkPropertyMetadata(TimeType.AM));
-        public static readonly DependencyProperty HourProperty =
-        DependencyProperty.Register("Hour", typeof(int), typeof(TimeBox), new FrameworkPropertyMetadata(), HourValidateValue);
-        public static readonly DependencyProperty MinuteProperty =
-        DependencyProperty.Register("Minute", typeof(int), typeof(TimeBox), new FrameworkPropertyMetadata(), MinuteValidateValue);
-        public static readonly DependencyProperty SecondProperty =
-        DependencyProperty.Register("Second", typeof(int), typeof(TimeBox), new FrameworkPropertyMetadata(), SecondValidateValue);
-        private RepeatButton upButton, downButton;
-        private TextBox hourEditor, minuteEditor, secondEditor;
 
+        /// <summary>
+        /// There are three boxes in the time control. Hour, Minute, Second.
+        /// (1) Left, Up arrow keys move to the prior box.
+        /// (2) Right, Down arrow keys move to the next box.
+        /// (3) Press Enter key moves to the next box.
+        /// (4) Input third digits at a box will automatically take it to the next box.
+        /// </summary>
         private void TextBox_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             if (!e.IsDown)
@@ -253,37 +315,59 @@ namespace TimeBox
             }
 
             var textBox = sender as TextBox;
-            int index = SenderIndex(sender);
+            int index = GetSenderIndex(sender);
             if (index < 0)
             {
                 return;
             }
 
-            if (e.Key == Key.Down || e.Key == Key.Enter && index < 2)
+            // Down arrow, Enter key, move focus to the next box.
+            if ((e.Key == Key.Down || e.Key == Key.Enter) && index < 2)
             {
-                TextBoxParts[index + 1].Focus();
+                TimeParts[index + 1].Focus();
             }
 
+            // Up arrow, move focus to the prior box.
             if (e.Key == Key.Up && index > 0)
             {
-                TextBoxParts[index - 1].Focus();
+                TimeParts[index - 1].Focus();
             }
 
-            if (e.Key == Key.Left && textBox.CaretIndex == 0)
+            // Left arrow, if the caret is at the begining of the current text box, move to the prior box.
+            if (e.Key == Key.Left && textBox.CaretIndex == 0 && index > 0)
             {
-                if (index > 0)
-                {
-                    TextBoxParts[index - 1].Focus();
-                }
+                TimeParts[index - 1].Focus();
             }
 
-            if (e.Key == Key.Right && textBox.CaretIndex == textBox.Text.Length)
+            // Right arrow, if caret is at the end of the current text box, move to the next box.
+            if (e.Key == Key.Right && textBox.CaretIndex == textBox.Text.Length && index < 2)
             {
-                if (index < 2)
-                {
-                    TextBoxParts[index + 1].Focus();
-                }
+                TimeParts[index + 1].Focus();
             }
+        }
+
+        private static bool ValidateHour(object value)
+        {
+            int t = (int)value;
+            return !(t < 0 || t > 12);
+        }
+
+        private static bool ValidateMinute(object value)
+        {
+            int t = (int)value;
+            return !(t < 0 || t > 60);
+        }
+
+        private static bool ValidateSecond(object value)
+        {
+            int t = (int)value;
+            return !(t < 0 || t > 60);
+        }
+
+        private static bool ValidateTimeSpan(object value)
+        {
+            TimeSpan time = (TimeSpan)value;
+            return time.TotalDays < 1;
         }
     }
 
