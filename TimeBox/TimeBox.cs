@@ -281,12 +281,6 @@ namespace TimeBox
         /// </summary>
         private void RepeatButton_Click(object sender, RoutedEventArgs e)
         {
-            if (_timeTypeCombo.IsFocused)
-            {
-                TimeType = TimeType == TimeType.AM ? TimeType.PM : TimeType.AM;
-                return;
-            }
-
             DependencyProperty dp = HourProperty;
             if (_minuteBox.IsFocused)
             {
