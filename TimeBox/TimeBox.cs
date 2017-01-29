@@ -14,6 +14,7 @@
 
 using GoogleCloudExtension.Utils;
 using System;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -43,7 +44,6 @@ namespace GoogleCloudExtension.Controls
             /// </summary>
             public TextBox TextBox { get; }
 
-
             /// <summary>
             /// Gets the <seealso cref="DependencyProperty"/> that is associated to the time part TextBox.
             /// </summary>
@@ -61,7 +61,7 @@ namespace GoogleCloudExtension.Controls
         private RepeatButton _upButton, _downButton;
         private TextBox _hourBox, _minuteBox, _secondBox;
         private ComboBox _timeTypeCombo;
-        private TextBoxDependencyPropertyPair[] _timePartsBoxes;
+        private List<TextBoxDependencyPropertyPair> _timePartsBoxes;
 
         public static readonly DependencyProperty TimeProperty =
             DependencyProperty.Register(
@@ -151,11 +151,12 @@ namespace GoogleCloudExtension.Controls
             _hourBox = Template.FindName("PART_HourBox", this) as TextBox;
             _minuteBox = Template.FindName("PART_MinuteBox", this) as TextBox;
             _secondBox = Template.FindName("PART_SecondBox", this) as TextBox;
-            _timePartsBoxes = new TextBoxDependencyPropertyPair[] {
+            _timePartsBoxes = new List<TextBoxDependencyPropertyPair>(
+                new TextBoxDependencyPropertyPair[] {
                 new TextBoxDependencyPropertyPair(_hourBox, HourProperty),
                 new TextBoxDependencyPropertyPair(_minuteBox, MinuteProperty),
                 new TextBoxDependencyPropertyPair(_secondBox, SecondProperty)
-            };
+            });
             _timeTypeCombo = Template.FindName("PART_TimeType", this) as ComboBox;
             if (_upButton != null && _downButton != null)
             {
@@ -177,6 +178,9 @@ namespace GoogleCloudExtension.Controls
             TimeBox control = source as TimeBox;
             TimeSpan newValue = (TimeSpan)e.NewValue;
             TimeSpan oldValue = (TimeSpan)e.OldValue;
+            // SetTimeParts triggers OnTimePartPropertyChanged
+            // And it sets control.Time that calls back to current method OnTimePropertyChanged.
+            // This must be checked to avoid such a deadloop. 
             if (newValue != oldValue)
             {
                 control.SetTimeParts(newValue);
@@ -188,6 +192,9 @@ namespace GoogleCloudExtension.Controls
             TimeBox control = source as TimeBox;
             int newValue = (int)e.NewValue;
             int oldValue = (int)e.OldValue;
+            // Setting control.Time triggers OnTimePropertyChanged
+            // And SetTimePars inside OnTimePropertyChanged  may call back to current method OnTimePartPropertyChanged.
+            // This must be checked to avoid such a deadloop. 
             if (newValue != oldValue)
             {
                 control.Time = control.ComposeTime();
@@ -204,6 +211,8 @@ namespace GoogleCloudExtension.Controls
 
         /// <summary>
         /// Set time parts value when <seealso cref="TimeProperty"/> changes.
+        /// Checking if the time parts value differ is critical to avoid deadloop.
+        /// Without doing so, OnTimePartPropertyChanged and OnTimePropertyChanged may call to each other indefinitely. 
         /// </summary>
         private void SetTimeParts(TimeSpan time)
         { 
@@ -224,19 +233,11 @@ namespace GoogleCloudExtension.Controls
         }
 
         /// <summary>
-        /// Gets the time part input text box index at TextBoxParts array.
+        /// Gets the time part input text box index at <seealso cref="_timePartsBoxes"/> array.
         /// </summary>
-        private int GetSenderIndex(object sender)
+        private int GetTimePartTextBoxesIndex(object sender)
         {
-            for (int i = 0; i < _timePartsBoxes.Length; ++i)
-            {
-                if (_timePartsBoxes[i].TextBox == sender as TextBox)
-                {
-                    return i;
-                }
-            }
-
-            return -1;
+            return _timePartsBoxes.FindIndex(x => x.TextBox == sender);
         }
 
         /// <summary>
@@ -304,7 +305,7 @@ namespace GoogleCloudExtension.Controls
             }
 
             var textBox = sender as TextBox;
-            int index = GetSenderIndex(sender);
+            int index = GetTimePartTextBoxesIndex(sender);
             if (index < 0)
             {
                 return;
