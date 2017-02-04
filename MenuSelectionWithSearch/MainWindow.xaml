@@ -1,0 +1,153 @@
+﻿<Window x:Class="MenuSelectionWithSearch.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MenuSelectionWithSearch"
+        xmlns:gctrl="clr-namespace:GoogleCloudExtension.Controls"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="525"
+        Background="#F0F0F0">
+
+    <Window.Resources>
+
+        <ResourceDictionary>
+        <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="./Dictionary1.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+        <!--<ItemsPanelTemplate x:Key="MenuItemPanelTemplate">
+            <StackPanel Margin="0,0,0,0" Background="White" />
+            --><!--Width="{Binding RelativeSource={RelativeSource Self},Path=Parent.ActualWidth}"/>--><!--
+        </ItemsPanelTemplate>
+
+        <Style TargetType="{x:Type MenuItem}">
+            <Setter Property="ItemsPanel" Value="{StaticResource MenuItemPanelTemplate}"/>
+        </Style>-->
+
+        
+        <!--<ControlTemplate x:Key="TopMenuHeaderTemplate" TargetType="{x:Type MenuItem}">
+            <Grid Background="{TemplateBinding Background}">
+                <MenuItem Header="{TemplateBinding Header}" />
+            </Grid>
+        </ControlTemplate>-->
+
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <StackPanel Orientation="Horizontal">
+        <gctrl:FixBackgroundComboBox 
+            Margin="30"
+            VerticalAlignment="Center" 
+            HorizontalAlignment="Center"
+            SelectedIndex="1"
+            Background="White"
+            
+            >
+            
+            <ComboBoxItem >text 1 and this is</ComboBoxItem>
+            <ComboBoxItem >text 1 and this is another </ComboBoxItem>
+            <ComboBoxItem >text 1</ComboBoxItem>
+        </gctrl:FixBackgroundComboBox>
+
+        <Menu
+                HorizontalAlignment="Center" 
+                VerticalAlignment="Center"  
+                Height="Auto" 
+                BorderThickness="0" 
+                BorderBrush="LightGray" >
+
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <UniformGrid   
+                            Rows="1" HorizontalAlignment="Stretch" Background="White" 
+                            Margin="0, 0, 0, 0" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                
+                <!-- This first menu item is styled to look like a combo box. -->
+                <!--BorderThickness="0"-->
+            <MenuItem x:Name="FirstMenu" HorizontalAlignment="Stretch" 
+                      BorderBrush="Aquamarine"
+                      BorderThickness="0"
+                      >
+
+                <MenuItem.Header >
+                    <!--Width="{Binding ActualWidth, ElementName=FirstMenu}"-->
+                    <!--"{Binding RelativeSource={RelativeSource Self},Path=Parent.ActualWidth}"-->
+
+                    <Grid Width="200" 
+                              Background="White"                          
+                              >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <!-- Yes, the access key works! Width="90"   -->
+                        <TextBlock Grid.Column="0" HorizontalAlignment="Center"  
+                                              VerticalAlignment="Stretch"
+                                                Padding="0"
+                                       
+                                       > 
+                                _Sort by
+                        </TextBlock>
+                        <Border Grid.Column="1" HorizontalAlignment="Right" 
+                                    >
+                            <!-- The toggle button looks identical to the one used on a combo box
+                                        because I based the definition below on the relevant portion of the
+                                        combo box's default control template. -->
+                            <ToggleButton IsChecked="False" IsHitTestVisible="False" 
+                                        BorderBrush="{TemplateBinding Border.BorderBrush}"
+                                        Background="{TemplateBinding Panel.Background}"                                              
+                                          Margin="0, 0, 5, 0"
+                                          >
+
+                                <ToggleButton.Style>
+                                    <Style TargetType="ToggleButton">
+                                        <Setter Property="OverridesDefaultStyle" Value="True" />
+
+
+                                        <!-- The toggle control just needs visually appear. It doesn't
+                    need to receive focus or be a tab stop.
+                                            -->
+                                        <Setter Property="Focusable" Value="False" />
+                                        <Setter Property="IsTabStop" Value="False" />
+                                        <Setter Property="Control.Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="ToggleButton">
+                                                    <Path Data="M 0 0 L 3 3 L 6 0"  Stroke="#636363" Name="Arrow"
+                                                          Margin="3,1,0,0" 
+                                                          HorizontalAlignment="Center" 
+                                                          VerticalAlignment="Center" />
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </ToggleButton.Style>
+                            </ToggleButton>
+                        </Border>
+                    </Grid>
+                </MenuItem.Header>
+
+                <MenuItem Header="_Name"                        >
+                    <MenuItem Header="_Last"  IsCheckable="true" />
+                    <MenuItem Header="_First" IsCheckable="true" />
+                </MenuItem>
+
+                <MenuItem Header="_LastName" HorizontalAlignment="Left"
+                          >
+                    <MenuItem Header="_Last"  IsCheckable="true" />
+                    <MenuItem Header="_First" IsCheckable="true" />
+                </MenuItem>
+
+                <MenuItem Header="_First Name" HorizontalAlignment="Left" 
+                          >
+                    <MenuItem Header="_Last" IsCheckable="true" />
+                    <MenuItem Header="_First" IsCheckable="true" />
+                </MenuItem>
+                
+            </MenuItem>
+        </Menu>
+    </StackPanel>
+</Window>

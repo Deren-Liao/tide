@@ -1,0 +1,24 @@
+﻿<!-- http://stackoverflow.com/questions/10427133/wpf-hosting-content-inside-a-usercontrol -->
+    
+    <UserControl x:Class="DateTimePicker.ComboBoxWithDropDown"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:DateTimePicker"
+             mc:Ignorable="d"               
+             d:DesignHeight="300" d:DesignWidth="300"
+                 Name="comboBoxWithDropDown">
+    <Grid>
+        <ComboBox  HorizontalAlignment="Center" SelectedIndex="0" 
+                               VerticalAlignment="Center">
+            <ComboBoxItem x:Name="FirstItem" HorizontalAlignment="Center"  Content="" >
+                <ComboBoxItem.Template>
+                    <ControlTemplate>
+                        <ContentPresenter Content="{Binding AdditionalContent, ElementName=comboBoxWithDropDown}" />
+                    </ControlTemplate>
+                </ComboBoxItem.Template>
+            </ComboBoxItem>
+        </ComboBox>
+    </Grid>
+</UserControl>
