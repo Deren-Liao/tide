@@ -31,18 +31,35 @@
                 <MenuItem Header="{TemplateBinding Header}" />
             </Grid>
         </ControlTemplate>-->
-
+            
         </ResourceDictionary>
     </Window.Resources>
 
-    <StackPanel Orientation="Horizontal">
+    <StackPanel Orientation="Vertical">
+        <local:MyMenu ItemsSource="{Binding Source={x:Static local:MenuItemViewModel.TopLevelInstances}}"
+              VerticalAlignment="Center"
+              Margin="50"
+              >
+            <!--<local:MyMenu.ItemContainerStyle>
+                <Style TargetType="{x:Type local:SearchMenuItem}">
+                    <Setter Property="Header" Value="{Binding Header}" />
+                </Style>
+            </local:MyMenu.ItemContainerStyle>-->
+            <Menu.ItemTemplate>
+                <HierarchicalDataTemplate 
+                    DataType="{x:Type local:MenuItemViewModel}" 
+                    ItemsSource="{Binding Path=MenuItems}">
+                    <TextBlock Text="{Binding Header}" />
+                </HierarchicalDataTemplate>
+            </Menu.ItemTemplate>
+        </local:MyMenu>        
+        
         <gctrl:FixBackgroundComboBox 
             Margin="30"
             VerticalAlignment="Center" 
             HorizontalAlignment="Center"
             SelectedIndex="1"
-            Background="White"
-            
+            Background="White"          
             >
             
             <ComboBoxItem >text 1 and this is</ComboBoxItem>
@@ -50,7 +67,7 @@
             <ComboBoxItem >text 1</ComboBoxItem>
         </gctrl:FixBackgroundComboBox>
 
-        <Menu
+        <!--<Menu
                 HorizontalAlignment="Center" 
                 VerticalAlignment="Center"  
                 Height="Auto" 
@@ -65,89 +82,139 @@
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
                 
-                <!-- This first menu item is styled to look like a combo box. -->
-                <!--BorderThickness="0"-->
+                --><!-- This first menu item is styled to look like a combo box. -->
+                <!--BorderThickness="0"--><!--
             <MenuItem x:Name="FirstMenu" HorizontalAlignment="Stretch" 
                       BorderBrush="Aquamarine"
                       BorderThickness="0"
+                      Header="Top Level Item"
                       >
 
-                <MenuItem.Header >
-                    <!--Width="{Binding ActualWidth, ElementName=FirstMenu}"-->
-                    <!--"{Binding RelativeSource={RelativeSource Self},Path=Parent.ActualWidth}"-->
-
-                    <Grid Width="200" 
-                              Background="White"                          
-                              >
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-
-                        <!-- Yes, the access key works! Width="90"   -->
-                        <TextBlock Grid.Column="0" HorizontalAlignment="Center"  
-                                              VerticalAlignment="Stretch"
-                                                Padding="0"
-                                       
-                                       > 
-                                _Sort by
-                        </TextBlock>
-                        <Border Grid.Column="1" HorizontalAlignment="Right" 
-                                    >
-                            <!-- The toggle button looks identical to the one used on a combo box
-                                        because I based the definition below on the relevant portion of the
-                                        combo box's default control template. -->
-                            <ToggleButton IsChecked="False" IsHitTestVisible="False" 
-                                        BorderBrush="{TemplateBinding Border.BorderBrush}"
-                                        Background="{TemplateBinding Panel.Background}"                                              
-                                          Margin="0, 0, 5, 0"
-                                          >
-
-                                <ToggleButton.Style>
-                                    <Style TargetType="ToggleButton">
-                                        <Setter Property="OverridesDefaultStyle" Value="True" />
-
-
-                                        <!-- The toggle control just needs visually appear. It doesn't
-                    need to receive focus or be a tab stop.
-                                            -->
-                                        <Setter Property="Focusable" Value="False" />
-                                        <Setter Property="IsTabStop" Value="False" />
-                                        <Setter Property="Control.Template">
-                                            <Setter.Value>
-                                                <ControlTemplate TargetType="ToggleButton">
-                                                    <Path Data="M 0 0 L 3 3 L 6 0"  Stroke="#636363" Name="Arrow"
-                                                          Margin="3,1,0,0" 
-                                                          HorizontalAlignment="Center" 
-                                                          VerticalAlignment="Center" />
-                                                </ControlTemplate>
-                                            </Setter.Value>
-                                        </Setter>
-                                    </Style>
-                                </ToggleButton.Style>
-                            </ToggleButton>
-                        </Border>
-                    </Grid>
-                </MenuItem.Header>
-
-                <MenuItem Header="_Name"                        >
+                <local:SearchMenuItem Header="_Name"        
+                                      Style="{StaticResource SearchMenuItemStyle}"                                      
+                                      >
                     <MenuItem Header="_Last"  IsCheckable="true" />
                     <MenuItem Header="_First" IsCheckable="true" />
-                </MenuItem>
+                </local:SearchMenuItem>
 
-                <MenuItem Header="_LastName" HorizontalAlignment="Left"
+                <local:SearchMenuItem Header="_LastName" HorizontalAlignment="Left"
+                                      Style="{StaticResource SearchMenuItemStyle}"                                      
                           >
+                    <MenuItem Header="_Beginning"  IsCheckable="true" />
                     <MenuItem Header="_Last"  IsCheckable="true" />
                     <MenuItem Header="_First" IsCheckable="true" />
-                </MenuItem>
+                    <MenuItem Header="_Last"  IsCheckable="true" />
+                    <MenuItem Header="_First" IsCheckable="true" />
+                    <MenuItem Header="_Last"  IsCheckable="true" />
+                    <MenuItem Header="_First" IsCheckable="true" />
+                    <MenuItem Header="_Last"  IsCheckable="true" />
+                    <MenuItem Header="_First" IsCheckable="true" />
+                    <MenuItem Header="_Last"  IsCheckable="true" />
+                    <MenuItem Header="_First" IsCheckable="true" />
+                    <MenuItem Header="_Last"  IsCheckable="true" />
+                    <MenuItem Header="_First" IsCheckable="true" />
+                    <MenuItem Header="_Last"  IsCheckable="true" />
+                    <MenuItem Header="_First" IsCheckable="true" />
+                    <MenuItem Header="_Last"  IsCheckable="true" />
+                    <MenuItem Header="_First" IsCheckable="true" />
+                    <MenuItem Header="_Last"  IsCheckable="true" />
+                    <MenuItem Header="_First" IsCheckable="true" />
+                    <MenuItem Header="_Last"  IsCheckable="true" />
+                    <MenuItem Header="_First" IsCheckable="true" />
+                    <MenuItem Header="_Last"  IsCheckable="true" />
+                    <MenuItem Header="_First" IsCheckable="true" />
+                    <MenuItem Header="_Last"  IsCheckable="true" />
+                    <MenuItem Header="_First" IsCheckable="true" />
+                    <MenuItem Header="_Last"  IsCheckable="true" />
+                    <MenuItem Header="_First" IsCheckable="true" />
+                    <MenuItem Header="_Last"  IsCheckable="true" />
+                    <MenuItem Header="_First" IsCheckable="true" />
+                    <MenuItem Header="_Last"  IsCheckable="true" />
+                    <MenuItem Header="_First" IsCheckable="true" />
+                    <MenuItem Header="_Last"  IsCheckable="true" />
+                    <MenuItem Header="_First" IsCheckable="true" />
+                    <MenuItem Header="_Last"  IsCheckable="true" />
+                    <MenuItem Header="_First" IsCheckable="true" />
+                    <MenuItem Header="_Last"  IsCheckable="true" />
+                    <MenuItem Header="_First" IsCheckable="true" />
+                    <MenuItem Header="_Last"  IsCheckable="true" />
+                    <MenuItem Header="_First" IsCheckable="true" />
+                    <MenuItem Header="_Last"  IsCheckable="true" />
+                    <MenuItem Header="_First" IsCheckable="true" />
+                    <MenuItem Header="_Last"  IsCheckable="true" />
+                    <MenuItem Header="_First" IsCheckable="true" />
+                    <MenuItem Header="_Last"  IsCheckable="true" />
+                    <MenuItem Header="_First" IsCheckable="true" />
+                    <MenuItem Header="_Last"  IsCheckable="true" />
+                    <MenuItem Header="_First" IsCheckable="true" />
+                    <MenuItem Header="_Last"  IsCheckable="true" />
+                    <MenuItem Header="_First" IsCheckable="true" />
+                    <MenuItem Header="_Last"  IsCheckable="true" />
+                    <MenuItem Header="_First" IsCheckable="true" />
+                    <MenuItem Header="_Last"  IsCheckable="true" />
+                    <MenuItem Header="_First" IsCheckable="true" />
+                    <MenuItem Header="_Last"  IsCheckable="true" />
+                    <MenuItem Header="_First" IsCheckable="true" />
+                    <MenuItem Header="_Last"  IsCheckable="true" />
+                    <MenuItem Header="_First" IsCheckable="true" />
+                    <MenuItem Header="_Last"  IsCheckable="true" />
+                    <MenuItem Header="_First" IsCheckable="true" />
+                    <MenuItem Header="_Last"  IsCheckable="true" />
+                    <MenuItem Header="_First" IsCheckable="true" />
+                    <MenuItem Header="_Last"  IsCheckable="true" />
+                    <MenuItem Header="_First" IsCheckable="true" />
+                    <MenuItem Header="_Last"  IsCheckable="true" />
+                    <MenuItem Header="_First" IsCheckable="true" />
+                    <MenuItem Header="_Last"  IsCheckable="true" />
+                    <MenuItem Header="_First" IsCheckable="true" />
+                    <MenuItem Header="_Last"  IsCheckable="true" />
+                    <MenuItem Header="_First" IsCheckable="true" />
+                    <MenuItem Header="_Last"  IsCheckable="true" />
+                    <MenuItem Header="_First" IsCheckable="true" />
+                    <MenuItem Header="_Last"  IsCheckable="true" />
+                    <MenuItem Header="_First" IsCheckable="true" />
+                    <MenuItem Header="_Last"  IsCheckable="true" />
+                    <MenuItem Header="_First" IsCheckable="true" />
+                    <MenuItem Header="_Last"  IsCheckable="true" />
+                    <MenuItem Header="_First" IsCheckable="true" />
+                    <MenuItem Header="_Last"  IsCheckable="true" />
+                    <MenuItem Header="_First" IsCheckable="true" />
+                    <MenuItem Header="_Last"  IsCheckable="true" />
+                    <MenuItem Header="_First" IsCheckable="true" />
+                    <MenuItem Header="_Last"  IsCheckable="true" />
+                    <MenuItem Header="_First" IsCheckable="true" />
+                    <MenuItem Header="_Last"  IsCheckable="true" />
+                    <MenuItem Header="_First" IsCheckable="true" />
+                    <MenuItem Header="_Last"  IsCheckable="true" />
+                    <MenuItem Header="_First" IsCheckable="true" />
+                    <MenuItem Header="_Last"  IsCheckable="true" />
+                    <MenuItem Header="_First" IsCheckable="true" />
+                    <MenuItem Header="_Last"  IsCheckable="true" />
+                    <MenuItem Header="_First" IsCheckable="true" />
+                    <MenuItem Header="_Last"  IsCheckable="true" />
+                    <MenuItem Header="_First" IsCheckable="true" />
+                    <MenuItem Header="_Last"  IsCheckable="true" />
+                    <MenuItem Header="_First" IsCheckable="true" />
+                    <MenuItem Header="_Last"  IsCheckable="true" />
+                    <MenuItem Header="_First" IsCheckable="true" />
+                    <MenuItem Header="_Last"  IsCheckable="true" />
+                    <MenuItem Header="_First" IsCheckable="true" />
+                    <MenuItem Header="_Last"  IsCheckable="true" />
+                    <MenuItem Header="_First" IsCheckable="true" />
+                    <MenuItem Header="_Last"  IsCheckable="true" />
+                    <MenuItem Header="_First" IsCheckable="true" />
+                    <MenuItem Header="_Last"  IsCheckable="true" />
+                    <MenuItem Header="_First" IsCheckable="true" />
+                    <MenuItem Header="_TheEnd" IsCheckable="true" />
+                </local:SearchMenuItem>
 
-                <MenuItem Header="_First Name" HorizontalAlignment="Left" 
+                <local:SearchMenuItem Header="_First Name" HorizontalAlignment="Left" 
                           >
                     <MenuItem Header="_Last" IsCheckable="true" />
                     <MenuItem Header="_First" IsCheckable="true" />
-                </MenuItem>
+                </local:SearchMenuItem>
                 
             </MenuItem>
-        </Menu>
+        </Menu>-->
     </StackPanel>
 </Window>
