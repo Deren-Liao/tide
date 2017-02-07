@@ -42,7 +42,6 @@ namespace GoogleCloudExtension.StackdriverLogsViewer
         {
             _command = new CommandViewModel(Execute);
             _initCommand = new CommandViewModel(() => AddItems());
-            PropertyChanged += OnPropertyChanged;
         }
 
         public string Header { get; set; }
@@ -57,7 +56,7 @@ namespace GoogleCloudExtension.StackdriverLogsViewer
             }
         }
 
-        public ICommand OnInitCommand
+        public ICommand OnSubmenuOpenCommand
         {
             get
             {
@@ -90,26 +89,6 @@ namespace GoogleCloudExtension.StackdriverLogsViewer
             Debug.WriteLine($"{Header} Set OnInit false from  AddItems from viewModel");
             IsSubmenuPopulated = true;
             loading = false;
-        }
-
-        private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
-        {            
-            switch (e.PropertyName)
-            {
-                //case nameof(IsSubmenuOpen):
-                //    if (IsSubmenuOpen && !Inited)
-                //    {
-                //        Inited = true;
-                //        MenuItems.Add(new MenuItemViewModel() { Header = "Add a new " });
-                //    }
-                //    break;
-                case nameof(IsSubmenuPopulated):
-                    // AddItems();
-                    break;
-
-                default:
-                    break;
-            }
         }
 
         private void Execute()

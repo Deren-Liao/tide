@@ -523,7 +523,7 @@
         <Setter Property="OverridesDefaultStyle" Value="True"/>
         <Setter Property="IsSubmenuPopulated" Value="{Binding IsSubmenuPopulated}" />
         <Setter Property="Command" Value="{Binding MenuCommand}" />
-        <Setter Property="OnInitCommand" Value="{Binding OnInitCommand}" />
+        <Setter Property="OnSubmenuOpenCommand" Value="{Binding OnSubmenuOpenCommand}" />
         <Setter Property="Header" Value="{Binding Header}" />
         <Style.Triggers>
             <Trigger Property="Role" Value="TopLevelHeader">

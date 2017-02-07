@@ -83,22 +83,22 @@ namespace GoogleCloudExtension.StackdriverLogsViewer
             return container;
         }
 
-        public static DependencyProperty OnInitCommandProperty
+        public static DependencyProperty OnSubmenuOpenCommandProperty
             = DependencyProperty.Register(
-                "OnInitCommand",
+                "OnSubmenuOpenCommand",
                 typeof(ICommand),
                 typeof(SearchMenuItem));
 
-        public ICommand OnInitCommand
+        public ICommand OnSubmenuOpenCommand
         {
             get
             {
-                return (ICommand)GetValue(OnInitCommandProperty);
+                return (ICommand)GetValue(OnSubmenuOpenCommandProperty);
             }
 
             set
             {
-                SetValue(OnInitCommandProperty, value);
+                SetValue(OnSubmenuOpenCommandProperty, value);
             }
         }
 
@@ -156,9 +156,9 @@ namespace GoogleCloudExtension.StackdriverLogsViewer
             Debug.WriteLine($"{Header} submenu opened");
             // OnInit = true;
                 Debug.WriteLine($"{Header} adding sub menu");
-            if (OnInitCommand != null && OnInitCommand.CanExecute(null) && !IsSubmenuPopulated)
+            if (OnSubmenuOpenCommand != null && OnSubmenuOpenCommand.CanExecute(null) && !IsSubmenuPopulated)
             {
-                OnInitCommand.Execute(null);
+                OnSubmenuOpenCommand.Execute(null);
             }
             //var source = this.ItemsSource as ObservableCollection<MenuItemViewModel>;
             //source.Add(new MenuItemViewModel() { Header = "Add by code"});
