@@ -14,23 +14,25 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 using System.Diagnostics;
+using System.Collections.ObjectModel;
 
-namespace MenuSelectionWithSearch
+
+namespace GoogleCloudExtension.StackdriverLogsViewer
 {
-    public class MyMenu : Menu
-    {
-        public MyMenu()
-        {
-            // Should get the default style & template since styles are not inherited
-            Style = FindResource(typeof(Menu)) as Style;
-        }
+    //public class MyMenu : Menu
+    //{
+    //    public MyMenu()
+    //    {
+    //        // Should get the default style & template since styles are not inherited
+    //        // Style = FindResource(typeof(Menu)) as Style;
+    //    }
 
-        protected override DependencyObject GetContainerForItemOverride()
-        {
-            var container = new SearchMenuItem();
-            return container;
-        }
-    }
+    //    protected override DependencyObject GetContainerForItemOverride()
+    //    {
+    //        var container = new SearchMenuItem();
+    //        return container;
+    //    }
+    //}
 
     /// <summary>
     /// Follow steps 1a or 1b and then 2 to use this custom control in a XAML file.
@@ -81,6 +83,50 @@ namespace MenuSelectionWithSearch
             return container;
         }
 
+        public static DependencyProperty OnInitCommandProperty
+            = DependencyProperty.Register(
+                "OnInitCommand",
+                typeof(ICommand),
+                typeof(SearchMenuItem));
+
+        public ICommand OnInitCommand
+        {
+            get
+            {
+                return (ICommand)GetValue(OnInitCommandProperty);
+            }
+
+            set
+            {
+                SetValue(OnInitCommandProperty, value);
+            }
+        }
+
+        public static DependencyProperty IsSubmenuPopulatedProperty
+            = DependencyProperty.Register(
+                "IsSubmenuPopulated",
+                typeof(bool),
+                typeof(SearchMenuItem),
+                new FrameworkPropertyMetadata()
+                {
+                    DefaultValue = false,
+                    BindsTwoWayByDefault = true,
+                    DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged
+                });
+
+        public bool IsSubmenuPopulated
+        {
+            get
+            {
+                return (bool)GetValue(IsSubmenuPopulatedProperty);
+            }
+
+            set
+            {
+                Debug.WriteLine($"{Header} SetValue(IsSubmenuPopulatedProperty, {value}");
+                SetValue(IsSubmenuPopulatedProperty, value);
+            }
+        }
         private TextBox _searchBox;
 
         /// Create bindings and event handlers on named items.
@@ -100,6 +146,24 @@ namespace MenuSelectionWithSearch
             ////binding.Source = Command;  // view model?
 
             //BindingOperations.SetBinding(this, HeaderProperty, binding);
+
+            // OnInit = false;
+            this.SubmenuOpened += SearchMenuItem_SubmenuOpened;
+        }
+
+        private void SearchMenuItem_SubmenuOpened(object sender, RoutedEventArgs e)
+        {
+            Debug.WriteLine($"{Header} submenu opened");
+            // OnInit = true;
+                Debug.WriteLine($"{Header} adding sub menu");
+            if (OnInitCommand != null && OnInitCommand.CanExecute(null) && !IsSubmenuPopulated)
+            {
+                OnInitCommand.Execute(null);
+            }
+            //var source = this.ItemsSource as ObservableCollection<MenuItemViewModel>;
+            //source.Add(new MenuItemViewModel() { Header = "Add by code"});
+            //source.Add(new MenuItemViewModel() { Header = "Add by code 2" });
+            //}
         }
 
         private void _searchBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -108,11 +172,6 @@ namespace MenuSelectionWithSearch
             if (sender != _searchBox)
             {
                 Debug.WriteLine("Expect sender is _searchBox");
-                return;
-            }
-
-            if (String.IsNullOrWhiteSpace(_searchBox.Text))
-            {
                 return;
             }
 
@@ -128,7 +187,7 @@ namespace MenuSelectionWithSearch
                     continue;
                 }
 
-                menuItem.Visibility = label.StartsWith(prefix, StringComparison.CurrentCultureIgnoreCase) ?  
+                menuItem.Visibility = prefix == "" || label.StartsWith(prefix, StringComparison.CurrentCultureIgnoreCase) ?
                     Visibility.Visible : Visibility.Collapsed;
             }
         }

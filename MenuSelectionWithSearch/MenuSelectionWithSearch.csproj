@@ -58,6 +58,7 @@
     <Compile Include="MenuViewModel.cs" />
     <Compile Include="Model.cs" />
     <Compile Include="SearchMenuItem.cs" />
+    <Compile Include="VisibilityConverter.cs" />
     <Page Include="Dictionary1.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MenuSelectionWithSearch"
         xmlns:gctrl="clr-namespace:GoogleCloudExtension.Controls"
+        xmlns:control="clr-namespace:GoogleCloudExtension.StackdriverLogsViewer"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525"
         Background="#F0F0F0">
@@ -36,23 +37,43 @@
     </Window.Resources>
 
     <StackPanel Orientation="Vertical">
-        <local:MyMenu ItemsSource="{Binding Source={x:Static local:MenuItemViewModel.TopLevelInstances}}"
+        <!--<Menu 
               VerticalAlignment="Center"
               Margin="50"
               >
-            <!--<local:MyMenu.ItemContainerStyle>
+            --><!--<local:MyMenu.ItemContainerStyle>
                 <Style TargetType="{x:Type local:SearchMenuItem}">
                     <Setter Property="Header" Value="{Binding Header}" />
                 </Style>
-            </local:MyMenu.ItemContainerStyle>-->
+            </local:MyMenu.ItemContainerStyle>--><!--
+            
             <Menu.ItemTemplate>
                 <HierarchicalDataTemplate 
-                    DataType="{x:Type local:MenuItemViewModel}" 
+                    DataType="{x:Type control:MenuItemViewModel}" 
                     ItemsSource="{Binding Path=MenuItems}">
                     <TextBlock Text="{Binding Header}" />
                 </HierarchicalDataTemplate>
             </Menu.ItemTemplate>
-        </local:MyMenu>        
+        </Menu>-->
+
+        <Menu
+                        Margin="50"
+                        VerticalAlignment="Center"
+                        Width="200" 
+                        >
+            <control:SearchMenuItem Header="Top Level Menu Item"
+                            ItemsSource="{x:Static control:MenuItemViewModel.TopLevelInstances}" >
+
+                <control:SearchMenuItem.ItemTemplate>
+                    <HierarchicalDataTemplate 
+                                    DataType="{x:Type control:MenuItemViewModel}" 
+                                    ItemsSource="{Binding MenuItems}">
+
+                        <TextBlock Text="{Binding Header}" />
+                    </HierarchicalDataTemplate>
+                </control:SearchMenuItem.ItemTemplate>
+            </control:SearchMenuItem>
+        </Menu>
         
         <gctrl:FixBackgroundComboBox 
             Margin="30"

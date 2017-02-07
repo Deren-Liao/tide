@@ -2,22 +2,23 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Diagnostics;
 using System.Threading.Tasks;
 
+using System.ComponentModel;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Input;
+using GoogleCloudExtension.Utils;
 
-namespace MenuSelectionWithSearch
+namespace GoogleCloudExtension.StackdriverLogsViewer
 {
-    public class MenuItemViewModel
+    public class MenuItemViewModel : Model
     {
         static MenuItemViewModel()
         {
-            TopLevelInstances = new ObservableCollection<MenuItemViewModel>
-            {
-                new MenuItemViewModel { Header = "Beta",
-                    MenuItems = new ObservableCollection<MenuItemViewModel>
+            TopLevelInstances = 
+                new ObservableCollection<MenuItemViewModel>
                         {
                             new MenuItemViewModel { Header = "Beta1" },
                             new MenuItemViewModel { Header = "Beta2",
@@ -29,29 +30,85 @@ namespace MenuSelectionWithSearch
                                 }
                             },
                             new MenuItemViewModel { Header = "Beta3" }
-                        }
-                }
-            };
+                };
         }
 
         public static ObservableCollection<MenuItemViewModel> TopLevelInstances { get; }
 
         private readonly ICommand _command;
+        private readonly ICommand _initCommand;
 
         public MenuItemViewModel()
         {
             _command = new CommandViewModel(Execute);
+            _initCommand = new CommandViewModel(() => AddItems());
+            PropertyChanged += OnPropertyChanged;
         }
 
         public string Header { get; set; }
 
         public ObservableCollection<MenuItemViewModel> MenuItems { get; set; }
 
-        public ICommand Command
+        public ICommand MenuCommand
         {
             get
             {
                 return _command;
+            }
+        }
+
+        public ICommand OnInitCommand
+        {
+            get
+            {
+                return _initCommand;
+            }
+        }
+        private bool loading = false;
+        public bool IsSubmenuOpen { get; set; }
+
+        private bool _isSubmenuPopulated = false;
+        public bool IsSubmenuPopulated
+        {
+            get { return _isSubmenuPopulated; }
+            set { SetValueAndRaise(ref _isSubmenuPopulated, value); }
+        }
+
+
+        private async Task AddItems()
+        {
+            if (IsSubmenuPopulated || loading)
+            {
+                return;
+            }
+
+            loading = true;
+            Debug.WriteLine($"{Header} AddItems from viewModel");
+            await System.Threading.Tasks.Task.Delay(5000);
+            MenuItems.Add(new MenuItemViewModel() { Header = "Add a new 1" });
+            MenuItems.Add(new MenuItemViewModel() { Header = "Add a new 2" });
+            Debug.WriteLine($"{Header} Set OnInit false from  AddItems from viewModel");
+            IsSubmenuPopulated = true;
+            loading = false;
+        }
+
+        private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {            
+            switch (e.PropertyName)
+            {
+                //case nameof(IsSubmenuOpen):
+                //    if (IsSubmenuOpen && !Inited)
+                //    {
+                //        Inited = true;
+                //        MenuItems.Add(new MenuItemViewModel() { Header = "Add a new " });
+                //    }
+                //    break;
+                case nameof(IsSubmenuPopulated):
+                    // AddItems();
+                    break;
+
+                default:
+                    break;
             }
         }
 
