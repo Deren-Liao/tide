@@ -83,14 +83,15 @@ namespace GoogleCloudExtension.StackdriverLogsViewer
             return container;
         }
 
-        public static DependencyProperty OnSubmenuOpenCommandProperty
-            = DependencyProperty.Register(
-                "OnSubmenuOpenCommand",
-                typeof(ICommand),
-                typeof(SearchMenuItem));
+        public static DependencyProperty OnSubmenuOpenCommandProperty = DependencyProperty.Register(
+            "OnSubmenuOpenCommand", typeof(ICommand), typeof(SearchMenuItem));
+
+        public static DependencyProperty IsSubmenuPopulatedProperty = DependencyProperty.Register(
+            "IsSubmenuPopulated", typeof(bool), typeof(SearchMenuItem), new FrameworkPropertyMetadata(true));
 
         public static DependencyProperty ChooseAllHeaderProperty = DependencyProperty.Register(
-            "ChooseAllHeader", typeof(string), typeof(SearchMenuItem), new FrameworkPropertyMetadata("All"));
+            "ChooseAllHeader", typeof(string), typeof(SearchMenuItem),
+            new FrameworkPropertyMetadata("all"));
 
         public string ChooseAllHeader
         {
@@ -111,17 +112,17 @@ namespace GoogleCloudExtension.StackdriverLogsViewer
             }
         }
 
-        public static DependencyProperty IsSubmenuPopulatedProperty
-            = DependencyProperty.Register(
-                "IsSubmenuPopulated",
-                typeof(bool),
-                typeof(SearchMenuItem),
-                new FrameworkPropertyMetadata()
-                {
-                    DefaultValue = false,
-                    BindsTwoWayByDefault = true,
-                    DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged
-                });
+        //public static DependencyProperty IsSubmenuPopulatedProperty
+        //    = DependencyProperty.Register(
+        //        "IsSubmenuPopulated",
+        //        typeof(bool),
+        //        typeof(SearchMenuItem),
+        //        new FrameworkPropertyMetadata()
+        //        {
+        //            DefaultValue = false,
+        //            BindsTwoWayByDefault = true,
+        //            DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged
+        //        });
 
         public bool IsSubmenuPopulated
         {

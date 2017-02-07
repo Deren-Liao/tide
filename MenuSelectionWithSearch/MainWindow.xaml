@@ -14,7 +14,7 @@
 
         <ResourceDictionary>
         <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="./Dictionary1.xaml" />
+                <ResourceDictionary Source="./SearchMenuItemStyles.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
         <!--<ItemsPanelTemplate x:Key="MenuItemPanelTemplate">
