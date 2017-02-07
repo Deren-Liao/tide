@@ -8,7 +8,7 @@
         xmlns:control="clr-namespace:GoogleCloudExtension.StackdriverLogsViewer"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525"
-        Background="#F0F0F0">
+        Background="White">
 
     <Window.Resources>
 
@@ -36,7 +36,7 @@
         </ResourceDictionary>
     </Window.Resources>
 
-    <StackPanel Orientation="Vertical">
+    <StackPanel Orientation="Horizontal">
         <!--<Menu 
               VerticalAlignment="Center"
               Margin="50"
@@ -56,7 +56,8 @@
             </Menu.ItemTemplate>
         </Menu>-->
 
-        <Menu
+        <!--<Menu
+            BorderThickness="0"
                         Margin="50"
                         VerticalAlignment="Center"
                         Width="200" 
@@ -73,14 +74,37 @@
                     </HierarchicalDataTemplate>
                 </control:SearchMenuItem.ItemTemplate>
             </control:SearchMenuItem>
+        </Menu>-->
+        <Border Width="50" Height="25"
+                BorderBrush="{StaticResource TopLevelBorderColor}"
+                Background="White"
+                BorderThickness="1"
+                />
+        <Menu
+            Style="{StaticResource SelectorMenuStyle}"
+            Margin="50"
+                        Width="200" 
+                        >
+            <control:SearchMenuItem Header="Top Level Menu Item"
+                            ItemsSource="{x:Static control:MenuItemViewModel.TopLevelInstances}" >
+
+                <control:SearchMenuItem.ItemTemplate>
+                    <HierarchicalDataTemplate 
+                                    DataType="{x:Type control:MenuItemViewModel}" 
+                                    ItemsSource="{Binding MenuItems}">
+
+                    </HierarchicalDataTemplate>
+                </control:SearchMenuItem.ItemTemplate>
+            </control:SearchMenuItem>
         </Menu>
         
         <gctrl:FixBackgroundComboBox 
-            Margin="30"
+            Margin="10"
             VerticalAlignment="Center" 
             HorizontalAlignment="Center"
             SelectedIndex="1"
-            Background="White"          
+            Background="White"    
+            Padding="8,5,8,5"
             >
             
             <ComboBoxItem >text 1 and this is</ComboBoxItem>

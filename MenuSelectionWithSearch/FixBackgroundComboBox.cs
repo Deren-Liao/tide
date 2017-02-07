@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+using GoogleCloudExtension.StackdriverLogsViewer;
 using System;
 using System.Windows;
 using System.Windows.Controls;
@@ -31,6 +32,12 @@ namespace GoogleCloudExtension.Controls
         public FixBackgroundComboBox() : base()
         {
             this.Loaded += OnComboBoxLoaded;
+        }
+
+        protected override DependencyObject GetContainerForItemOverride()
+        {
+            var container = new SearchMenuItem();
+            return container;
         }
 
         /// <summary>

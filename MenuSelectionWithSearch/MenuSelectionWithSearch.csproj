@@ -59,6 +59,10 @@
     <Compile Include="Model.cs" />
     <Compile Include="SearchMenuItem.cs" />
     <Compile Include="VisibilityConverter.cs" />
+    <Page Include="Dictionary1-RelativelyGood.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Dictionary1.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

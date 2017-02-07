@@ -66,7 +66,7 @@
 
     <SolidColorBrush x:Key="WindowBackgroundBrush" Color="#FFF" />
 
-    <SolidColorBrush x:Key="SelectedBackgroundBrush" Color="#CBE8F6" />
+    <SolidColorBrush x:Key="SelectedBackgroundBrush" Color="#DDD" />
 
     <!-- Border Brushes -->
 
@@ -118,7 +118,6 @@
     <SolidColorBrush x:Key="LightColorBrush" Color="#DDD" />
 
     <SolidColorBrush x:Key="HightlightBorder" Color="#7eb4ea" />
-    <SolidColorBrush x:Key="TopLevelBorderColor" Color="#ACACAC" />
 
     <!-- Endregion -->
 
@@ -231,14 +230,10 @@
         </Setter>
     </Style>
 
-    <!-- TopLevelHeader  -->
+    <!-- TopLevelHeader  Orange-->
     <ControlTemplate x:Key="{x:Static MenuItem.TopLevelHeaderTemplateKey}"
                  TargetType="local:SearchMenuItem">
-        <Border Name="Border" BorderThickness="0" 
-                BorderBrush="{StaticResource TopLevelBorderColor}"
-                Width="{Binding ActualWidth, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Menu}}}">
-
-            <Grid>
+        <Grid>
                 <!--Margin="6,3,6,3"-->
                 <!--
                 <ContentPresenter 
@@ -246,9 +241,11 @@
                         ContentSource="Header"
                         RecognizesAccessKey="True" />-->
                 <!-- TopLevelHeader Content Style -->
-                <Border           
-                Background="White"
-                    Margin="8,4,8,4"
+                <Border       x:Name="Border"    
+                              BorderThickness="1"
+                              BorderBrush="LightGray"
+                Background="Orange"
+                Width="200"
                      >
                     <Grid
                               >
@@ -259,7 +256,8 @@
 
                         <!-- Yes, the access key works! Width="90"   -->
                         <TextBlock Grid.Column="0" HorizontalAlignment="Center"  
-                                              VerticalAlignment="Stretch"                                                                                  
+                                              VerticalAlignment="Stretch"
+                                                Padding = "8,4,8,4"                                     
                                    Text="{TemplateBinding Header}"
                                    TextWrapping="NoWrap"
                                    TextTrimming="CharacterEllipsis"
@@ -273,10 +271,9 @@
                             <!-- The toggle button looks identical to the one used on a combo box
                                         because I based the definition below on the relevant portion of the
                                         combo box's default control template. -->
-                            <!--BorderBrush="{TemplateBinding Border.BorderBrush}"
-                                        Background="{TemplateBinding Panel.Background}"-->
                             <ToggleButton IsChecked="False" IsHitTestVisible="False" 
-                                                                                      
+                                        BorderBrush="{TemplateBinding Border.BorderBrush}"
+                                        Background="{TemplateBinding Panel.Background}"                                              
                                           Margin="0, 0, 8, 0"
                                           >
 
@@ -330,7 +327,6 @@
                     </Border>
                 </Popup>
             </Grid>
-        </Border>
         <ControlTemplate.Triggers>
             <Trigger Property="IsSuspendingPopupAnimation" Value="true">
                 <Setter TargetName="Popup" Property="PopupAnimation" Value="None"/>
@@ -350,67 +346,66 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
-    <!-- SubmenuItem  -->
+    <!-- SubmenuItem Yellow -->
     <ControlTemplate  x:Key="{x:Static MenuItem.SubmenuItemTemplateKey}" 
   TargetType="local:SearchMenuItem">
         <Border 
+            Background="Yellow"
             Name="Border"
-            
-            >
-            <Grid
-                Width="{Binding ActualWidth, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Menu}}}"
-                >
+            Width="{Binding ActualWidth, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Menu}}}">
+            <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" SharedSizeGroup="Icon"/>
                     <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="Auto" SharedSizeGroup="Shortcut" />
+                    <ColumnDefinition Width="Auto" SharedSizeGroup="Shortcut"/>
+                    <ColumnDefinition Width="13"/>
                 </Grid.ColumnDefinitions>
                 <ContentPresenter 
-                    Name="Icon"
-                    Margin="6,0,6,0"
-                    VerticalAlignment="Center"
-                    ContentSource="Icon"/>
+        Name="Icon"
+        Margin="6,0,6,0"
+        VerticalAlignment="Center"
+        ContentSource="Icon"/>
                 <Border 
-                    Name="Check"  
-                    Width="13" Height="13" 
-                    Visibility="Collapsed"
-                    Background="{StaticResource NormalBrush}"
-                    BorderThickness="1"
-                    BorderBrush="{StaticResource NormalBorderBrush}">
-                                <Path 
-                                      Name="CheckMark"
-                                      Width="7" Height="7" 
-                                      Visibility="Hidden" 
-                                      SnapsToDevicePixels="False" 
-                                      Stroke="{StaticResource GlyphBrush}"
-                                      StrokeThickness="2"
-                                      Data="M 0 0 L 7 7 M 0 7 L 7 0" />
+        Name="Check"  
+        Width="13" Height="13" 
+        Visibility="Collapsed"
+        Margin="6,0,6,0" 
+        Background="{StaticResource NormalBrush}"
+        BorderThickness="1"
+        BorderBrush="{StaticResource NormalBorderBrush}">
+                    <Path 
+          Name="CheckMark"
+          Width="7" Height="7" 
+          Visibility="Hidden" 
+          SnapsToDevicePixels="False" 
+          Stroke="{StaticResource GlyphBrush}"
+          StrokeThickness="2"
+          Data="M 0 0 L 7 7 M 0 7 L 7 0" />
                 </Border>
-                <TextBlock                 
-                    Background="AliceBlue"
+                <TextBlock 
                     Name="HeaderHost"
-                    Padding="6,5,6,5" 
                     Grid.Column="1"
                     HorizontalAlignment="Left"
+                    Padding="8,5,8,5"
                     Text="{TemplateBinding Header}"
                     />
                 <TextBlock x:Name="InputGestureText"
-                        Grid.Column="2"
-                        Text="{TemplateBinding InputGestureText}"
-                        Margin="5,2,0,2"
-                        DockPanel.Dock="Right" />
+        Grid.Column="2"
+        Text="{TemplateBinding InputGestureText}"
+        Margin="5,2,0,2"
+        DockPanel.Dock="Right" />
             </Grid>
         </Border>
         <ControlTemplate.Triggers>
             <Trigger Property="Icon" Value="{x:Null}">
-                <Setter TargetName="Icon" Property="Visibility" Value="Collapsed"/>
+                <Setter TargetName="Icon" Property="Visibility" Value="Hidden"/>
             </Trigger>
             <Trigger Property="IsChecked" Value="true">
                 <Setter TargetName="CheckMark" Property="Visibility" Value="Visible"/>
             </Trigger>
             <Trigger Property="IsCheckable" Value="true">
                 <Setter TargetName="Check" Property="Visibility" Value="Visible"/>
-                <Setter TargetName="Icon" Property="Visibility" Value="Collapsed"/>
+                <Setter TargetName="Icon" Property="Visibility" Value="Hidden"/>
             </Trigger>
             <Trigger Property="IsHighlighted" Value="true">
                 <Setter TargetName="Border" Property="Background"
@@ -423,21 +418,19 @@
     </ControlTemplate>
 
 
-    <!-- SubmenuHeaderTemplateKey -->
+    <!-- SubmenuHeaderTemplateKey Red -->
     <ControlTemplate x:Key="{x:Static MenuItem.SubmenuHeaderTemplateKey}" 
           TargetType="local:SearchMenuItem">
-        <Border Name="Border"                
-                BorderThickness="1"
-                BorderBrush="{TemplateBinding Background}"
+        <Border Name="Border" 
+                Background="Red"
                 Width="{Binding ActualWidth, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Menu}}}">
-           
-            <Grid                  
+            <Grid 
                 >
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" SharedSizeGroup="Icon"/>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" SharedSizeGroup="Shortcut"/>
-                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="13"/>
                 </Grid.ColumnDefinitions>
                 <ContentPresenter 
                     Name="Icon"
@@ -447,7 +440,6 @@
                 <TextBlock 
                     Name="HeaderHost"
                     Grid.Column="1"
-                    Padding="6,3,6,3"
                     Text="{TemplateBinding Header}"
                     />
                 <TextBlock x:Name="InputGestureText"
@@ -456,13 +448,11 @@
                     Margin="5,2,2,2"
                     DockPanel.Dock="Right"/>
                 <Path 
-                    Name="PopupArrow"
                     Grid.Column="3"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
                     Data="M 0 0 L 0 7 L 4 3.5 Z" 
-                    Fill="{StaticResource GlyphBrush}"
-                    Margin="0,0,9,0"/>
+                    Fill="{StaticResource GlyphBrush}" />
 
                 <Popup 
                     Name="Popup"
@@ -473,17 +463,17 @@
                     Focusable="False"
                     PopupAnimation="Fade">
                     <Border 
-                        Name="SubmenuBorder"
-                        SnapsToDevicePixels="True"
-                        Background="{StaticResource WindowBackgroundBrush}"
-                        BorderBrush="{StaticResource SolidBorderBrush}"
-                        BorderThickness="1" >
+                                      Name="SubmenuBorder"
+                                      SnapsToDevicePixels="True"
+                                      Background="{StaticResource WindowBackgroundBrush}"
+                                      BorderBrush="{StaticResource SolidBorderBrush}"
+                                      BorderThickness="1" >
                         <StackPanel>
                             <local:SearchMenuItem Header="All" />
                             <Separator />
-                            <StackPanel Margin="6,5,6,5">
+                            <StackPanel Margin="8,5,8,5">
                                 <TextBlock Text="Search in prefix:" Margin="0,0,0,3" />
-                                <TextBox Name="PART_searchTextBox" Padding="3,5,3,5"  />
+                                <TextBox Name="PART_searchTextBox" Padding="8,5,8,5"  />
                             </StackPanel>
                             <TextBlock Text="Loading" Margin="3"
                                            Visibility="{Binding IsSubmenuPopulated,Mode=OneWay, RelativeSource={RelativeSource Mode=FindAncestor, 
@@ -499,17 +489,12 @@
             </Grid>
         </Border>
         <ControlTemplate.Triggers>
-            <Trigger Property="Role" Value="SubmenuItem">
-                <Setter TargetName="Popup" Property="Visibility" Value="Hidden" />
-                <Setter TargetName="PopupArrow" Property="Visibility" Value="Collapsed" />
-            </Trigger>
-
             <Trigger Property="Icon" Value="{x:Null}">
                 <Setter TargetName="Icon" Property="Visibility" Value="Collapsed"/>
             </Trigger>
             <Trigger Property="IsHighlighted" Value="true">
-                <Setter TargetName="Border" Property="Background" Value="{StaticResource SelectedBackgroundBrush}"/>
-                <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource HightlightBorder}" />
+                <Setter TargetName="Border" Property="Background"
+              Value="{StaticResource SelectedBackgroundBrush}"/>
             </Trigger>
             <Trigger SourceName="Popup" Property="Popup.AllowsTransparency" Value="True">
                 <Setter TargetName="SubmenuBorder" Property="CornerRadius" Value="4"/>
@@ -522,17 +507,17 @@
     </ControlTemplate>
 
 
-    <Style x:Key="SelectorMenuStyle" TargetType="Menu">
-        <Setter Property="Background" Value="White" />
-        <Setter Property="BorderThickness" Value="1" />
-        <Setter Property="BorderBrush" Value="{StaticResource TopLevelBorderColor}" />
-        <Setter Property="VerticalAlignment" Value="Center" />
+    <!--<Style x:Key="SearchMenuItemStyle" TargetType="local:SearchMenuItem">
+        <Setter Property="OverridesDefaultStyle" Value="True"/>
+        <Setter Property="Template" Value="{StaticResource {x:Static MenuItem.SubmenuHeaderTemplateKey}}"/>
         <Style.Triggers>
-            <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="BorderBrush" Value="{StaticResource HightlightBorder}" />
+            <Trigger Property="Role" Value="SubmenuHeader">
+                <Setter Property="Template"
+              Value="{StaticResource {x:Static MenuItem.SubmenuHeaderTemplateKey}}"/>
             </Trigger>
         </Style.Triggers>
-    </Style>
+
+    </Style>-->
 
     <!-- MenuItem Style -->
     <Style  TargetType="local:SearchMenuItem">
@@ -556,7 +541,7 @@
             </Trigger>
             <Trigger Property="Role" Value="SubmenuItem">
                 <Setter Property="Template"
-              Value="{StaticResource {x:Static MenuItem.SubmenuHeaderTemplateKey}}"/>
+              Value="{StaticResource {x:Static MenuItem.SubmenuItemTemplateKey}}"/>
             </Trigger>
         </Style.Triggers>
     </Style>
