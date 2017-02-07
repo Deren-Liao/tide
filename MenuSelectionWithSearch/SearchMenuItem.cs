@@ -89,6 +89,15 @@ namespace GoogleCloudExtension.StackdriverLogsViewer
                 typeof(ICommand),
                 typeof(SearchMenuItem));
 
+        public static DependencyProperty ChooseAllHeaderProperty = DependencyProperty.Register(
+            "ChooseAllHeader", typeof(string), typeof(SearchMenuItem), new FrameworkPropertyMetadata("All"));
+
+        public string ChooseAllHeader
+        {
+            get { return (string)GetValue(ChooseAllHeaderProperty); }
+            set { SetValue(ChooseAllHeaderProperty, value); }
+        }
+
         public ICommand OnSubmenuOpenCommand
         {
             get

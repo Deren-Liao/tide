@@ -38,6 +38,8 @@ namespace GoogleCloudExtension.StackdriverLogsViewer
         private readonly ICommand _command;
         private readonly ICommand _initCommand;
 
+        public string ChooseAllHeader => "All from view model";
+
         public MenuItemViewModel()
         {
             _command = new CommandViewModel(Execute);

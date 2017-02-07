@@ -64,7 +64,7 @@
 
     <SolidColorBrush x:Key="DisabledBackgroundBrush" Color="#EEE" />
 
-    <SolidColorBrush x:Key="WindowBackgroundBrush" Color="#FFF" />
+    <SolidColorBrush x:Key="WindowBackgroundBrush" Color="White" />
 
     <SolidColorBrush x:Key="SelectedBackgroundBrush" Color="#CBE8F6" />
 
@@ -479,15 +479,14 @@
                         BorderBrush="{StaticResource SolidBorderBrush}"
                         BorderThickness="1" >
                         <StackPanel>
-                            <local:SearchMenuItem Header="All" />
+                            <local:SearchMenuItem Header="{TemplateBinding ChooseAllHeader}" />
                             <Separator />
                             <StackPanel Margin="6,5,6,5">
                                 <TextBlock Text="Search in prefix:" Margin="0,0,0,3" />
                                 <TextBox Name="PART_searchTextBox" Padding="3,5,3,5"  />
                             </StackPanel>
                             <TextBlock Text="Loading" Margin="3"
-                                           Visibility="{Binding IsSubmenuPopulated,Mode=OneWay, RelativeSource={RelativeSource Mode=FindAncestor, 
-                                    AncestorType={x:Type local:SearchMenuItem }}, Converter={vb:VisibilityConverter IsNegated=True}}" />
+                                           Visibility="{Binding IsSubmenuPopulated,Mode=OneWay, Converter={vb:VisibilityConverter IsNegated=True}}" />
                             <ScrollViewer CanContentScroll="True" Style="{StaticResource MenuScrollViewer}">
                                 <StackPanel  
                                         IsItemsHost="True" 
@@ -541,6 +540,7 @@
         <Setter Property="Command" Value="{Binding MenuCommand}" />
         <Setter Property="OnSubmenuOpenCommand" Value="{Binding OnSubmenuOpenCommand}" />
         <Setter Property="Header" Value="{Binding Header}" />
+        <Setter Property="ChooseAllHeader" Value="{Binding ChooseAllHeader}" />
         <Style.Triggers>
             <Trigger Property="Role" Value="TopLevelHeader">
                 <Setter Property="Template" Value="{StaticResource {x:Static MenuItem.TopLevelHeaderTemplateKey}}"/>
