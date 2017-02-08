@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<log4net>
+
+  <!--<appender name="ConsoleLogger" type="log4net.Appender.ConsoleAppender">
+    <layout type="log4net.Layout.PatternLayout">
+      <conversionPattern value="%-4timestamp [%thread] %-5level %logger %ndc - %message%newline" />
+    </layout>
+  </appender>-->
+
+  <appender name="ConsoleLogger" type="log4net.Appender.ConsoleAppender">
+    <layout type="log4net.Layout.PatternLayout">
+      <conversionPattern value="%logger %ndc - %message%newline" />
+    </layout>
+  </appender>
+  
+  <appender name="CloudLogger" type="Google.Logging.Log4Net.GoogleStackdriverAppender,Google.Logging.Log4Net">
+    <layout type="log4net.Layout.PatternLayout">
+      <conversionPattern value="%-4timestamp [%thread] %-5level %logger %ndc - %message" />
+    </layout>
+    <projectId value="mars-148601" />
+    <logId value="holiday_log" />
+  </appender>
+
+  <root>
+    <level value="ALL" />
+    <appender-ref ref="ConsoleLogger" />
+    <appender-ref ref="CloudLogger" />
+  </root>
+
+</log4net>
