@@ -1,0 +1,21 @@
+{
+  "version": "1.0.0-*",
+  "frameworks": {
+    "net45": {
+      "bin": {
+        "assembly": "../../lib/net45/Google.Api.Gax.Grpc.dll"
+      },
+      "dependencies": {
+        "Google.Api.Gax": "1.0.0-*"
+      }
+    },
+    "dnx451": {
+      "bin": {
+        "assembly": "../../lib/dnx451/Google.Api.Gax.Grpc.dll"
+      },
+      "dependencies": {
+        "Google.Api.Gax": "1.0.0-*"
+      }
+    }
+  }
+}
