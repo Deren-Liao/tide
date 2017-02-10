@@ -62,12 +62,19 @@ PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
     <Reference Include="System.Design" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Xml.Serialization" />
+    <Reference Include="VSLangProj, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
@@ -76,6 +83,7 @@ PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.
     <Compile Include="DynamicWindowWPFControl.xaml.cs">
       <DependentUpon>DynamicWindowWPFControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="LoggingTagger.cs" />
     <Compile Include="Misc\Guids.cs" />
     <Compile Include="PackageToolWindow.cs" />
     <Compile Include="PersistedWindowPane.cs" />
@@ -90,6 +98,18 @@ PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.
     </Compile>
     <Compile Include="Misc\GlobalSuppressions.cs" />
     <Compile Include="SelectionProperties.cs" />
+    <Compile Include="Solution\ISolutionProject.cs" />
+    <Compile Include="Solution\KnownProjectTypes.cs" />
+    <Compile Include="Solution\NetCoreProject.cs" />
+    <Compile Include="Solution\ProjectHelper.cs" />
+    <Compile Include="Solution\ProjectSourceFile.cs" />
+    <Compile Include="Solution\SolutionHelper.cs" />
+    <Compile Include="Solution\VsProject.cs" />
+    <Compile Include="ToolWindow1.cs" />
+    <Compile Include="ToolWindow1Command.cs" />
+    <Compile Include="ToolWindow1Control.xaml.cs">
+      <DependentUpon>ToolWindow1Control.xaml</DependentUpon>
+    </Compile>
     <Compile Include="WindowList.cs" />
     <Compile Include="WindowStatus.cs" />
   </ItemGroup>
@@ -125,12 +145,19 @@ PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="ToolWindow1Control.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Misc\Example.WPFToolWindows.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\ToolWindow1Command.png" />
   </ItemGroup>
   <PropertyGroup>
     <UseCodebase>true</UseCodebase>

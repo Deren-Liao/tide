@@ -17,6 +17,7 @@ using Microsoft.VisualStudio.Shell.Interop;
 
 using MsVsShell = Microsoft.VisualStudio.Shell;
 using ErrorHandler = Microsoft.VisualStudio.ErrorHandler;
+using Microsoft.VisualStudio.Shell;
 
 namespace Microsoft.Samples.VisualStudio.IDE.ToolWindow
 {
@@ -70,6 +71,8 @@ namespace Microsoft.Samples.VisualStudio.IDE.ToolWindow
 	[MsVsShell.ProvideMenuResource(1000, 1)]
 	[MsVsShell.PackageRegistration(UseManagedResourcesOnly = true)]
 	[Guid("01069CDD-95CE-4620-AC21-DDFF6C57F012")]
+	[ProvideMenuResource("1000", 1)]
+	[ProvideToolWindow(typeof(Microsoft.Samples.VisualStudio.IDE.ToolWindow.ToolWindow1))]
 	public class PackageToolWindow : MsVsShell.Package
 	{
 		// Cache the Menu Command Service since we will use it multiple times
@@ -94,6 +97,7 @@ namespace Microsoft.Samples.VisualStudio.IDE.ToolWindow
 			// Add the handler for the tool window with dynamic visibility and events
 			id = new CommandID(GuidsList.guidClientCmdSet, PkgCmdId.cmdidUiEventsWindow);
 			DefineCommandHandler(new EventHandler(ShowDynamicWindow), id);
+		    Microsoft.Samples.VisualStudio.IDE.ToolWindow.ToolWindow1Command.Initialize(this);
 
 		}
 

@@ -14,7 +14,7 @@ PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.
   <!-- Definition of the command and menus used by this sample -->
   <Extern href="stdidcmd.h" />
   <Extern href="vsshlids.h" />
-  <Include href="KnownImageIds.vsct"/>
+  <Include href="KnownImageIds.vsct" />
 
   <!-- Commands definition for the client package -->
   <Commands package="guidClientPkg">
@@ -68,8 +68,18 @@ PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.
       find IDG_VS_WNDO_OTRWNDWS1 (which is the group ID), we searched ShellCmdPlace.ctc for Other
       Windows from which we got the IDM_VS_CSCD_WINDOWS menu, and searching for that showed us 
       which groups were already part of that menu. Of those we picked IDG_VS_WNDO_OTRWNDWS1. -->
+      <Button guid="guidPackageToolWindowCmdSet" id="cmdidToolWindow1Command" priority="0x0100" type="Button">
+        <Parent guid="guidSHLMainMenu" id="IDG_VS_WNDO_OTRWNDWS1" />
+        <Icon guid="guidImages" id="bmpPic1" />
+        <Strings>
+          <ButtonText>ToolWindow1</ButtonText>
+        </Strings>
+      </Button>
     </Buttons>
 
+    <Bitmaps>
+      <Bitmap guid="guidImages" href="Resources\ToolWindow1Command.png" usedList="bmpPic1, bmpPic2, bmpPicSearch, bmpPicX, bmpPicArrows, bmpPicStrikethrough" />
+    </Bitmaps>
   </Commands>
 
   <Symbols>
@@ -95,6 +105,19 @@ PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.
       <IDSymbol name="cmdidPersistedWindow" value="0x2001" />
       <IDSymbol name="cmdidUiEventsWindow" value="0x2002" />
       <IDSymbol name="cmdidRefreshWindowsList" value="0x2003" />
+    </GuidSymbol>
+  
+    <GuidSymbol value="{2274057e-34b8-4984-b7e6-9c1f6d6a2cdd}" name="guidPackageToolWindowCmdSet">
+      <IDSymbol value="256" name="cmdidToolWindow1Command" />
+    </GuidSymbol>
+  
+    <GuidSymbol value="{5b08e006-331d-45a1-a441-830760dd2ed0}" name="guidImages">
+      <IDSymbol name="bmpPic1" value="1" />
+      <IDSymbol name="bmpPic2" value="2" />
+      <IDSymbol name="bmpPicSearch" value="3" />
+      <IDSymbol name="bmpPicX" value="4" />
+      <IDSymbol name="bmpPicArrows" value="5" />
+      <IDSymbol name="bmpPicStrikethrough" value="6" />
     </GuidSymbol>
   </Symbols>
 </CommandTable>
