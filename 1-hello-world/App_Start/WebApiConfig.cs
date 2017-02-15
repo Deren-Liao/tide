@@ -22,6 +22,10 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Routing;
 
+using log4net;
+using Google.Cloud.Diagnostics.AspNet;
+using System.Web.Http.ExceptionHandling;
+
 namespace GoogleCloudSamples
 {
     public static class WebApiConfig
@@ -32,9 +36,23 @@ namespace GoogleCloudSamples
         /// </summary>
         public class HelloWorldHandler : HttpMessageHandler
         {
+            private static int counter = 0;
+
             protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request,
                 CancellationToken cancellationToken)
             {
+
+                // Retrieve a logger for this context.
+                ILog log = LogManager.GetLogger(typeof(WebApiConfig));
+
+                // Log some information to Google Stackdriver Logging.
+                log.Info("Sunny Pacific.");
+
+                if ((++counter%2) == 0)
+                {
+                    throw new Exception("This is an application exception. Pacific exception.");
+                }
+
                 return Task.FromResult(new HttpResponseMessage()
                 {
                     Content = new ByteArrayContent(Encoding.UTF8.GetBytes("Hello World."))
@@ -48,6 +66,14 @@ namespace GoogleCloudSamples
             // Add our one HttpMessageHandler to the root path.
             config.Routes.MapHttpRoute("index", "", emptyDictionary, emptyDictionary,
                 new HelloWorldHandler());
+
+            // Add a catch all for the uncaught exceptions.
+            string projectId = "pacific-wind";
+            string serviceName = "myservice";
+            string version = "version1";
+            // Add a catch all for the uncaught exceptions.
+            config.Services.Add(typeof(IExceptionLogger),
+                ErrorReportingExceptionLogger.Create(projectId, serviceName, version));
         }
         // [END sample]
     }

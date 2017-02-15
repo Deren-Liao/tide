@@ -26,6 +26,9 @@ namespace GoogleCloudSamples
         protected void Application_Start()
         {
             GlobalConfiguration.Configure(WebApiConfig.Register);
+
+            // Configure log4net to use Stackdriver logging from the XML configuration file.
+            log4net.Config.XmlConfigurator.Configure();
         }
     }
 }
