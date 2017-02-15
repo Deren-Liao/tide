@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
+using log4net;
+
 namespace GoogleCloudAspNet
 {
     public partial class WebForm1 : System.Web.UI.Page
@@ -33,10 +35,18 @@ namespace GoogleCloudAspNet
 
         protected void Button2_Click(object sender, EventArgs e)
         {
-            foreach (string logMessage in Program.Main(1))
-            {
-                TextBox2.Text += Environment.NewLine + logMessage;
-            }
+            //foreach (string logMessage in Program.Main(1))
+            //{
+            //    TextBox2.Text += Environment.NewLine + logMessage;
+            //}
+
+            // Retrieve a logger for this context.
+            ILog log = LogManager.GetLogger(typeof(WebForm1));
+
+            // Log some information to Google Stackdriver Logging.
+            log.Info("Happy Valentine's Day.");
+
+            TextBox2.Text += "Do you see the log";
         }
     }
 }

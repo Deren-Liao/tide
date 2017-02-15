@@ -18,7 +18,7 @@
       <conversionPattern value="%-4timestamp [%thread] %-5level %logger %ndc - %message" />
     </layout>
     <projectId value="pacific-wind" />
-    <logId value="holiday_log" />
+    <logId value="aspnet_test_log" />
   </appender>
 
   <root>

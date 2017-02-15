@@ -101,6 +101,15 @@ namespace GoogleCloudAspNet
                     yield return WriteRandomSeverityLog(log);                    
                 }
             }
+
+            yield return configPath;
+
+            using (StreamReader sr = new StreamReader(configPath))
+            {
+                // Read the stream to a string, and write the string to the console.
+                String line = sr.ReadToEnd();
+                yield return line;
+            }
         }
     }
 }
