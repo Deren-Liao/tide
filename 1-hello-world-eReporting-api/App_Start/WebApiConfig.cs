@@ -23,12 +23,15 @@ using System.Web.Http;
 using System.Web.Http.Routing;
 
 using log4net;
-//using Google.Cloud.Diagnostics.AspNet;
-//using System.Web.Http.ExceptionHandling;
-using static WriteTraceToFile.TextTrace;
+using static EReportingApi.EReporting;
 
 namespace GoogleCloudSamples
 {
+    public class ErrorReportingApiTestException : Exception
+    {
+        public ErrorReportingApiTestException(string message) : base(message) { }
+    }
+
     public static class WebApiConfig
     {
         // [START sample]
@@ -42,18 +45,26 @@ namespace GoogleCloudSamples
             protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request,
                 CancellationToken cancellationToken)
             {
-                TestTrace($"Am I writting trace? {counter}");
+                ++counter;
 
                 // Retrieve a logger for this context.
                 ILog log = LogManager.GetLogger(typeof(WebApiConfig));
-
+               
                 // Log some information to Google Stackdriver Logging.
-                log.Warn("Sunny Pacific Wednesday.");
+                log.Info($"EReporting {counter}.");
 
-                //if ((++counter%2) == 0)
-                //{
-                //    throw new Exception("This is an application exception. Pacific exception.");
-                //}
+                if ((counter%2) == 0)
+                {
+                    try
+                    {
+                        ThrowException();
+                    }
+                    catch (ErrorReportingApiTestException ex)
+                    {
+                        Report(ex);
+                        throw;
+                    }
+                }
 
                 return Task.FromResult(new HttpResponseMessage()
                 {
@@ -68,14 +79,11 @@ namespace GoogleCloudSamples
             // Add our one HttpMessageHandler to the root path.
             config.Routes.MapHttpRoute("index", "", emptyDictionary, emptyDictionary,
                 new HelloWorldHandler());
+        }
 
-            // Add a catch all for the uncaught exceptions.
-            //string projectId = "pacific-wind";
-            //string serviceName = "myservice";
-            //string version = "version1";
-            //// Add a catch all for the uncaught exceptions.
-            //config.Services.Add(typeof(IExceptionLogger),
-            //    ErrorReportingExceptionLogger.Create(projectId, serviceName, version));
+        public static void ThrowException()
+        {
+            throw new ErrorReportingApiTestException($"E Reporting Api snow test.");
         }
         // [END sample]
     }
