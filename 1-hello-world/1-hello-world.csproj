@@ -76,28 +76,8 @@
       <HintPath>packages\Google.Apis.1.20.0\lib\net45\Google.Apis.PlatformServices.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Google.Cloud.Diagnostics.AspNet, Version=1.0.0.0, Culture=neutral, PublicKeyToken=185c282632e132a0, processorArchitecture=MSIL">
-      <HintPath>packages\Google.Cloud.Diagnostics.AspNet.1.0.0-beta04\lib\net45\Google.Cloud.Diagnostics.AspNet.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Google.Cloud.Diagnostics.Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=185c282632e132a0, processorArchitecture=MSIL">
-      <HintPath>packages\Google.Cloud.Diagnostics.Common.1.0.0-alpha03\lib\net45\Google.Cloud.Diagnostics.Common.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Google.Cloud.ErrorReporting.V1Beta1, Version=1.0.0.0, Culture=neutral, PublicKeyToken=185c282632e132a0, processorArchitecture=MSIL">
       <HintPath>packages\Google.Cloud.ErrorReporting.V1Beta1.1.0.0-beta02\lib\net45\Google.Cloud.ErrorReporting.V1Beta1.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Google.Cloud.Logging.Log4Net, Version=1.0.0.0, Culture=neutral, PublicKeyToken=185c282632e132a0, processorArchitecture=MSIL">
-      <HintPath>packages\Google.Cloud.Logging.Log4Net.1.0.0-beta07\lib\net45\Google.Cloud.Logging.Log4Net.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Google.Cloud.Logging.Type, Version=1.0.0.0, Culture=neutral, PublicKeyToken=185c282632e132a0, processorArchitecture=MSIL">
-      <HintPath>packages\Google.Cloud.Logging.Type.1.0.0-beta07\lib\net45\Google.Cloud.Logging.Type.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Google.Cloud.Logging.V2, Version=1.0.0.0, Culture=neutral, PublicKeyToken=185c282632e132a0, processorArchitecture=MSIL">
-      <HintPath>packages\Google.Cloud.Logging.V2.1.0.0-beta07\lib\net45\Google.Cloud.Logging.V2.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Google.Cloud.Trace.V1, Version=1.0.0.0, Culture=neutral, PublicKeyToken=185c282632e132a0, processorArchitecture=MSIL">
@@ -216,6 +196,27 @@
     <Folder Include="App_Data\" />
     <Folder Include="Controllers\" />
     <Folder Include="Models\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\google-cloud-dotnet\apis\Google.Cloud.Logging.V2\Google.Cloud.Logging.Log4Net\Google.Cloud.Logging.Log4Net.xproj">
+      <Project>{b27e7461-3714-44f6-bd2d-e7579a85f759}</Project>
+      <Name>Google.Cloud.Logging.Log4Net</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\google-cloud-dotnet\apis\Google.Cloud.Logging.V2\Google.Cloud.Logging.Type\Google.Cloud.Logging.Type.xproj">
+      <Project>{a8382b79-21e7-4aad-aff8-ab8707958128}</Project>
+      <Name>Google.Cloud.Logging.Type</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\google-cloud-dotnet\apis\Google.Cloud.Logging.V2\Google.Cloud.Logging.V2\Google.Cloud.Logging.V2.xproj">
+      <Project>{35b8d21d-0253-417f-b171-06bf70aa9485}</Project>
+      <Name>Google.Cloud.Logging.V2</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WriteTraceToFile\WriteTraceToFile.csproj">
+      <Project>{848f1ea3-0d2a-4517-b39f-854e51209d89}</Project>
+      <Name>WriteTraceToFile</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
