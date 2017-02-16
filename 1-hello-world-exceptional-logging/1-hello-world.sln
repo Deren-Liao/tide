@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "1-hello-world", "1-hello-wo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StackdriverLogging", "..\StackdriverLogging\StackdriverLogging.csproj", "{1010D7E3-DAD2-477D-B0D9-8D42F45C0E28}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WriteTraceToFile", "..\WriteTraceToFile\WriteTraceToFile.csproj", "{848F1EA3-0D2A-4517-B39F-854E51209D89}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{1010D7E3-DAD2-477D-B0D9-8D42F45C0E28}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1010D7E3-DAD2-477D-B0D9-8D42F45C0E28}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1010D7E3-DAD2-477D-B0D9-8D42F45C0E28}.Release|Any CPU.Build.0 = Release|Any CPU
+		{848F1EA3-0D2A-4517-B39F-854E51209D89}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{848F1EA3-0D2A-4517-B39F-854E51209D89}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{848F1EA3-0D2A-4517-B39F-854E51209D89}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{848F1EA3-0D2A-4517-B39F-854E51209D89}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

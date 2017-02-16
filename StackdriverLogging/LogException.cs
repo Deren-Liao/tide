@@ -16,14 +16,10 @@ using System.IO;
 using Google.Protobuf;
 using ProtoWellKnownTypes = Google.Protobuf.WellKnownTypes;
 
-using System.Runtime.CompilerServices;
-using System.Reflection;
+using static WriteTraceToFile.TextTrace;
 
 public static class ExceptionalLogging
 {
-    //private static readonly Lazy<JObject> s_jsonTemplateLazy = new Lazy<JObject>(ReadJsonFromFile);
-    //private static JObject s_jsonTemplate => s_jsonTemplateLazy.Value;
-
     private const string LogId = "log_exception_sunny";
     private const string ProjectId = "pacific-wind";  // TODO: use Api.Gax... like what log4net does.
     private const string MessageFieldName = "message";
@@ -40,11 +36,6 @@ public static class ExceptionalLogging
 }
 ";
 
-    //private static JObject ReadJsonFromFile()
-    //{
-    //    return JObject.Parse(JsonTemplateText);
-    //}
-
     private static ProtoWellKnownTypes.Struct CreateJsonPayload()
     {
         return JsonParser.Default.Parse<ProtoWellKnownTypes.Struct>(JsonTemplateText);
@@ -53,11 +44,11 @@ public static class ExceptionalLogging
     public static Lazy<LoggingServiceV2Client> _client = new Lazy<LoggingServiceV2Client>(
         () => LoggingServiceV2Client.Create());
 
-    public static void WriteLog(Exception exceptionalSunny)
+    public static void WriteExceptionalLog(Exception exceptionalSunny)
     {        
         LogName logName = new LogName(ProjectId, LogId);
         var jsonPayload = CreateJsonPayload();
-        var value = new ProtoWellKnownTypes.Value() { StringValue = exceptionalSunny.Message };
+        var value = new ProtoWellKnownTypes.Value() { StringValue = exceptionalSunny.ToString() };
         jsonPayload.Fields[MessageFieldName] = value;
         LogEntry logEntry = new LogEntry
         {
@@ -67,7 +58,8 @@ public static class ExceptionalLogging
         };
 
         MonitoredResource resource = new MonitoredResource { Type = "global" };
-        resource.Labels["name"] = "This_is_another_name";
+        // global does not use label.
+        // resource.Labels["name"] = "This_is_another_name";
 
         IDictionary<string, string> entryLabels = new Dictionary<string, string>
         {
@@ -76,5 +68,6 @@ public static class ExceptionalLogging
         };
 
         _client.Value.WriteLogEntries(LogNameOneof.From(logName), resource, entryLabels, new[] { logEntry }, null);
+        TestTrace($"Written entry {logEntry.ToString()}");
     }
 }

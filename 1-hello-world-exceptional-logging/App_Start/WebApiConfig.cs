@@ -23,9 +23,15 @@ using System.Web.Http;
 using System.Web.Http.Routing;
 
 using log4net;
+using static ExceptionalLogging;
 
 namespace GoogleCloudSamples
 {
+    public class ALoggingException : Exception
+    {
+        public ALoggingException(string message) : base(message) { }
+    }
+
     public static class WebApiConfig
     {
         // [START sample]
@@ -49,7 +55,15 @@ namespace GoogleCloudSamples
 
                 if ((counter%2) == 0)
                 {
-                    ThrowException();
+                    try
+                    {
+                        ThrowException();
+                    }
+                    catch (ALoggingException ex)
+                    {
+                        WriteExceptionalLog(ex);
+                        throw;
+                    }
                 }
 
                 return Task.FromResult(new HttpResponseMessage()
@@ -69,7 +83,7 @@ namespace GoogleCloudSamples
 
         public static void ThrowException()
         {
-            throw new Exception($"This is to test the exceptional logging");
+            throw new ALoggingException($"This is to test the exceptional logging");
         }
         // [END sample]
     }
