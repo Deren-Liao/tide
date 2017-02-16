@@ -30,6 +30,11 @@ namespace GoogleCloudSamples
 {
     public static class WebApiConfig
     {
+        private static void ExceptionalStone()
+        {
+            throw new Exception("This is pacicif application exception.");
+        }
+
         // [START sample]
         /// <summary>
         /// The simplest possible HTTP Handler that just returns "Hello World."
@@ -51,7 +56,7 @@ namespace GoogleCloudSamples
 
                 if ((counter%2) == 0)
                 {
-                    throw new Exception("This is an application exception. Pacific exception.");
+                    ExceptionalStone();
                 }
 
                 return Task.FromResult(new HttpResponseMessage()
