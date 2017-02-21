@@ -62,7 +62,10 @@ namespace GoogleCloudSamples
                     catch (ALoggingException ex)
                     {
                         WriteExceptionalLog(ex);
-                        throw;
+                        return Task.FromResult(new HttpResponseMessage()
+                        {
+                            Content = new ByteArrayContent(Encoding.UTF8.GetBytes(ex.ToString()))
+                        });
                     }
                 }
 
