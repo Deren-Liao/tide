@@ -21,14 +21,17 @@ namespace WriteTraceToFile
         private const string TraceFile = @"my_test_trace.txt";
         private static readonly string s_root;
         private static readonly string s_path;
-
+        private static readonly object s_lockObj = new object();
 
 
         public static void TestTrace(string message)
         {
-            using (var w = new StreamWriter(s_path, append: true))
+            lock (s_lockObj)
             {
-                w.WriteLine(message);
+                using (var w = new StreamWriter(s_path, append: true))
+                {
+                    w.WriteLine(message);
+                }
             }
         }
     }
