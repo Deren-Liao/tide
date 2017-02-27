@@ -4,11 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-<<<<<<< HEAD
     <ProjectGuid>{25B18045-25FA-4E09-882D-531E3D48BF8A}</ProjectGuid>
-=======
-    <ProjectGuid>{1B903E75-7312-4389-9B93-C6BC48A14E7B}</ProjectGuid>
->>>>>>> 85dffc7d4162981e47f3f8215937d566ed130188
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ConsoleApplication1</RootNamespace>
@@ -47,11 +43,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-<<<<<<< HEAD
     <Compile Include="Lazy.cs" />
     <Compile Include="LoggerTooltipSource.cs" />
-=======
->>>>>>> 85dffc7d4162981e47f3f8215937d566ed130188
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
