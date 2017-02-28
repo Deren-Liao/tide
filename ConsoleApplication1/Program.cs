@@ -27,12 +27,20 @@ namespace ConsoleApplication1
             Console.WriteLine(GetRelativePath(@"c:\a\bc\de.csproj", @"c:\a\bc\ff\de.cs"));
         }
 
-
-        static void Main(string[] args)
+        static void QuestionIndex()
         {
             int[] a = new int[] { 3 };
 
             Console.WriteLine($"{a?[2]}");
+        }
+
+        static void Main(string[] args)
+        {
+            Console.WriteLine($"null to null compare, {string.Compare(null, null)}");
+            Console.WriteLine($"null to empty compare, {string.Compare(null, "")}");
+            Console.WriteLine($"empty to empty compare, {string.Compare("", "")}");
+
+            DateTimeFormat.ToLocalCultureLocalTime();
         }
     }
 }

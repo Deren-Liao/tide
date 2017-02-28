@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DateTimeFormat.cs" />
     <Compile Include="Lazy.cs" />
     <Compile Include="LoggerTooltipSource.cs" />
     <Compile Include="Program.cs" />
