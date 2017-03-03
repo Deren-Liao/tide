@@ -41,6 +41,8 @@ namespace ConsoleApplication1
             Console.WriteLine($"empty to empty compare, {string.Compare("", "")}");
 
             DateTimeFormat.ToLocalCultureLocalTime();
+
+            throw new Exception("exception context test");
         }
     }
 }
