@@ -8,10 +8,8 @@ using System.Runtime.CompilerServices;
 
 public static class ExceptionGenerator
 {
-    public static string ExceptionTestMessage { get; set; } = "parser test message";
-
     [MethodImpl(MethodImplOptions.NoOptimization | MethodImplOptions.NoInlining)]
-    private static Exception GenerateException(Action act)
+    public static Exception GenerateException(Action act)
     {
         try
         {
@@ -25,28 +23,28 @@ public static class ExceptionGenerator
     }
 
     [MethodImpl(MethodImplOptions.NoOptimization | MethodImplOptions.NoInlining)]
-    public static void LoopThenException(int count)
+    public static void LoopThenException(int count, string error_message)
     {
         if (count > 0)
         {
-            LoopThenException(--count);
+            LoopThenException(--count, error_message);
         }
         else
         {
-            throw new InvalidOperationException(ExceptionTestMessage);
+            throw new InvalidOperationException(error_message);
         }
     }
 
     [MethodImpl(MethodImplOptions.NoOptimization | MethodImplOptions.NoInlining)]
-    public static void GenerateInnerException(int count)
+    public static void GenerateInnerException(int count, string error_message)
     {
         if (count > 0)
         {
-            GenerateInnerException(--count);
+            GenerateInnerException(--count, error_message);
         }
         else
         {
-            throw new InvalidOperationException(ExceptionTestMessage, GenerateException(() => LoopThenException(5)));
+            throw new InvalidOperationException(error_message, GenerateException(() => LoopThenException(5, error_message)));
         }
     }
 }
