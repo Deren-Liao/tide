@@ -50,12 +50,22 @@ namespace EReportingApi
             ServiceContext serviceContext = new ServiceContext()
             {
                 Service = "e_reporting",
-                Version = "the-exceptional-api-version",
+                Version = "the-exceptional-api-version"
             };
+
+            ErrorContext errorContext = new ErrorContext()
+            {
+                 ReportLocation = new SourceLocation()
+                 {
+                      FunctionName = "A hidden Name"
+                 }
+            };
+
             ReportedErrorEvent errorEvent = new ReportedErrorEvent()
             {
                 Message = e.ToString(),
                 ServiceContext = serviceContext,
+                Context = errorContext
             };
             return new ReportRequest(service, errorEvent, formattedProjectId);
         }
