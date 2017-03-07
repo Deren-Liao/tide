@@ -22,10 +22,9 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Routing;
 
-using log4net;
-//using Google.Cloud.Diagnostics.AspNet;
-//using System.Web.Http.ExceptionHandling;
 using static WriteTraceToFile.TextTrace;
+using static ExceptionGenerator;
+using static ExceptionalLogging;
 
 namespace GoogleCloudSamples
 {
@@ -44,16 +43,8 @@ namespace GoogleCloudSamples
             {
                 TestTrace($"Am I writting trace? {counter}");
 
-                // Retrieve a logger for this context.
-                ILog log = LogManager.GetLogger(typeof(WebApiConfig));
-
-                // Log some information to Google Stackdriver Logging.
-                log.Warn("Sunny Pacific Wednesday.");
-
-                //if ((++counter%2) == 0)
-                //{
-                //    throw new Exception("This is an application exception. Pacific exception.");
-                //}
+                var ex = GenerateException(() => GenerateInnerException(5, "local cloud logging code test"));
+                WriteExceptionalLog(ex);
 
                 return Task.FromResult(new HttpResponseMessage()
                 {
@@ -68,14 +59,6 @@ namespace GoogleCloudSamples
             // Add our one HttpMessageHandler to the root path.
             config.Routes.MapHttpRoute("index", "", emptyDictionary, emptyDictionary,
                 new HelloWorldHandler());
-
-            // Add a catch all for the uncaught exceptions.
-            //string projectId = "pacific-wind";
-            //string serviceName = "myservice";
-            //string version = "version1";
-            //// Add a catch all for the uncaught exceptions.
-            //config.Services.Add(typeof(IExceptionLogger),
-            //    ErrorReportingExceptionLogger.Create(projectId, serviceName, version));
         }
         // [END sample]
     }

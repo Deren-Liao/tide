@@ -13,6 +13,16 @@ Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Google.Cloud.Logging.V2", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WriteTraceToFile", "..\WriteTraceToFile\WriteTraceToFile.csproj", "{848F1EA3-0D2A-4517-B39F-854E51209D89}"
 EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Google.Api.Gax", "..\..\gax-dotnet\src\Google.Api.Gax\Google.Api.Gax.xproj", "{16E01144-C66A-4267-AE2C-40FECF562BBB}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Google.Api.Gax.Grpc", "..\..\gax-dotnet\src\Google.Api.Gax.Grpc\Google.Api.Gax.Grpc.xproj", "{79AF504F-A1F6-4306-91DA-5AB816546306}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Google.Api.CommonProtos", "..\..\gax-dotnet\src\Google.Api.CommonProtos\Google.Api.CommonProtos.xproj", "{29623F34-B99D-47C2-80C8-1A42C0F25A3B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StackdriverLogging", "..\StackdriverPrivateLogging\StackdriverLogging.csproj", "{1010D7E3-DAD2-477D-B0D9-8D42F45C0E28}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExceptionGenerator", "..\ExceptionGenerator\ExceptionGenerator.csproj", "{AFDB26C0-3682-4B2A-8F7B-3EA434DE639C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +49,26 @@ Global
 		{848F1EA3-0D2A-4517-B39F-854E51209D89}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{848F1EA3-0D2A-4517-B39F-854E51209D89}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{848F1EA3-0D2A-4517-B39F-854E51209D89}.Release|Any CPU.Build.0 = Release|Any CPU
+		{16E01144-C66A-4267-AE2C-40FECF562BBB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{16E01144-C66A-4267-AE2C-40FECF562BBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{16E01144-C66A-4267-AE2C-40FECF562BBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{16E01144-C66A-4267-AE2C-40FECF562BBB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{79AF504F-A1F6-4306-91DA-5AB816546306}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{79AF504F-A1F6-4306-91DA-5AB816546306}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{79AF504F-A1F6-4306-91DA-5AB816546306}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{79AF504F-A1F6-4306-91DA-5AB816546306}.Release|Any CPU.Build.0 = Release|Any CPU
+		{29623F34-B99D-47C2-80C8-1A42C0F25A3B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{29623F34-B99D-47C2-80C8-1A42C0F25A3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{29623F34-B99D-47C2-80C8-1A42C0F25A3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{29623F34-B99D-47C2-80C8-1A42C0F25A3B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1010D7E3-DAD2-477D-B0D9-8D42F45C0E28}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1010D7E3-DAD2-477D-B0D9-8D42F45C0E28}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1010D7E3-DAD2-477D-B0D9-8D42F45C0E28}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1010D7E3-DAD2-477D-B0D9-8D42F45C0E28}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AFDB26C0-3682-4B2A-8F7B-3EA434DE639C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AFDB26C0-3682-4B2A-8F7B-3EA434DE639C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AFDB26C0-3682-4B2A-8F7B-3EA434DE639C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AFDB26C0-3682-4B2A-8F7B-3EA434DE639C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

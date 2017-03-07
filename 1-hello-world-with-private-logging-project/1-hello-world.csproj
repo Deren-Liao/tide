@@ -44,60 +44,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Google.Api.CommonProtos, Version=1.0.0.0, Culture=neutral, PublicKeyToken=3ec5ea7f18953e47, processorArchitecture=MSIL">
-      <HintPath>packages\Google.Api.CommonProtos.1.0.0-beta05\lib\net45\Google.Api.CommonProtos.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Google.Api.Gax, Version=1.0.0.0, Culture=neutral, PublicKeyToken=3ec5ea7f18953e47, processorArchitecture=MSIL">
-      <HintPath>packages\Google.Api.Gax.1.0.0-beta09\lib\net45\Google.Api.Gax.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Google.Api.Gax.Grpc, Version=1.0.0.0, Culture=neutral, PublicKeyToken=3ec5ea7f18953e47, processorArchitecture=MSIL">
-      <HintPath>packages\Google.Api.Gax.Grpc.1.0.0-beta09\lib\net45\Google.Api.Gax.Grpc.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Google.Apis, Version=1.20.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
-      <HintPath>packages\Google.Apis.1.20.0\lib\net45\Google.Apis.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Google.Apis.Auth, Version=1.20.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
-      <HintPath>packages\Google.Apis.Auth.1.20.0\lib\net45\Google.Apis.Auth.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Google.Apis.Auth.PlatformServices, Version=1.20.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
-      <HintPath>packages\Google.Apis.Auth.1.20.0\lib\net45\Google.Apis.Auth.PlatformServices.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Google.Apis.Core, Version=1.20.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
-      <HintPath>packages\Google.Apis.Core.1.20.0\lib\net45\Google.Apis.Core.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Google.Apis.PlatformServices, Version=1.20.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
-      <HintPath>packages\Google.Apis.1.20.0\lib\net45\Google.Apis.PlatformServices.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Google.Cloud.ErrorReporting.V1Beta1, Version=1.0.0.0, Culture=neutral, PublicKeyToken=185c282632e132a0, processorArchitecture=MSIL">
-      <HintPath>packages\Google.Cloud.ErrorReporting.V1Beta1.1.0.0-beta02\lib\net45\Google.Cloud.ErrorReporting.V1Beta1.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Google.Cloud.Trace.V1, Version=1.0.0.0, Culture=neutral, PublicKeyToken=185c282632e132a0, processorArchitecture=MSIL">
-      <HintPath>packages\Google.Cloud.Trace.V1.1.0.0-beta02\lib\net45\Google.Cloud.Trace.V1.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Google.Protobuf, Version=3.0.0.0, Culture=neutral, PublicKeyToken=a7d26565bac4d604, processorArchitecture=MSIL">
-      <HintPath>packages\Google.Protobuf.3.0.0\lib\net45\Google.Protobuf.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Grpc.Auth, Version=1.0.0.0, Culture=neutral, PublicKeyToken=d754f35622e28bad, processorArchitecture=MSIL">
       <HintPath>packages\Grpc.Auth.1.0.1\lib\net45\Grpc.Auth.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Grpc.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=d754f35622e28bad, processorArchitecture=MSIL">
       <HintPath>packages\Grpc.Core.1.0.1\lib\net45\Grpc.Core.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="log4net, Version=1.2.15.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
-      <HintPath>packages\log4net.2.0.5\lib\net45-full\log4net.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -198,17 +150,13 @@
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\google-cloud-dotnet\apis\Google.Cloud.Logging.V2\Google.Cloud.Logging.Log4Net\Google.Cloud.Logging.Log4Net.xproj">
-      <Project>{b27e7461-3714-44f6-bd2d-e7579a85f759}</Project>
-      <Name>Google.Cloud.Logging.Log4Net</Name>
+    <ProjectReference Include="..\ExceptionGenerator\ExceptionGenerator.csproj">
+      <Project>{afdb26c0-3682-4b2a-8f7b-3ea434de639c}</Project>
+      <Name>ExceptionGenerator</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\google-cloud-dotnet\apis\Google.Cloud.Logging.V2\Google.Cloud.Logging.Type\Google.Cloud.Logging.Type.xproj">
-      <Project>{a8382b79-21e7-4aad-aff8-ab8707958128}</Project>
-      <Name>Google.Cloud.Logging.Type</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\google-cloud-dotnet\apis\Google.Cloud.Logging.V2\Google.Cloud.Logging.V2\Google.Cloud.Logging.V2.xproj">
-      <Project>{35b8d21d-0253-417f-b171-06bf70aa9485}</Project>
-      <Name>Google.Cloud.Logging.V2</Name>
+    <ProjectReference Include="..\StackdriverPrivateLogging\StackdriverLogging.csproj">
+      <Project>{1010d7e3-dad2-477d-b0d9-8d42f45c0e28}</Project>
+      <Name>StackdriverLogging</Name>
     </ProjectReference>
     <ProjectReference Include="..\WriteTraceToFile\WriteTraceToFile.csproj">
       <Project>{848f1ea3-0d2a-4517-b39f-854e51209d89}</Project>
