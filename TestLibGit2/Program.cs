@@ -13,7 +13,7 @@ namespace TestLibGit2
 {
     class Program
     {
-        private const string projectRoot = @"c:\git\tide\1-hello-world-exceptional-logging\1-hello-world.csproj";
+        private const string projectRoot = @"c:\tide\1-hello-world-exceptional-logging\1-hello-world.csproj";
         private const string build_time_file = @"h:\myanotherroot\testgit\1-hello-world-exceptional-logging\App_Start\WebApiConfig.cs";
         private const string file = @"1-hello-world-exceptional-logging\App_Start\WebApiConfig.cs";
         private const string remote_name = @"https://github.com/Deren-Liao/tide.git";
@@ -21,76 +21,50 @@ namespace TestLibGit2
 
         static void Main(string[] args)
         {
-            Git();
-
-            string dir = projectRoot;
-            RepositoryInformation repo = null;
-            do
+            var commit = GitUtils.FindCommit(projectRoot, sha);
+            if (commit == null)
             {
-                dir = Directory.GetParent(dir)?.FullName;
-                if (dir == null)
-                {
-                    break;
-                }
-                repo = RepositoryInformation.GetRepositoryInformationForPath(dir);
-                if (repo != null)
-                {
-                    var remoteURL = repo.Repo.Config.Get<string>("remote", "origin", "url").Value;
-                    Console.WriteLine($"{remoteURL}");
-                    if (String.CompareOrdinal(remoteURL, remote_name) == 0)
-                    {
-                        Console.WriteLine($"remoteURL");
-                    }
-                    else
-                    {
-                        repo = null;
-                    }
-                }
-                
-            } while (repo == null && dir != null);
-
-            if (repo == null)
-            {
+                Console.WriteLine("commit is null");
                 return;
             }
 
-            //  git show 8babece202d55d9fca22a884acbe9c0fcffab765:1-hello-world-exceptional-logging/App_Start/WebApiConfig.cs
+            var content = GitUtils.OpenFile(commit, build_time_file);
+            if (content != null)
+            {
+                Console.WriteLine(content.Substring(0, 100));
+            }
         }
 
-        private static void Git()
+        private static void Git(Repository repo)
         {
-            using (var repo = new Repository(@"c:\git\tide"))
+            int i = 0;
+            foreach (var mit in repo.Commits)
             {
-                int i = 0;
-                foreach (var mit in repo.Commits)
+                if (++i < 5 || mit.Sha == "8babece202d55d9fca22a884acbe9c0fcffab765")
                 {
-                    if (++i < 5 || mit.Sha == "8babece202d55d9fca22a884acbe9c0fcffab765")
-                    {
-                        Console.WriteLine("Author: {0}", mit.Author.Name);
-                        Console.WriteLine("Message: {0}", mit.MessageShort);
-                        Console.WriteLine($"SHA: {mit.Sha}");
-                    }
-                }
-                Commit commit = repo.Lookup<Commit>("8babece202d55d9fca22a884acbe9c0fcffab765");
-                Console.WriteLine("Author: {0}", commit.Author.Name);
-                Console.WriteLine("Message: {0}", commit.MessageShort);
-
-                foreach (var t in commit.Tree)
-                {
-                    Console.WriteLine($"Name {t.Name}, Mode {t.Mode}, Path {t.Path}");
-                }
-
-                var treeEntry = commit[file];
-                var blob = (Blob)treeEntry.Target;
-                var contentStream = blob.GetContentStream();
-                Debug.Assert(blob.Size == contentStream.Length);
-
-                using (var tr = new StreamReader(contentStream, Encoding.UTF8))
-                {
-                    string content = tr.ReadToEnd();
+                    Console.WriteLine("Author: {0}", mit.Author.Name);
+                    Console.WriteLine("Message: {0}", mit.MessageShort);
+                    Console.WriteLine($"SHA: {mit.Sha}");
                 }
             }
+            Commit commit = repo.Lookup<Commit>("8babece202d55d9fca22a884acbe9c0fcffab765");
+            Console.WriteLine("Author: {0}", commit.Author.Name);
+            Console.WriteLine("Message: {0}", commit.MessageShort);
 
+            foreach (var t in commit.Tree)
+            {
+                Console.WriteLine($"Name {t.Name}, Mode {t.Mode}, Path {t.Path}");
+            }
+
+            var treeEntry = commit[file];
+            var blob = (Blob)treeEntry.Target;
+            var contentStream = blob.GetContentStream();
+            Debug.Assert(blob.Size == contentStream.Length);
+
+            using (var tr = new StreamReader(contentStream, Encoding.UTF8))
+            {
+                string content = tr.ReadToEnd();
+            }
         }
     }
 }
