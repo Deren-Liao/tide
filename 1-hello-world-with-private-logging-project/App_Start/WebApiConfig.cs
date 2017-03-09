@@ -26,6 +26,8 @@ using static WriteTraceToFile.TextTrace;
 using static ExceptionGenerator;
 using static ExceptionalLogging;
 
+using log4net;
+
 namespace GoogleCloudSamples
 {
     public static class WebApiConfig
@@ -43,8 +45,14 @@ namespace GoogleCloudSamples
             {
                 TestTrace($"Am I writting trace? {counter}");
 
-                var ex = GenerateException(() => GenerateInnerException(5, "local cloud logging code test"));
-                WriteExceptionalLog(ex);
+                // Retrieve a logger for this context.
+                ILog log = LogManager.GetLogger(typeof(WebApiConfig));
+
+                // Log some information to Google Stackdriver Logging.
+                log.Info($"This is real world {++counter}.");
+
+                //var ex = GenerateException(() => GenerateInnerException(5, "local cloud logging code test"));
+                //WriteExceptionalLog(ex);
 
                 return Task.FromResult(new HttpResponseMessage()
                 {
@@ -61,5 +69,18 @@ namespace GoogleCloudSamples
                 new HelloWorldHandler());
         }
         // [END sample]
+
+        private static void WriteSomeLogs()
+        {
+            for (int i = 0; i < 10; ++i)
+            {
+                Thread.Sleep(1000);
+                // Retrieve a logger for this context.
+                ILog log = LogManager.GetLogger(typeof(WebApiConfig));
+
+                // Log some information to Google Stackdriver Logging.
+                log.Info($"This is real world. {i}, {DateTime.UtcNow.ToLongDateString()}");
+            }
+        }
     }
 }

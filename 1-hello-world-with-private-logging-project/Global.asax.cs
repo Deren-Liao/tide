@@ -18,6 +18,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Http;
 using System.Web.Routing;
+using log4net;
 
 namespace GoogleCloudSamples
 {
@@ -28,7 +29,7 @@ namespace GoogleCloudSamples
             GlobalConfiguration.Configure(WebApiConfig.Register);
 
             // Configure log4net to use Stackdriver logging from the XML configuration file.
-            // log4net.Config.XmlConfigurator.Configure();
+            log4net.Config.XmlConfigurator.Configure();
         }
     }
 }
