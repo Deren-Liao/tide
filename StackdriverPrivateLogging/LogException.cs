@@ -39,7 +39,7 @@ public static class ExceptionalLogging
 
 
     public static Lazy<LoggingServiceV2Client> _client = new Lazy<LoggingServiceV2Client>(
-        () => LoggingServiceV2Client.Create());
+       () => { return LoggingServiceV2Client.Create(); });
 
 
 
@@ -68,7 +68,10 @@ public static class ExceptionalLogging
             { "color", "red" }
         };
 
-        _client.Value.WriteLogEntries(LogNameOneof.From(logName), resource, entryLabels, new[] { logEntry }, null);
+        //var client = LoggingServiceV2Client.Create();
+        var client = _client.Value;
+
+        client.WriteLogEntries(LogNameOneof.From(logName), resource, entryLabels, new[] { logEntry }, null);
         TestTrace($"Written entry {logEntry.ToString()}");
     }
 }

@@ -157,10 +157,6 @@
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\google-cloud-dotnet\apis\Google.Cloud.Logging.V2\Google.Cloud.Logging.Log4Net\Google.Cloud.Logging.Log4Net.xproj">
-      <Project>{b27e7461-3714-44f6-bd2d-e7579a85f759}</Project>
-      <Name>Google.Cloud.Logging.Log4Net</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ExceptionGenerator\ExceptionGenerator.csproj">
       <Project>{afdb26c0-3682-4b2a-8f7b-3ea434de639c}</Project>
       <Name>ExceptionGenerator</Name>

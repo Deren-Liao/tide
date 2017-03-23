@@ -5,19 +5,7 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "1-hello-world", "1-hello-world.csproj", "{6807FF46-1DD0-4240-B086-E8ECFDAA924B}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Google.Cloud.Logging.Log4Net", "..\..\google-cloud-dotnet\apis\Google.Cloud.Logging.V2\Google.Cloud.Logging.Log4Net\Google.Cloud.Logging.Log4Net.xproj", "{B27E7461-3714-44F6-BD2D-E7579A85F759}"
-EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Google.Cloud.Logging.Type", "..\..\google-cloud-dotnet\apis\Google.Cloud.Logging.V2\Google.Cloud.Logging.Type\Google.Cloud.Logging.Type.xproj", "{A8382B79-21E7-4AAD-AFF8-AB8707958128}"
-EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Google.Cloud.Logging.V2", "..\..\google-cloud-dotnet\apis\Google.Cloud.Logging.V2\Google.Cloud.Logging.V2\Google.Cloud.Logging.V2.xproj", "{35B8D21D-0253-417F-B171-06BF70AA9485}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WriteTraceToFile", "..\WriteTraceToFile\WriteTraceToFile.csproj", "{848F1EA3-0D2A-4517-B39F-854E51209D89}"
-EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Google.Api.Gax", "..\..\gax-dotnet\src\Google.Api.Gax\Google.Api.Gax.xproj", "{16E01144-C66A-4267-AE2C-40FECF562BBB}"
-EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Google.Api.Gax.Grpc", "..\..\gax-dotnet\src\Google.Api.Gax.Grpc\Google.Api.Gax.Grpc.xproj", "{79AF504F-A1F6-4306-91DA-5AB816546306}"
-EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Google.Api.CommonProtos", "..\..\gax-dotnet\src\Google.Api.CommonProtos\Google.Api.CommonProtos.xproj", "{29623F34-B99D-47C2-80C8-1A42C0F25A3B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StackdriverLogging", "..\StackdriverPrivateLogging\StackdriverLogging.csproj", "{1010D7E3-DAD2-477D-B0D9-8D42F45C0E28}"
 EndProject
@@ -33,34 +21,10 @@ Global
 		{6807FF46-1DD0-4240-B086-E8ECFDAA924B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6807FF46-1DD0-4240-B086-E8ECFDAA924B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6807FF46-1DD0-4240-B086-E8ECFDAA924B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B27E7461-3714-44F6-BD2D-E7579A85F759}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B27E7461-3714-44F6-BD2D-E7579A85F759}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B27E7461-3714-44F6-BD2D-E7579A85F759}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B27E7461-3714-44F6-BD2D-E7579A85F759}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A8382B79-21E7-4AAD-AFF8-AB8707958128}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A8382B79-21E7-4AAD-AFF8-AB8707958128}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A8382B79-21E7-4AAD-AFF8-AB8707958128}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A8382B79-21E7-4AAD-AFF8-AB8707958128}.Release|Any CPU.Build.0 = Release|Any CPU
-		{35B8D21D-0253-417F-B171-06BF70AA9485}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{35B8D21D-0253-417F-B171-06BF70AA9485}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{35B8D21D-0253-417F-B171-06BF70AA9485}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{35B8D21D-0253-417F-B171-06BF70AA9485}.Release|Any CPU.Build.0 = Release|Any CPU
 		{848F1EA3-0D2A-4517-B39F-854E51209D89}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{848F1EA3-0D2A-4517-B39F-854E51209D89}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{848F1EA3-0D2A-4517-B39F-854E51209D89}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{848F1EA3-0D2A-4517-B39F-854E51209D89}.Release|Any CPU.Build.0 = Release|Any CPU
-		{16E01144-C66A-4267-AE2C-40FECF562BBB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{16E01144-C66A-4267-AE2C-40FECF562BBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{16E01144-C66A-4267-AE2C-40FECF562BBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{16E01144-C66A-4267-AE2C-40FECF562BBB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{79AF504F-A1F6-4306-91DA-5AB816546306}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{79AF504F-A1F6-4306-91DA-5AB816546306}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{79AF504F-A1F6-4306-91DA-5AB816546306}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{79AF504F-A1F6-4306-91DA-5AB816546306}.Release|Any CPU.Build.0 = Release|Any CPU
-		{29623F34-B99D-47C2-80C8-1A42C0F25A3B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{29623F34-B99D-47C2-80C8-1A42C0F25A3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{29623F34-B99D-47C2-80C8-1A42C0F25A3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{29623F34-B99D-47C2-80C8-1A42C0F25A3B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1010D7E3-DAD2-477D-B0D9-8D42F45C0E28}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1010D7E3-DAD2-477D-B0D9-8D42F45C0E28}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1010D7E3-DAD2-477D-B0D9-8D42F45C0E28}.Release|Any CPU.ActiveCfg = Release|Any CPU

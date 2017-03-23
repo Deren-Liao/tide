@@ -32,7 +32,7 @@ namespace GoogleCloudSamples
     {
         private static void ExceptionalStone()
         {
-            throw new Exception("This is pacicif application exception.");
+            throw new Exception("This is pacific application exception.");
         }
 
         // [START sample]

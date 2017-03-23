@@ -51,8 +51,8 @@ namespace GoogleCloudSamples
                 // Log some information to Google Stackdriver Logging.
                 log.Info($"This is real world {++counter}.");
 
-                //var ex = GenerateException(() => GenerateInnerException(5, "local cloud logging code test"));
-                //WriteExceptionalLog(ex);
+                var ex = GenerateException(() => GenerateInnerException(5, "local cloud logging code test"));
+                WriteExceptionalLog(ex);
 
                 return Task.FromResult(new HttpResponseMessage()
                 {
