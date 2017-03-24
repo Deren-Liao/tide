@@ -13,6 +13,9 @@ namespace GoogleAspNetCoreMvc_Test
 {
     public class Startup
     {
+        public static string sAppPath;
+        public static string swwwRootPath;
+
         public Startup(IHostingEnvironment env)
         {
             var builder = new ConfigurationBuilder()
@@ -20,6 +23,10 @@ namespace GoogleAspNetCoreMvc_Test
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
                 .AddEnvironmentVariables();
+
+            sAppPath = env.ContentRootPath; //Application Base Path
+            swwwRootPath = env.WebRootPath;  //wwwroot folder path
+
             Configuration = builder.Build();
         }
 

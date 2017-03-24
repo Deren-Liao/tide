@@ -9,6 +9,8 @@ using System;
 using System.IO;
 using Google.Protobuf;
 using ProtoWellKnownTypes = Google.Protobuf.WellKnownTypes;
+using static StackdriverLogging.ApiRandomLog;
+using GoogleAspNetCoreMvc_Test;
 
 namespace Google.Cloud.Logging.V2
 {
@@ -31,7 +33,16 @@ namespace Google.Cloud.Logging.V2
             {
                 string root = null;
                 var rootAssembly = System.Reflection.Assembly.GetEntryAssembly();
+                if (rootAssembly == null)
+                {
+                    WriteEntry("git Sha is empty", appendGit: false);
+                    return null;
+                }
                 root = rootAssembly?.Location;
+                WriteEntry(
+                    $"rootAssembly?.Location is {rootAssembly.Location},  swwwRootPath is {Startup.swwwRootPath}",
+                    appendGit: false);
+                root = Startup.swwwRootPath;
                 return Path.Combine(root, SourceContextFileName);
             }
         }
@@ -86,6 +97,7 @@ namespace Google.Cloud.Logging.V2
             }
             catch (Exception ex) when (IsIOException(ex))
             {
+                WriteEntry($"IOException {ex.Message}", appendGit: false);
                 return null;
             }
         }

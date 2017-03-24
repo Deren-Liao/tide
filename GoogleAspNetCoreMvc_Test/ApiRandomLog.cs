@@ -27,7 +27,7 @@ namespace StackdriverLogging
             return msg;
         }
 
-        static public void WriteEntry(string message)
+        static public void WriteEntry(string message, bool appendGit=true)
         {
             LogName logName = new LogName(ProjectId, LogId);
 
@@ -63,6 +63,7 @@ namespace StackdriverLogging
             var gitSha = SourceContext.Current?.GitSha;
             if (gitSha == null)
             {
+                WriteEntry("git Sha is empty", appendGit: false);
                 return;
             }
 
