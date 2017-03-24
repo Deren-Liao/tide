@@ -40,7 +40,13 @@ namespace Google.Cloud.Logging.V2
                 }
                 root = rootAssembly?.Location;
                 WriteEntry(
-                    $"rootAssembly?.Location is {rootAssembly.Location},  swwwRootPath is {Startup.swwwRootPath}",
+                    $"rootAssembly?.Location is {rootAssembly.Location}",
+                    appendGit: false);
+                WriteEntry(
+                    $"swwwRootPath is {Startup.swwwRootPath}",
+                    appendGit: false);
+                WriteEntry(
+                    $"sAppPath is {Startup.sAppPath}",
                     appendGit: false);
                 root = Startup.swwwRootPath;
                 return Path.Combine(root, SourceContextFileName);

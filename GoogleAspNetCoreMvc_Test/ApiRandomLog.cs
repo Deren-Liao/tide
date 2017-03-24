@@ -27,7 +27,7 @@ namespace StackdriverLogging
             return msg;
         }
 
-        static public void WriteEntry(string message, bool appendGit=true)
+        static public void WriteEntry(string message, bool appendGit = true)
         {
             LogName logName = new LogName(ProjectId, LogId);
 
@@ -44,7 +44,10 @@ namespace StackdriverLogging
                 { "color", "red" }
             };
 
-            Modify_WriteLogEntriesRequest(ref entryLabels);
+            if (appendGit)
+            {
+                Modify_WriteLogEntriesRequest(ref entryLabels);
+            }
 
             MonitoredResource resource = new MonitoredResource { Type = "global" };
             _client.Value.WriteLogEntries(
