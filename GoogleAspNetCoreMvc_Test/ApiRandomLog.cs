@@ -63,7 +63,7 @@ namespace StackdriverLogging
 
         private static void Modify_WriteLogEntriesRequest(ref IDictionary<string, string> labels)
         {
-            var gitSha = SourceContext.Current?.GitSha;
+            var gitSha = SourceContextFile.Current?.GitSha;
             if (gitSha == null)
             {
                 WriteEntry("git Sha is empty", appendGit: false);

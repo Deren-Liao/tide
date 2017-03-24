@@ -1,0 +1,35 @@
+﻿// Copyright 2015 Google Inc. All rights Reserved.
+//
+// Author: derenl@google.com
+//
+// bird.proto
+//
+// Play ground for learning protobuf
+//
+
+syntax = "proto3";
+
+package bird;
+
+
+// A SourceContext is a reference to a tree of files. A SourceContext together
+// with a path point to a unique revision of a single file or directory.
+message SourceContext {
+  // A SourceContext can refer any one of the following types of repositories.
+  oneof context {
+
+    // A SourceContext referring to any third party Git repo (e.g. GitHub).
+    GitSourceContext git = 6;
+	}
+
+}
+
+// A GitSourceContext denotes a particular revision in a third party Git
+// repository (e.g. GitHub).
+message GitSourceContext {
+  // Git repository URL.
+  string url = 1;
+
+  // Git commit hash.
+  string revision_id = 2;  // required.
+}
