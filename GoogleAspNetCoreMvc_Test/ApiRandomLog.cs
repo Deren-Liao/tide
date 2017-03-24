@@ -44,6 +44,8 @@ namespace StackdriverLogging
                 { "color", "red" }
             };
 
+            Modify_WriteLogEntriesRequest(ref entryLabels);
+
             MonitoredResource resource = new MonitoredResource { Type = "global" };
             _client.Value.WriteLogEntries(
                 LogNameOneof.From(logName), 
@@ -51,6 +53,20 @@ namespace StackdriverLogging
                 entryLabels,
                 new[] { log }, 
                 null);
+        }
+
+        private const string SourceContextIDLabel = "source_context_id";
+        private const string SecondarySourceContextIDLabel = "gcloud_source_context_id";
+
+        private static void Modify_WriteLogEntriesRequest(ref IDictionary<string, string> labels)
+        {
+            var gitSha = SourceContext.Current?.GitSha;
+            if (gitSha == null)
+            {
+                return;
+            }
+
+            labels.Add(SourceContextIDLabel, gitSha);
         }
     }
 }
