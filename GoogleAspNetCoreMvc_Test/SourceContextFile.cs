@@ -26,94 +26,43 @@ namespace Google.Cloud.Logging.V2
         #region Debug, remove before checkin
         private static bool s_firstTime = true;
         #endregion
-
-        private const string SourceContextFileName = "source-context.json";
-        private ProtoWellKnownTypes.Struct _sourceContext => FindSourceContext();
-        private ProtoWellKnownTypes.Struct _git => _sourceContext?.Fields["git"]?.StructValue;
-        private readonly static Lazy<SourceContextFile> s_instance = new Lazy<SourceContextFile>(() => new SourceContextFile());
+        private static Lazy<string> s_sourceContextFilePath = new Lazy<string>(FindSourceContextFile);
+        private static Lazy<SourceContext> s_sourceContext = new Lazy<SourceContext>(OpenParseSourceContextFile);
 
         /// <summary>
-        /// Best way to get application folder path.
-        /// http://stackoverflow.com/questions/6041332/best-way-to-get-application-folder-path
+        /// The source context file name.
         /// </summary>
-        private static string SourceContextFilePath {
-            get
-            {
-                string root = null;
-                var rootAssembly = System.Reflection.Assembly.GetEntryAssembly();
-                if (rootAssembly == null)
-                {
-                    WriteEntry("git Sha is empty", appendGit: false);
-                    return null;
-                }
-
-                // Debug , remove before checkin
-                root = rootAssembly?.Location;
-                #region Debug, remove before checkin
-                if (s_firstTime)
-                {
-                    s_firstTime = false;
-                    WriteEntry(
-                    $"rootAssembly?.Location is {rootAssembly.Location}",
-                    appendGit: false);
-                    WriteEntry(
-                        $"swwwRootPath is {Startup.swwwRootPath}",
-                        appendGit: false);
-                    WriteEntry(
-                        $"sAppPath is {Startup.sAppPath}",
-                        appendGit: false);
-                    // 
-                    WriteEntry(
-                        $"AppContext.BaseDirectory {AppContext.BaseDirectory}",
-                        appendGit: false);
-                    root = AppContext.BaseDirectory;
-                DirectoryInfo dInfo = new DirectoryInfo(root);
-                var allFiles = String.Join("; ", dInfo.EnumerateFiles().Select(x => x.Name));
-                WriteEntry(
-                    $"files under AppContext.BaseDirectory {allFiles}",
-                    appendGit: false);
-                }
-                #endregion
-
-                return Path.Combine(root, SourceContextFileName);
-            }
-        }
-            //Path.Combine(AppDomain.CurrentDomain.BaseDirectory, SourceContextFileName);
-
-        private SourceContextFile() { }
+        public const string SourceContextFileName = "source-context.json";
 
         /// <summary>
-        /// The git SHA from Source Context file.
+        /// Gets the source context file path if it exists.
+        /// Returns null if the file is not found at root path.
         /// </summary>
-        public string GitSha => _git?.Fields["revisionId"].StringValue;
+        public static string SourceContextFilePath => s_sourceContextFilePath.Value;
 
         /// <summary>
-        /// The git repo URL from Source Context file.
+        /// Returns the <seealso cref="SourceContext"/> object deserealized from the source context file.
+        /// Returns null if the file does not exist, or failed to open/parse the file.
         /// </summary>
-        public string GitRepoUrl => _sourceContext?.Fields["url"].StringValue;
+        public static SourceContext SourceContext => s_sourceContext.Value;
 
-        /// <summary>
-        /// The singleton instance of the <seealso cref="SourceContextFile"/> class.
-        /// </summary>
-        public static SourceContextFile Current => s_instance.Value;
-
-        private static ProtoWellKnownTypes.Struct FindSourceContext()
+        private static SourceContext OpenParseSourceContextFile()
         {
             string sourceContext = ReadSourceContextFile();
             if (sourceContext == null)
             {
                 return null;
             }
+
             try
             {
-                return JsonParser.Default.Parse<ProtoWellKnownTypes.Struct>(sourceContext);
+                return JsonParser.Default.Parse<SourceContext>(sourceContext);
             }
             catch (Exception ex) when (IsProtobufParserException(ex))
             {
                 return null;
             }
         }
-
 
         /// <summary>
         /// Find source context file and open the content.
@@ -134,9 +83,45 @@ namespace Google.Cloud.Logging.V2
             }
         }
 
-        private static IEnumerable<string> BasePaths(string path)
+        private static string FindSourceContextFile()
         {
+            string root = AppContext.BaseDirectory;
 
+            #region Debug, remove before checkin
+            if (s_firstTime)
+            {
+                var rootAssembly = System.Reflection.Assembly.GetEntryAssembly();
+
+                s_firstTime = false;
+                WriteEntry(
+                $"rootAssembly?.Location is {rootAssembly.Location}",
+                appendGit: false);
+                WriteEntry(
+                    $"swwwRootPath is {Startup.swwwRootPath}",
+                    appendGit: false);
+                WriteEntry(
+                    $"sAppPath is {Startup.sAppPath}",
+                    appendGit: false);
+                // 
+                WriteEntry(
+                    $"AppContext.BaseDirectory {AppContext.BaseDirectory}",
+                    appendGit: false);
+                DirectoryInfo dInfo = new DirectoryInfo(root);
+                var allFiles = String.Join("; ", dInfo.EnumerateFiles().Select(x => x.Name));
+                WriteEntry(
+                    $"files under AppContext.BaseDirectory {allFiles}",
+                    appendGit: false);
+
+                if (string.IsNullOrWhiteSpace(root))
+                {
+                    WriteEntry("root is empty", appendGit: false);
+                    return null;
+                }
+            }
+            #endregion
+
+            var fullPath = Path.Combine(root, SourceContextFileName);
+            return File.Exists(fullPath) ? fullPath : null;
         }
 
         private static bool IsIOException(Exception ex)

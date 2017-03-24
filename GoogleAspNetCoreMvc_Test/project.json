@@ -40,7 +40,8 @@
 
   "buildOptions": {
     "emitEntryPoint": true,
-    "preserveCompilationContext": true
+    "preserveCompilationContext": true,
+    "copyToOutput": { "includeFiles": [ "source-context.json" ] }
   },
 
   "runtimeOptions": {
