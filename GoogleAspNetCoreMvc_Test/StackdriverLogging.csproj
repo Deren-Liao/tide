@@ -114,12 +114,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ApiRandomLog.cs" />
-    <Compile Include="RandomString.cs" />
     <Compile Include="WriteLogBack.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="LogException.cs" />
-    <Compile Include="Log4NetRandom.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
