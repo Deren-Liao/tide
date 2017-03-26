@@ -6,6 +6,9 @@ option java_multiple_files = true;
 option java_package = "com.google.devtools.source.v1";
 option java_outer_classname = "SourceContextProto";
 
+import "google/api/annotations.proto";
+
+
 // A SourceContext is a reference to a tree of files. A SourceContext together
 // with a path point to a unique revision of a single file or directory.
 message SourceContext {
@@ -22,6 +25,14 @@ message SourceContext {
 
     // A SourceContext referring to any third party Git repo (e.g. GitHub).
     GitSourceContext git = 6;
+
+    // A SourceContext referring to a CL in Piper.
+    PiperDepotSourceContext piper = 4
+      [(google.api.field_visibility).restriction = "GOOGLE_INTERNAL"];
+
+    // A SourceContext referring to a Citc client.
+    CitcWorkspaceSourceContext citc = 5
+      [(google.api.field_visibility).restriction = "GOOGLE_INTERNAL"];
   }
 }
 
@@ -119,6 +130,66 @@ message GitSourceContext {
 
   // Git commit hash.
   string revision_id = 2;  // required.
+}
+
+
+// Source code in the Piper depot as of a certain change.
+message PiperDepotSourceContext {
+    option (google.api.message_visibility).restriction = "GOOGLE_INTERNAL";
+
+  // CL number. If zero, represents depot head.
+  int64 change_number = 1;
+
+  // Specifies that the source context refers to a branch, rather than the
+  // depot root.  For example, if the branch files live under
+  // //depot/branches/mybranch/25, then branch_name should be "mybranch/25".
+  string branch_name = 2;
+
+  // If false, use the released components as of the CL.
+  // If true, use true head.
+  // If branch_name is present and indicates a release branch, this field is not
+  // useful since the presence or absence of the .srcfs_workspace file checked
+  // in under e.g. depot/branches/mybranch/25 carries the same information and
+  // is more authoritative.
+  bool disable_components = 3;
+
+  // The complete components state description. If present, disable_components
+  // is ignored.  Not all services accept arbitrary version map.  Services not
+  // supporting arbitrary version maps must emit an error if this field is set,
+  // instead of silently falling back on disable_components.
+  //
+  // This is a serialized VersionMap from
+  // //devtools/components/proto/version_map.proto. We use bytes instead of the
+  // actual type to avoid having a file under //google depend on one outside of
+  // //google.
+  bytes version_map = 4;
+}
+
+// A CitC workspace as represented by its ID and snapshot.
+message CitcWorkspaceSourceContext {
+    option (google.api.message_visibility).restriction = "GOOGLE_INTERNAL";
+
+  // A unique identifier for a citc workspace.
+  // The workspace_id for USER's CLIENT can be found in
+  // /google/src/cloud/USER/CLIENT/.citc/workspace_id
+  string workspace_id = 1;
+
+  // The snapshot within the workspace. If zero, refers to the moving head of
+  // the workspace.  Clients which use zero should be robust against remote
+  // changes made to a workspace.
+  //
+  // If non-zero, refers to an immutable CitC snapshot.
+  //
+  // The current snapshot_version for USER's CLIENT can be found in
+  // /google/src/cloud/USER/CLIENT/.citc/snapshot_version
+  uint64 snapshot_version = 2;
+
+  // See PiperDepotSourceContext.branch_name for documentation.
+  string branch_name = 3;
+
+  // If true, ignore local workspace changes and use the
+  // baseline of the workspace instead.
+  bool is_baseline = 4;
 }
 
 // A unique identifier for a cloud repo.

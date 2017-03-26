@@ -44,9 +44,9 @@ namespace StackdriverLogging
                 { "color", "red" }
             };
 
-            if (appendGit)
+            if (appendGit && SourceRevision.GitRevisionId != null)
             {
-                Modify_WriteLogEntriesRequest(ref entryLabels);
+                entryLabels.Add(SourceRevision.GitRevisionIdLogLabel, SourceRevision.GitRevisionId);
             }
 
             MonitoredResource resource = new MonitoredResource { Type = "global" };
@@ -56,21 +56,6 @@ namespace StackdriverLogging
                 entryLabels,
                 new[] { log }, 
                 null);
-        }
-
-        private const string SourceContextIDLabel = "source_context_id";
-        private const string SecondarySourceContextIDLabel = "gcloud_source_context_id";
-
-        private static void Modify_WriteLogEntriesRequest(ref IDictionary<string, string> labels)
-        {
-            var gitSha = SourceContextFile.SourceContext?.Git?.RevisionId;
-            if (gitSha == null)
-            {
-                WriteEntry("git Sha is empty", appendGit: false);
-                return;
-            }
-
-            labels.Add(SourceContextIDLabel, gitSha);
         }
     }
 }

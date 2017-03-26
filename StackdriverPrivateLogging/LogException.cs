@@ -68,7 +68,11 @@ public static class ExceptionalLogging
             { "color", "red" }
         };
 
-        //var client = LoggingServiceV2Client.Create();
+        if (SourceRevision.GitRevisionId != null)
+        {
+            entryLabels.Add(SourceRevision.GitRevisionIdLogLabel, SourceRevision.GitRevisionId);
+        }
+
         var client = _client.Value;
 
         client.WriteLogEntries(LogNameOneof.From(logName), resource, entryLabels, new[] { logEntry }, null);

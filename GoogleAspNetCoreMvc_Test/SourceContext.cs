@@ -50,19 +50,14 @@ namespace Google.Devtools.Source.V1 {
             "SAASGAoKYWxpYXNfbmFtZRgEIAEoCUICGAFIABJACg1hbGlhc19jb250ZXh0",
             "GAUgASgLMicuZ29vZ2xlLmRldnRvb2xzLnNvdXJjZS52MS5BbGlhc0NvbnRl",
             "eHRIAEIKCghyZXZpc2lvbiI0ChBHaXRTb3VyY2VDb250ZXh0EgsKA3VybBgB",
-            "IAEoCRITCgtyZXZpc2lvbl9pZBgCIAEoCSJ2ChdQaXBlckRlcG90U291cmNl",
-            "Q29udGV4dBIVCg1jaGFuZ2VfbnVtYmVyGAEgASgDEhMKC2JyYW5jaF9uYW1l",
-            "GAIgASgJEhoKEmRpc2FibGVfY29tcG9uZW50cxgDIAEoCBITCgt2ZXJzaW9u",
-            "X21hcBgEIAEoDCJ2ChpDaXRjV29ya3NwYWNlU291cmNlQ29udGV4dBIUCgx3",
-            "b3Jrc3BhY2VfaWQYASABKAkSGAoQc25hcHNob3RfdmVyc2lvbhgCIAEoBBIT",
-            "CgticmFuY2hfbmFtZRgDIAEoCRITCgtpc19iYXNlbGluZRgEIAEoCCJiCgZS",
-            "ZXBvSWQSQwoPcHJvamVjdF9yZXBvX2lkGAEgASgLMiguZ29vZ2xlLmRldnRv",
-            "b2xzLnNvdXJjZS52MS5Qcm9qZWN0UmVwb0lkSAASDQoDdWlkGAIgASgJSABC",
-            "BAoCaWQiNgoNUHJvamVjdFJlcG9JZBISCgpwcm9qZWN0X2lkGAEgASgJEhEK",
-            "CXJlcG9fbmFtZRgCIAEoCSJUChBDbG91ZFdvcmtzcGFjZUlkEjIKB3JlcG9f",
-            "aWQYASABKAsyIS5nb29nbGUuZGV2dG9vbHMuc291cmNlLnYxLlJlcG9JZBIM",
-            "CgRuYW1lGAIgASgJQjUKHWNvbS5nb29nbGUuZGV2dG9vbHMuc291cmNlLnYx",
-            "QhJTb3VyY2VDb250ZXh0UHJvdG9QAWIGcHJvdG8z"));
+            "IAEoCRITCgtyZXZpc2lvbl9pZBgCIAEoCSJiCgZSZXBvSWQSQwoPcHJvamVj",
+            "dF9yZXBvX2lkGAEgASgLMiguZ29vZ2xlLmRldnRvb2xzLnNvdXJjZS52MS5Q",
+            "cm9qZWN0UmVwb0lkSAASDQoDdWlkGAIgASgJSABCBAoCaWQiNgoNUHJvamVj",
+            "dFJlcG9JZBISCgpwcm9qZWN0X2lkGAEgASgJEhEKCXJlcG9fbmFtZRgCIAEo",
+            "CSJUChBDbG91ZFdvcmtzcGFjZUlkEjIKB3JlcG9faWQYASABKAsyIS5nb29n",
+            "bGUuZGV2dG9vbHMuc291cmNlLnYxLlJlcG9JZBIMCgRuYW1lGAIgASgJQjUK",
+            "HWNvbS5nb29nbGUuZGV2dG9vbHMuc291cmNlLnYxQhJTb3VyY2VDb250ZXh0",
+            "UHJvdG9QAWIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
@@ -73,8 +68,6 @@ namespace Google.Devtools.Source.V1 {
             new pbr::GeneratedClrTypeInfo(typeof(global::Google.Devtools.Source.V1.CloudWorkspaceSourceContext), global::Google.Devtools.Source.V1.CloudWorkspaceSourceContext.Parser, new[]{ "WorkspaceId", "SnapshotId" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Google.Devtools.Source.V1.GerritSourceContext), global::Google.Devtools.Source.V1.GerritSourceContext.Parser, new[]{ "HostUri", "GerritProject", "RevisionId", "AliasName", "AliasContext" }, new[]{ "Revision" }, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Google.Devtools.Source.V1.GitSourceContext), global::Google.Devtools.Source.V1.GitSourceContext.Parser, new[]{ "Url", "RevisionId" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Google.Devtools.Source.V1.PiperDepotSourceContext), global::Google.Devtools.Source.V1.PiperDepotSourceContext.Parser, new[]{ "ChangeNumber", "BranchName", "DisableComponents", "VersionMap" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Google.Devtools.Source.V1.CitcWorkspaceSourceContext), global::Google.Devtools.Source.V1.CitcWorkspaceSourceContext.Parser, new[]{ "WorkspaceId", "SnapshotVersion", "BranchName", "IsBaseline" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Google.Devtools.Source.V1.RepoId), global::Google.Devtools.Source.V1.RepoId.Parser, new[]{ "ProjectRepoId", "Uid" }, new[]{ "Id" }, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Google.Devtools.Source.V1.ProjectRepoId), global::Google.Devtools.Source.V1.ProjectRepoId.Parser, new[]{ "ProjectId", "RepoName" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Google.Devtools.Source.V1.CloudWorkspaceId), global::Google.Devtools.Source.V1.CloudWorkspaceId.Parser, new[]{ "RepoId", "Name" }, null, null, null)
@@ -1567,463 +1560,6 @@ namespace Google.Devtools.Source.V1 {
   }
 
   /// <summary>
-  /// Source code in the Piper depot as of a certain change.
-  /// </summary>
-  public sealed partial class PiperDepotSourceContext : pb::IMessage<PiperDepotSourceContext> {
-    private static readonly pb::MessageParser<PiperDepotSourceContext> _parser = new pb::MessageParser<PiperDepotSourceContext>(() => new PiperDepotSourceContext());
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pb::MessageParser<PiperDepotSourceContext> Parser { get { return _parser; } }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pbr::MessageDescriptor Descriptor {
-      get { return global::Google.Devtools.Source.V1.SourceContextReflection.Descriptor.MessageTypes[7]; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    pbr::MessageDescriptor pb::IMessage.Descriptor {
-      get { return Descriptor; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public PiperDepotSourceContext() {
-      OnConstruction();
-    }
-
-    partial void OnConstruction();
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public PiperDepotSourceContext(PiperDepotSourceContext other) : this() {
-      changeNumber_ = other.changeNumber_;
-      branchName_ = other.branchName_;
-      disableComponents_ = other.disableComponents_;
-      versionMap_ = other.versionMap_;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public PiperDepotSourceContext Clone() {
-      return new PiperDepotSourceContext(this);
-    }
-
-    /// <summary>Field number for the "change_number" field.</summary>
-    public const int ChangeNumberFieldNumber = 1;
-    private long changeNumber_;
-    /// <summary>
-    /// CL number. If zero, represents depot head.
-    /// </summary>
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public long ChangeNumber {
-      get { return changeNumber_; }
-      set {
-        changeNumber_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "branch_name" field.</summary>
-    public const int BranchNameFieldNumber = 2;
-    private string branchName_ = "";
-    /// <summary>
-    /// Specifies that the source context refers to a branch, rather than the
-    /// depot root.  For example, if the branch files live under
-    /// //depot/branches/mybranch/25, then branch_name should be "mybranch/25".
-    /// </summary>
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public string BranchName {
-      get { return branchName_; }
-      set {
-        branchName_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
-      }
-    }
-
-    /// <summary>Field number for the "disable_components" field.</summary>
-    public const int DisableComponentsFieldNumber = 3;
-    private bool disableComponents_;
-    /// <summary>
-    /// If false, use the released components as of the CL.
-    /// If true, use true head.
-    /// If branch_name is present and indicates a release branch, this field is not
-    /// useful since the presence or absence of the .srcfs_workspace file checked
-    /// in under e.g. depot/branches/mybranch/25 carries the same information and
-    /// is more authoritative.
-    /// </summary>
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public bool DisableComponents {
-      get { return disableComponents_; }
-      set {
-        disableComponents_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "version_map" field.</summary>
-    public const int VersionMapFieldNumber = 4;
-    private pb::ByteString versionMap_ = pb::ByteString.Empty;
-    /// <summary>
-    /// The complete components state description. If present, disable_components
-    /// is ignored.  Not all services accept arbitrary version map.  Services not
-    /// supporting arbitrary version maps must emit an error if this field is set,
-    /// instead of silently falling back on disable_components.
-    ///
-    /// This is a serialized VersionMap from
-    /// //devtools/components/proto/version_map.proto. We use bytes instead of the
-    /// actual type to avoid having a file under //google depend on one outside of
-    /// //google.
-    /// </summary>
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public pb::ByteString VersionMap {
-      get { return versionMap_; }
-      set {
-        versionMap_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
-      }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override bool Equals(object other) {
-      return Equals(other as PiperDepotSourceContext);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public bool Equals(PiperDepotSourceContext other) {
-      if (ReferenceEquals(other, null)) {
-        return false;
-      }
-      if (ReferenceEquals(other, this)) {
-        return true;
-      }
-      if (ChangeNumber != other.ChangeNumber) return false;
-      if (BranchName != other.BranchName) return false;
-      if (DisableComponents != other.DisableComponents) return false;
-      if (VersionMap != other.VersionMap) return false;
-      return true;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override int GetHashCode() {
-      int hash = 1;
-      if (ChangeNumber != 0L) hash ^= ChangeNumber.GetHashCode();
-      if (BranchName.Length != 0) hash ^= BranchName.GetHashCode();
-      if (DisableComponents != false) hash ^= DisableComponents.GetHashCode();
-      if (VersionMap.Length != 0) hash ^= VersionMap.GetHashCode();
-      return hash;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override string ToString() {
-      return pb::JsonFormatter.ToDiagnosticString(this);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void WriteTo(pb::CodedOutputStream output) {
-      if (ChangeNumber != 0L) {
-        output.WriteRawTag(8);
-        output.WriteInt64(ChangeNumber);
-      }
-      if (BranchName.Length != 0) {
-        output.WriteRawTag(18);
-        output.WriteString(BranchName);
-      }
-      if (DisableComponents != false) {
-        output.WriteRawTag(24);
-        output.WriteBool(DisableComponents);
-      }
-      if (VersionMap.Length != 0) {
-        output.WriteRawTag(34);
-        output.WriteBytes(VersionMap);
-      }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int CalculateSize() {
-      int size = 0;
-      if (ChangeNumber != 0L) {
-        size += 1 + pb::CodedOutputStream.ComputeInt64Size(ChangeNumber);
-      }
-      if (BranchName.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(BranchName);
-      }
-      if (DisableComponents != false) {
-        size += 1 + 1;
-      }
-      if (VersionMap.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeBytesSize(VersionMap);
-      }
-      return size;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(PiperDepotSourceContext other) {
-      if (other == null) {
-        return;
-      }
-      if (other.ChangeNumber != 0L) {
-        ChangeNumber = other.ChangeNumber;
-      }
-      if (other.BranchName.Length != 0) {
-        BranchName = other.BranchName;
-      }
-      if (other.DisableComponents != false) {
-        DisableComponents = other.DisableComponents;
-      }
-      if (other.VersionMap.Length != 0) {
-        VersionMap = other.VersionMap;
-      }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(pb::CodedInputStream input) {
-      uint tag;
-      while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
-          default:
-            input.SkipLastField();
-            break;
-          case 8: {
-            ChangeNumber = input.ReadInt64();
-            break;
-          }
-          case 18: {
-            BranchName = input.ReadString();
-            break;
-          }
-          case 24: {
-            DisableComponents = input.ReadBool();
-            break;
-          }
-          case 34: {
-            VersionMap = input.ReadBytes();
-            break;
-          }
-        }
-      }
-    }
-
-  }
-
-  /// <summary>
-  /// A CitC workspace as represented by its ID and snapshot.
-  /// </summary>
-  public sealed partial class CitcWorkspaceSourceContext : pb::IMessage<CitcWorkspaceSourceContext> {
-    private static readonly pb::MessageParser<CitcWorkspaceSourceContext> _parser = new pb::MessageParser<CitcWorkspaceSourceContext>(() => new CitcWorkspaceSourceContext());
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pb::MessageParser<CitcWorkspaceSourceContext> Parser { get { return _parser; } }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pbr::MessageDescriptor Descriptor {
-      get { return global::Google.Devtools.Source.V1.SourceContextReflection.Descriptor.MessageTypes[8]; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    pbr::MessageDescriptor pb::IMessage.Descriptor {
-      get { return Descriptor; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public CitcWorkspaceSourceContext() {
-      OnConstruction();
-    }
-
-    partial void OnConstruction();
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public CitcWorkspaceSourceContext(CitcWorkspaceSourceContext other) : this() {
-      workspaceId_ = other.workspaceId_;
-      snapshotVersion_ = other.snapshotVersion_;
-      branchName_ = other.branchName_;
-      isBaseline_ = other.isBaseline_;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public CitcWorkspaceSourceContext Clone() {
-      return new CitcWorkspaceSourceContext(this);
-    }
-
-    /// <summary>Field number for the "workspace_id" field.</summary>
-    public const int WorkspaceIdFieldNumber = 1;
-    private string workspaceId_ = "";
-    /// <summary>
-    /// A unique identifier for a citc workspace.
-    /// The workspace_id for USER's CLIENT can be found in
-    /// /google/src/cloud/USER/CLIENT/.citc/workspace_id
-    /// </summary>
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public string WorkspaceId {
-      get { return workspaceId_; }
-      set {
-        workspaceId_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
-      }
-    }
-
-    /// <summary>Field number for the "snapshot_version" field.</summary>
-    public const int SnapshotVersionFieldNumber = 2;
-    private ulong snapshotVersion_;
-    /// <summary>
-    /// The snapshot within the workspace. If zero, refers to the moving head of
-    /// the workspace.  Clients which use zero should be robust against remote
-    /// changes made to a workspace.
-    ///
-    /// If non-zero, refers to an immutable CitC snapshot.
-    ///
-    /// The current snapshot_version for USER's CLIENT can be found in
-    /// /google/src/cloud/USER/CLIENT/.citc/snapshot_version
-    /// </summary>
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public ulong SnapshotVersion {
-      get { return snapshotVersion_; }
-      set {
-        snapshotVersion_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "branch_name" field.</summary>
-    public const int BranchNameFieldNumber = 3;
-    private string branchName_ = "";
-    /// <summary>
-    /// See PiperDepotSourceContext.branch_name for documentation.
-    /// </summary>
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public string BranchName {
-      get { return branchName_; }
-      set {
-        branchName_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
-      }
-    }
-
-    /// <summary>Field number for the "is_baseline" field.</summary>
-    public const int IsBaselineFieldNumber = 4;
-    private bool isBaseline_;
-    /// <summary>
-    /// If true, ignore local workspace changes and use the
-    /// baseline of the workspace instead.
-    /// </summary>
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public bool IsBaseline {
-      get { return isBaseline_; }
-      set {
-        isBaseline_ = value;
-      }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override bool Equals(object other) {
-      return Equals(other as CitcWorkspaceSourceContext);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public bool Equals(CitcWorkspaceSourceContext other) {
-      if (ReferenceEquals(other, null)) {
-        return false;
-      }
-      if (ReferenceEquals(other, this)) {
-        return true;
-      }
-      if (WorkspaceId != other.WorkspaceId) return false;
-      if (SnapshotVersion != other.SnapshotVersion) return false;
-      if (BranchName != other.BranchName) return false;
-      if (IsBaseline != other.IsBaseline) return false;
-      return true;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override int GetHashCode() {
-      int hash = 1;
-      if (WorkspaceId.Length != 0) hash ^= WorkspaceId.GetHashCode();
-      if (SnapshotVersion != 0UL) hash ^= SnapshotVersion.GetHashCode();
-      if (BranchName.Length != 0) hash ^= BranchName.GetHashCode();
-      if (IsBaseline != false) hash ^= IsBaseline.GetHashCode();
-      return hash;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override string ToString() {
-      return pb::JsonFormatter.ToDiagnosticString(this);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void WriteTo(pb::CodedOutputStream output) {
-      if (WorkspaceId.Length != 0) {
-        output.WriteRawTag(10);
-        output.WriteString(WorkspaceId);
-      }
-      if (SnapshotVersion != 0UL) {
-        output.WriteRawTag(16);
-        output.WriteUInt64(SnapshotVersion);
-      }
-      if (BranchName.Length != 0) {
-        output.WriteRawTag(26);
-        output.WriteString(BranchName);
-      }
-      if (IsBaseline != false) {
-        output.WriteRawTag(32);
-        output.WriteBool(IsBaseline);
-      }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int CalculateSize() {
-      int size = 0;
-      if (WorkspaceId.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(WorkspaceId);
-      }
-      if (SnapshotVersion != 0UL) {
-        size += 1 + pb::CodedOutputStream.ComputeUInt64Size(SnapshotVersion);
-      }
-      if (BranchName.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(BranchName);
-      }
-      if (IsBaseline != false) {
-        size += 1 + 1;
-      }
-      return size;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(CitcWorkspaceSourceContext other) {
-      if (other == null) {
-        return;
-      }
-      if (other.WorkspaceId.Length != 0) {
-        WorkspaceId = other.WorkspaceId;
-      }
-      if (other.SnapshotVersion != 0UL) {
-        SnapshotVersion = other.SnapshotVersion;
-      }
-      if (other.BranchName.Length != 0) {
-        BranchName = other.BranchName;
-      }
-      if (other.IsBaseline != false) {
-        IsBaseline = other.IsBaseline;
-      }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(pb::CodedInputStream input) {
-      uint tag;
-      while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
-          default:
-            input.SkipLastField();
-            break;
-          case 10: {
-            WorkspaceId = input.ReadString();
-            break;
-          }
-          case 16: {
-            SnapshotVersion = input.ReadUInt64();
-            break;
-          }
-          case 26: {
-            BranchName = input.ReadString();
-            break;
-          }
-          case 32: {
-            IsBaseline = input.ReadBool();
-            break;
-          }
-        }
-      }
-    }
-
-  }
-
-  /// <summary>
   /// A unique identifier for a cloud repo.
   /// </summary>
   public sealed partial class RepoId : pb::IMessage<RepoId> {
@@ -2033,7 +1569,7 @@ namespace Google.Devtools.Source.V1 {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Google.Devtools.Source.V1.SourceContextReflection.Descriptor.MessageTypes[9]; }
+      get { return global::Google.Devtools.Source.V1.SourceContextReflection.Descriptor.MessageTypes[7]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -2224,7 +1760,7 @@ namespace Google.Devtools.Source.V1 {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Google.Devtools.Source.V1.SourceContextReflection.Descriptor.MessageTypes[10]; }
+      get { return global::Google.Devtools.Source.V1.SourceContextReflection.Descriptor.MessageTypes[8]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -2380,7 +1916,7 @@ namespace Google.Devtools.Source.V1 {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Google.Devtools.Source.V1.SourceContextReflection.Descriptor.MessageTypes[11]; }
+      get { return global::Google.Devtools.Source.V1.SourceContextReflection.Descriptor.MessageTypes[9]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]

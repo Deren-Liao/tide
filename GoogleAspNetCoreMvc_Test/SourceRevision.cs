@@ -9,42 +9,39 @@ using System;
 using System.IO;
 using System.Linq;
 using Google.Protobuf;
-using ProtoWellKnownTypes = Google.Protobuf.WellKnownTypes;
-using static StackdriverLogging.ApiRandomLog;
-using GoogleAspNetCoreMvc_Test;
-
-using System.Collections.Generic;
 using Google.Devtools.Source.V1;
 
-namespace Google.Cloud.Logging.V2
+namespace Google.Api
 {
     /// <summary>
-    /// Read source-context.json from app domain root.
+    /// Read source-context.json from app root.
     /// </summary>
-    public static class SourceContextFile
+    public static class SourceRevision
     {
-        #region Debug, remove before checkin
-        private static bool s_firstTime = true;
-        #endregion
         private static Lazy<string> s_sourceContextFilePath = new Lazy<string>(FindSourceContextFile);
         private static Lazy<SourceContext> s_sourceContext = new Lazy<SourceContext>(OpenParseSourceContextFile);
+        private static Lazy<string> s_gitRevisionId => new Lazy<string>(() => SourceContextProtoBuf?.Git.RevisionId);
+
 
         /// <summary>
         /// The source context file name.
         /// </summary>
-        public const string SourceContextFileName = "source-context.json";
+        private const string SourceContextFileName = "source-context.json";
 
         /// <summary>
         /// Gets the source context file path if it exists.
         /// Returns null if the file is not found at root path.
         /// </summary>
-        public static string SourceContextFilePath => s_sourceContextFilePath.Value;
+        private static string SourceContextFilePath => s_sourceContextFilePath.Value;
 
         /// <summary>
         /// Returns the <seealso cref="SourceContext"/> object deserealized from the source context file.
         /// Returns null if the file does not exist, or failed to open/parse the file.
         /// </summary>
-        public static SourceContext SourceContext => s_sourceContext.Value;
+        private static SourceContext SourceContextProtoBuf => s_sourceContext.Value;
+
+        public const string GitRevisionIdLogLabel = "git_revision_id";
+        public static string GitRevisionId => s_gitRevisionId.Value;
 
         private static SourceContext OpenParseSourceContextFile()
         {
@@ -56,7 +53,7 @@ namespace Google.Cloud.Logging.V2
 
             try
             {
-                return JsonParser.Default.Parse<SourceContext>(sourceContext);
+                return JsonParser.Default.Parse<Devtools.Source.V1.SourceContext>(sourceContext);
             }
             catch (Exception ex) when (IsProtobufParserException(ex))
             {
@@ -78,48 +75,17 @@ namespace Google.Cloud.Logging.V2
             }
             catch (Exception ex) when (IsIOException(ex))
             {
-                WriteEntry($"IOException {ex.Message}", appendGit: false);
                 return null;
             }
         }
 
         private static string FindSourceContextFile()
         {
+#if NETCOREAPP1_0
             string root = AppContext.BaseDirectory;
-
-            #region Debug, remove before checkin
-            if (s_firstTime)
-            {
-                var rootAssembly = System.Reflection.Assembly.GetEntryAssembly();
-
-                s_firstTime = false;
-                WriteEntry(
-                $"rootAssembly?.Location is {rootAssembly.Location}",
-                appendGit: false);
-                WriteEntry(
-                    $"swwwRootPath is {Startup.swwwRootPath}",
-                    appendGit: false);
-                WriteEntry(
-                    $"sAppPath is {Startup.sAppPath}",
-                    appendGit: false);
-                // 
-                WriteEntry(
-                    $"AppContext.BaseDirectory {AppContext.BaseDirectory}",
-                    appendGit: false);
-                DirectoryInfo dInfo = new DirectoryInfo(root);
-                var allFiles = String.Join("; ", dInfo.EnumerateFiles().Select(x => x.Name));
-                WriteEntry(
-                    $"files under AppContext.BaseDirectory {allFiles}",
-                    appendGit: false);
-
-                if (string.IsNullOrWhiteSpace(root))
-                {
-                    WriteEntry("root is empty", appendGit: false);
-                    return null;
-                }
-            }
-            #endregion
-
+#else
+            string root = AppDomain.CurrentDomain.BaseDirectory;
+#endif
             var fullPath = Path.Combine(root, SourceContextFileName);
             return File.Exists(fullPath) ? fullPath : null;
         }
