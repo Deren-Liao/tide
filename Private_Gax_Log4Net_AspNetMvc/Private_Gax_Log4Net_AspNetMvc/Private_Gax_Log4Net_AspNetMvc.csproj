@@ -76,8 +76,8 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Google.Cloud.Logging.Log4Net, Version=1.0.0.0, Culture=neutral, PublicKeyToken=185c282632e132a0, processorArchitecture=MSIL">
-      <HintPath>..\packages\Google.Cloud.Logging.Log4Net.1.0.0-beta09\lib\net45\Google.Cloud.Logging.Log4Net.dll</HintPath>
-      <Private>True</Private>
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\deren-net\apis\Google.Cloud.Logging.V2\Google.Cloud.Logging.Log4Net\bin\Debug\net45\Google.Cloud.Logging.Log4Net.dll</HintPath>
     </Reference>
     <Reference Include="Google.Cloud.Logging.Type, Version=1.0.0.0, Culture=neutral, PublicKeyToken=185c282632e132a0, processorArchitecture=MSIL">
       <HintPath>..\packages\Google.Cloud.Logging.Type.1.0.0-beta09\lib\net45\Google.Cloud.Logging.Type.dll</HintPath>
@@ -208,6 +208,7 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="source-context.json" />
     <None Include="Views\Peanut\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
