@@ -13,6 +13,8 @@ namespace Private_Gax_Log4Net_AspNetMvc
         {
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+
+            log4net.Config.XmlConfigurator.Configure();
         }
     }
 }
