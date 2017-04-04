@@ -29,8 +29,8 @@ public static class ExceptionalLogging
 {
   ""eventTime"": """",
   ""serviceContext"": {
-    ""service"": ""frontend"",
-    ""version"": ""bf6b5b09b9d3da92c7bf964ab1664fe751104517""
+    ""service"": ""tytan-1"",
+    ""version"": ""v2.1""
   },
   ""message"": """"
 }

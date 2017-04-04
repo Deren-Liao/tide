@@ -28,7 +28,7 @@ namespace TestLibGit2
                 var repo = new Repository(dir);
                 if (repo != null)
                 {
-                    Commit commit = repo.Lookup<Commit>("8babece202d55d9fca22a884acbe9c0fcffab765");
+                    Commit commit = repo.Lookup<Commit>(sha);
                     if (commit != null)
                     {
                         var remoteURL = repo.Config.Get<string>("remote", "origin", "url").Value;
@@ -41,6 +41,27 @@ namespace TestLibGit2
 
             return null;
         }
+
+        //public static Commit FindCommit(string projectRoot, string sha)
+        //{
+        //    Repository repo;
+        //    try
+        //    {
+        //        repo = new Repository(projectRoot);
+        //    }
+        //    catch (RepositoryNotFoundException)
+        //    {
+        //        return null;
+        //    }
+        //    Commit commit = repo.Lookup<Commit>(sha);
+        //    if (commit != null)
+        //    {
+        //        var remoteURL = repo.Config.Get<string>("remote", "origin", "url").Value;
+        //        Console.WriteLine($"{remoteURL}");
+        //        return commit;
+        //    }
+        //    return commit;
+        //}
 
         public static string OpenFile(Commit commit, string filePath)
         {

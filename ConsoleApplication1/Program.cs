@@ -36,6 +36,11 @@ namespace ConsoleApplication1
 
         static void Main(string[] args)
         {
+            throw new ArgumentNullException(null);
+        }
+
+        static void Main3(string[] args)
+        {
             Console.WriteLine($"null to null compare, {string.Compare(null, null)}");
             Console.WriteLine($"null to empty compare, {string.Compare(null, "")}");
             Console.WriteLine($"empty to empty compare, {string.Compare("", "")}");
