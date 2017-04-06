@@ -397,5 +397,10 @@ namespace Microsoft.Samples.VisualStudio.IDE.ToolWindow
             window.Document.ReadOnly = true;
             File.Delete(tmpFile);
         }
+
+        private void _GitProvider_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
