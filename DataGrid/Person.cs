@@ -69,7 +69,9 @@ namespace LogView
             list.Add(new Person() { Id = 3, Name = "Person3", Position = "Programmer", SkillList = new List<Skill>() });
             list.Add(new Person() { Id = 4, Name = "Person4", Position = "Admin", SkillList = new List<Skill>() });
             list.Add(new Person() { Id = 5, Name = "Person5", Position = "Tester", SkillList = new List<Skill>() });
-            list.Add(new Person() { Id = 6, Name = "Person6", Position = "Developer", SkillList = new List<Skill>() });
+            list.Add(new Person() { Id = 6, Name = "Person6",
+                Position = "Developer you bear a very long name, so you see a very long string.  you see a very long string  you see a very long string  you see a very long string  you see a very long string",
+                SkillList = new List<Skill>() });
             list.Add(new Person() { Id = 7, Name = "Person7", Position = "Developer", SkillList = new List<Skill>() });
             return list;
         }

@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{1010D7E3-DAD2-477D-B0D9-8D42F45C0E28}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>StackdriverLogging</RootNamespace>
+    <AssemblyName>StackdriverLogging</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Google.Api.CommonProtos">
+      <HintPath>..\..\deren-net\apis\Google.Cloud.Logging.V2\Google.Cloud.Logging.V2\bin\Debug\net45\Google.Api.CommonProtos.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Api.Gax">
+      <HintPath>..\..\deren-net\apis\Google.Cloud.Logging.V2\Google.Cloud.Logging.V2\bin\Debug\net45\Google.Api.Gax.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Api.Gax.Grpc">
+      <HintPath>..\..\deren-net\apis\Google.Cloud.Logging.V2\Google.Cloud.Logging.V2\bin\Debug\net45\Google.Api.Gax.Grpc.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Apis">
+      <HintPath>..\..\deren-net\apis\Google.Cloud.Logging.V2\Google.Cloud.Logging.V2\bin\Debug\net45\Google.Apis.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Apis.Auth">
+      <HintPath>..\..\deren-net\apis\Google.Cloud.Logging.V2\Google.Cloud.Logging.V2\bin\Debug\net45\Google.Apis.Auth.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Apis.Auth.PlatformServices">
+      <HintPath>..\..\deren-net\apis\Google.Cloud.Logging.V2\Google.Cloud.Logging.V2\bin\Debug\net45\Google.Apis.Auth.PlatformServices.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Apis.Core">
+      <HintPath>..\..\deren-net\apis\Google.Cloud.Logging.V2\Google.Cloud.Logging.V2\bin\Debug\net45\Google.Apis.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Apis.PlatformServices">
+      <HintPath>..\..\deren-net\apis\Google.Cloud.Logging.V2\Google.Cloud.Logging.V2\bin\Debug\net45\Google.Apis.PlatformServices.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Cloud.Logging.Type">
+      <HintPath>..\..\deren-net\apis\Google.Cloud.Logging.V2\Google.Cloud.Logging.V2\bin\Debug\net45\Google.Cloud.Logging.Type.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Cloud.Logging.V2">
+      <HintPath>..\..\deren-net\apis\Google.Cloud.Logging.V2\Google.Cloud.Logging.V2\bin\Debug\net45\Google.Cloud.Logging.V2.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Protobuf">
+      <HintPath>..\..\deren-net\apis\Google.Cloud.Logging.V2\Google.Cloud.Logging.V2\bin\Debug\net45\Google.Protobuf.dll</HintPath>
+    </Reference>
+    <Reference Include="Grpc.Auth">
+      <HintPath>..\..\deren-net\apis\Google.Cloud.Logging.V2\Google.Cloud.Logging.V2\bin\Debug\net45\Grpc.Auth.dll</HintPath>
+    </Reference>
+    <Reference Include="Grpc.Core">
+      <HintPath>..\..\deren-net\apis\Google.Cloud.Logging.V2\Google.Cloud.Logging.V2\bin\Debug\net45\Grpc.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\deren-net\apis\Google.Cloud.Logging.V2\Google.Cloud.Logging.V2\bin\Debug\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Interactive.Async">
+      <HintPath>..\..\deren-net\apis\Google.Cloud.Logging.V2\Google.Cloud.Logging.V2\bin\Debug\net45\System.Interactive.Async.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Zlib.Portable">
+      <HintPath>..\..\deren-net\apis\Google.Cloud.Logging.V2\Google.Cloud.Logging.V2\bin\Debug\net45\Zlib.Portable.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="LogException.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="error-reporting-template.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WriteTraceToFile\WriteTraceToFile.csproj">
+      <Project>{848f1ea3-0d2a-4517-b39f-854e51209d89}</Project>
+      <Name>WriteTraceToFile</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

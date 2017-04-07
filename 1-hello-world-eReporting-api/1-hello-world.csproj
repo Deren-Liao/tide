@@ -210,6 +210,10 @@
       <Project>{7f65febf-111b-4810-8cff-d5e78c08522c}</Project>
       <Name>EReportingApi</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ExceptionGenerator\ExceptionGenerator.csproj">
+      <Project>{afdb26c0-3682-4b2a-8f7b-3ea434de639c}</Project>
+      <Name>ExceptionGenerator</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WriteTraceToFile\WriteTraceToFile.csproj">
       <Project>{848f1ea3-0d2a-4517-b39f-854e51209d89}</Project>
       <Name>WriteTraceToFile</Name>

@@ -30,6 +30,7 @@ namespace GoogleCloudSamples
     public class ErrorReportingApiTestException : Exception
     {
         public ErrorReportingApiTestException(string message) : base(message) { }
+        public ErrorReportingApiTestException(string message, Exception inner) : base(message, inner) { }
     }
 
     public static class WebApiConfig
@@ -83,7 +84,9 @@ namespace GoogleCloudSamples
 
         public static void ThrowException()
         {
-            throw new ErrorReportingApiTestException($"E Reporting Api snow test.");
+            var ex = ExceptionGenerator.GenerateException(
+                () => ExceptionGenerator.LoopThenException(10, "inner exception test from error api"));
+            throw new ErrorReportingApiTestException("error api exception test", ex);
         }
         // [END sample]
     }

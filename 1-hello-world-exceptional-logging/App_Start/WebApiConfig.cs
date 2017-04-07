@@ -51,7 +51,7 @@ namespace GoogleCloudSamples
                 ILog log = LogManager.GetLogger(typeof(WebApiConfig));
                
                 // Log some information to Google Stackdriver Logging.
-                log.Info($"exceptional logging {counter}.");
+                log.Info($"The even better exceptional logging {counter}.");
 
                 if ((counter%2) == 0)
                 {
@@ -59,7 +59,7 @@ namespace GoogleCloudSamples
                     {
                         ThrowException();
                     }
-                    catch (ALoggingException ex)
+                    catch (Exception ex) 
                     {
                         WriteExceptionalLog(ex);
                         return Task.FromResult(new HttpResponseMessage()
@@ -86,7 +86,7 @@ namespace GoogleCloudSamples
 
         public static void ThrowException()
         {
-            throw new ALoggingException($"This is to test the exceptional logging");
+            ExceptionGenerator.LoopThenException(3, "Write Exception by Stackdriver Logging API");
         }
         // [END sample]
     }
