@@ -13,6 +13,8 @@ namespace ConsoleApplication2
     {
         static void Main(string[] args)
         {
+            var sp = "".Split(';');
+
             string plain = "I can see";
 
             using (var sr = new StreamReader(@"C:\Users\derenl\Documents\tmpa\test.json"))

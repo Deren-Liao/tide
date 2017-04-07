@@ -109,6 +109,16 @@ class RepositoryInformation : IDisposable
         Console.WriteLine(text.Substring(0, 100));
     }
 
+    public List<string> ListTree(string gitSha)
+    {
+        string output = RunCommand($"ls-tree -r {gitSha} --name-only");
+        if (output == null)
+        {
+            return null;
+        }
+        return new List<string>(output.Split(new string[] { "\n", "\r" }, StringSplitOptions.RemoveEmptyEntries));
+    }
+
     private bool IsGitRepository
     {
         get
@@ -124,6 +134,30 @@ class RepositoryInformation : IDisposable
         string output = _gitProcess.StandardOutput.ReadToEnd().Trim();
         _gitProcess.WaitForExit();
         return output;
+    }
+
+    /// <summary>
+    /// This method compare two files line by line.
+    /// </summary>
+    /// <param name="revisionFileContent">The file content of the revision file.</param>
+    /// <param name="currentFilePath">The checked out file path.</param>
+    /// <returns>
+    /// True: the two files content are same.
+    /// False: thw two files differs.
+    /// </returns>
+    private bool FileCompare(List<string> revisionFileContent, string currentFilePath)
+    {
+        using (var sr = new StreamReader(currentFilePath))
+        {
+            foreach (var line in revisionFileContent)
+            {
+                if (sr.EndOfStream || line != sr.ReadLine())
+                {
+                    return false;
+                }
+            }
+            return sr.EndOfStream;
+        }
     }
 
     private bool _disposed;

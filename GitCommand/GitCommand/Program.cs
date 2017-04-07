@@ -22,6 +22,7 @@ namespace GitCommand
             WriteLine($"{repo.BranchName}");
             repo.DoesCommitExists(sha);
             repo.GetFileRevision(sha, file, @"c:\tmp\git-command-test");
+            var text = repo.ListTree(sha);
             ReadKey();
         }
     }
