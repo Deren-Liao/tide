@@ -13,6 +13,8 @@ namespace ConsoleApplication2
     {
         static void Main(string[] args)
         {
+            Program2.Mainx();
+
             var sp = "".Split(';');
 
             string plain = "I can see";
