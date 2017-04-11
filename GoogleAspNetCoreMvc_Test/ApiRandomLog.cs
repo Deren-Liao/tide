@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using Google.Cloud.DevTools.Source.V1;
 using Google.Cloud.Logging.V2;
 using Google.Cloud.Logging.Type;
 using Google.Api;
@@ -44,9 +45,9 @@ namespace StackdriverLogging
                 { "color", "red" }
             };
 
-            if (appendGit && SourceRevision.GitRevisionId != null)
+            if (appendGit && SourceContextFile.GitRevisionId != null)
             {
-                entryLabels.Add(SourceRevision.GitRevisionIdLogLabel, SourceRevision.GitRevisionId);
+                entryLabels.Add(SourceContextFile.GitRevisionIdLogLabel, SourceContextFile.GitRevisionId);
             }
 
             MonitoredResource resource = new MonitoredResource { Type = "global" };

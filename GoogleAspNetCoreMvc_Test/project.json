@@ -1,4 +1,4 @@
-﻿{
+{
   "dependencies": {
     "Google.Cloud.Diagnostics.AspNetCore": "1.0.0-alpha04",
     "Microsoft.NETCore.App": {
@@ -20,7 +20,8 @@
     "Microsoft.Extensions.Logging.Console": "1.0.0",
     "Microsoft.Extensions.Logging.Debug": "1.0.0",
     "Microsoft.Extensions.Options.ConfigurationExtensions": "1.0.0",
-    "Microsoft.VisualStudio.Web.BrowserLink.Loader": "14.0.0"
+    "Microsoft.VisualStudio.Web.BrowserLink.Loader": "14.0.0",
+    "Google.Cloud.DevTools.Common": "1.0.0-alpha00-*"
   },
 
   "tools": {
