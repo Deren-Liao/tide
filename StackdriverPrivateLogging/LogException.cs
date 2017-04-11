@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Collections;
 
+using Google.Cloud.DevTools.Source.V1;
 using Google.Cloud.Logging.V2;
 using Google.Cloud.Logging.Type;
 using Google.Api;
@@ -68,9 +69,9 @@ public static class ExceptionalLogging
             { "color", "red" }
         };
 
-        if (SourceRevision.GitRevisionId != null)
+        if (SourceContextFile.GitRevisionId != null)
         {
-            entryLabels.Add(SourceRevision.GitRevisionIdLogLabel, SourceRevision.GitRevisionId);
+            entryLabels.Add(SourceContextFile.GitRevisionIdLogLabel, SourceContextFile.GitRevisionId);
         }
 
         var client = _client.Value;
