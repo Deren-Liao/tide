@@ -11,8 +11,31 @@ namespace ConsoleApplication2
 {
     class Program
     {
+        static async Task DoTask()
+        {
+            if (2 == 2)
+            {
+                return;
+            }
+            else
+            {
+                await Task.Delay(10);
+                return;
+            }
+        }
+
         static void Main(string[] args)
         {
+            bool? a = null;
+            if (a == true)
+            {
+                WriteLine("a is true");
+            }
+
+            var task = DoTask();
+            task.Wait();
+
+
             Program2.Mainx();
 
             var sp = "".Split(';');
