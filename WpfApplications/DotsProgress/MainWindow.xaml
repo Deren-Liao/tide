@@ -1,0 +1,134 @@
+﻿<Window x:Class="DotsProgress.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:ctl ="clr-namespace:GoogleCloudExtension.Controls">
+    <Window.Resources>
+
+
+            <Style TargetType="{x:Type ProgressBar}">
+                <Style.Resources>
+                    <Style x:Key="NormalDot" TargetType="{x:Type Ellipse}">
+                        <Setter Property="Margin" Value="4" />
+                        <Setter Property="Width" Value="10" />
+                        <Setter Property="Height" Value="10" />
+                        <Setter Property="Fill" Value="Gray" />
+                    </Style>
+                    <Style x:Key="ProgressDot" BasedOn="{StaticResource NormalDot}"
+                       TargetType="{x:Type Ellipse}">
+                        <Setter Property="Fill" Value="White" />
+                    </Style>
+                </Style.Resources>
+                <Setter Property="Background" Value="Black" />
+                <Setter Property="Height" Value="18" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type ProgressBar}">
+                            <Grid Background="{TemplateBinding Background}">
+                                <StackPanel x:Name="PART_Track" Orientation="Horizontal"
+                                HorizontalAlignment="Left" VerticalAlignment="Center">
+                                    <Ellipse Style="{StaticResource NormalDot}" />
+                                    <Ellipse Style="{StaticResource NormalDot}" />
+                                    <Ellipse Style="{StaticResource NormalDot}" />
+                                    <Ellipse Style="{StaticResource NormalDot}" />
+                                    <Ellipse Style="{StaticResource NormalDot}" />
+                                    <Ellipse Style="{StaticResource NormalDot}" />
+                                    <Ellipse Style="{StaticResource NormalDot}" />
+                                    <Ellipse Style="{StaticResource NormalDot}" />
+                                    <Ellipse Style="{StaticResource NormalDot}" />
+                                    <Ellipse Style="{StaticResource NormalDot}" />
+                                    <Ellipse Style="{StaticResource NormalDot}" />
+                                    <Ellipse Style="{StaticResource NormalDot}" />
+                                    <Ellipse Style="{StaticResource NormalDot}" />
+                                    <Ellipse Style="{StaticResource NormalDot}" />
+                                    <Ellipse Style="{StaticResource NormalDot}" />
+                                    <Ellipse Style="{StaticResource NormalDot}" />
+                                    <Ellipse Style="{StaticResource NormalDot}" />
+                                    <Ellipse Style="{StaticResource NormalDot}" />
+                                    <Ellipse Style="{StaticResource NormalDot}" />
+                                    <Ellipse Style="{StaticResource NormalDot}" />
+                                </StackPanel>
+
+                                <StackPanel x:Name="PART_Indicator" Orientation="Horizontal" 
+                                HorizontalAlignment="Left" VerticalAlignment="Center">
+                                    <Ellipse Style="{StaticResource ProgressDot}" />
+                                    <Ellipse Style="{StaticResource ProgressDot}" />
+                                    <Ellipse Style="{StaticResource ProgressDot}" />
+                                    <Ellipse Style="{StaticResource ProgressDot}" />
+                                    <Ellipse Style="{StaticResource ProgressDot}" />
+                                    <Ellipse Style="{StaticResource ProgressDot}" />
+                                    <Ellipse Style="{StaticResource ProgressDot}" />
+                                    <Ellipse Style="{StaticResource ProgressDot}" />
+                                    <Ellipse Style="{StaticResource ProgressDot}" />
+                                    <Ellipse Style="{StaticResource ProgressDot}" />
+                                    <Ellipse Style="{StaticResource ProgressDot}" />
+                                    <Ellipse Style="{StaticResource ProgressDot}" />
+                                    <Ellipse Style="{StaticResource ProgressDot}" />
+                                    <Ellipse Style="{StaticResource ProgressDot}" />
+                                    <Ellipse Style="{StaticResource ProgressDot}" />
+                                    <Ellipse Style="{StaticResource ProgressDot}" />
+                                    <Ellipse Style="{StaticResource ProgressDot}" />
+                                    <Ellipse Style="{StaticResource ProgressDot}" />
+                                    <Ellipse Style="{StaticResource ProgressDot}" />
+                                    <Ellipse Style="{StaticResource ProgressDot}" />
+                                </StackPanel>
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="BlueDot" TargetType="{x:Type Ellipse}">
+                <Setter Property="Margin" Value="4" />
+                <Setter Property="Width" Value="8" />
+                <Setter Property="Height" Value="8" />
+                <Setter Property="Fill" Value="Blue" />
+                <Setter Property="Margin" Value="5" />
+            </Style>
+
+            <Style x:Key="SmallerDot" TargetType="{x:Type Ellipse}">
+                <Setter Property="Margin" Value="4" />
+                <Setter Property="Width" Value="5" />
+                <Setter Property="Height" Value="5" />
+                <Setter Property="Fill" Value="Blue" />
+                <Setter Property="Margin" Value="5" />
+            </Style>
+
+            <Storyboard RepeatBehavior="Forever" x:Key="mystoryboard" Name="hello" >
+                <DoubleAnimation Storyboard.TargetName="dotProgress3" BeginTime="0:0:0.2" Storyboard.TargetProperty="Opacity" From="1" To="0"/>
+                <DoubleAnimation Storyboard.TargetName="dotProgress1" BeginTime="0:0:0.2" Storyboard.TargetProperty="Opacity" From="0" To="1"/>
+                <DoubleAnimation Storyboard.TargetName="dotProgress1" BeginTime="0:0:0.4" Storyboard.TargetProperty="Opacity" From="1" To="0"/>
+                <DoubleAnimation Storyboard.TargetName="dotProgress2" BeginTime="0:0:0.4" Storyboard.TargetProperty="Opacity" From="0" To="1"/>
+                <DoubleAnimation Storyboard.TargetName="dotProgress2" BeginTime="0:0:0.6" Storyboard.TargetProperty="Opacity" From="1" To="0"/>
+                <DoubleAnimation Storyboard.TargetName="dotProgress3" BeginTime="0:0:0.6" Storyboard.TargetProperty="Opacity" From="0" To="1"/>
+            </Storyboard>
+
+
+    </Window.Resources>
+
+    <StackPanel>
+        <ProgressBar Value="{Binding Value, ElementName=_slider}"
+            VerticalAlignment="Top" />
+
+        <!--<StackPanel Orientation="Horizontal">
+            <Ellipse Margin="5" Name="dotProgress1" Style="{StaticResource BlueDot}" />
+            <Ellipse Margin="5" Name="dotProgress2" Style="{StaticResource BlueDot}" />
+            <Ellipse Margin="5" Name="dotProgress3" Style="{StaticResource BlueDot}" />
+
+
+        </StackPanel>-->
+
+        <Grid>
+        <UniformGrid Name="_progress" Rows="1" Columns="3" Width="100">
+        </UniformGrid>
+        
+        <UniformGrid Name="_static" Rows="1" Columns="3" Width="100">
+        </UniformGrid>
+        </Grid>
+
+
+        <Slider x:Name="_slider" Minimum="0" Maximum="100"
+            VerticalAlignment="Bottom" />
+        <Button Content="Button" HorizontalAlignment="Left" Margin="41,417,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_1"/>
+
+    </StackPanel>
+</Window>
