@@ -32,6 +32,8 @@ namespace Private_Gax_Log4Net_AspNetMvc.Controllers
                 s_logger.Info($"Log a message {i} {DateTime.UtcNow.ToString("O")}");
             }
 
+            Class1JustTime.WriteLog(s_logger);
+
             return Content(count.ToString());
         }
 
