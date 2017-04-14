@@ -187,9 +187,35 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="..\..\..\deren-net\apis\Google.Cloud.Logging.V2\Google.Cloud.Logging.Log4Net\bin\Debug\net45\Google.Cloud.DevTools.Common.dll">
+      <Link>Google.Cloud.DevTools.Common.dll</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\deren-net\apis\Google.Cloud.Logging.V2\Google.Cloud.Logging.Log4Net\bin\Debug\net45\Google.Cloud.DevTools.Common.pdb">
+      <Link>Google.Cloud.DevTools.Common.pdb</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\deren-net\apis\Google.Cloud.Logging.V2\Google.Cloud.Logging.Log4Net\bin\Debug\net45\Google.Cloud.DevTools.Common.xml">
+      <Link>Google.Cloud.DevTools.Common.xml</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\deren-net\apis\Google.Cloud.Logging.V2\Google.Cloud.Logging.Log4Net\bin\Debug\net45\Google.Cloud.Logging.Log4Net.dll">
+      <Link>Google.Cloud.Logging.Log4Net.dll</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\deren-net\apis\Google.Cloud.Logging.V2\Google.Cloud.Logging.Log4Net\bin\Debug\net45\Google.Cloud.Logging.Log4Net.pdb">
+      <Link>Google.Cloud.Logging.Log4Net.pdb</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\deren-net\apis\Google.Cloud.Logging.V2\Google.Cloud.Logging.Log4Net\bin\Debug\net45\Google.Cloud.Logging.Log4Net.xml">
+      <Link>Google.Cloud.Logging.Log4Net.xml</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Global.asax" />
     <Content Include="Scripts\main.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -206,7 +232,11 @@
     </Content>
     <Content Include="source-context.json" />
     <Content Include="packages.config" />
-    <None Include="Views\Peanut\Index.cshtml" />
+    <Content Include="Views\Peanut\Index.cshtml" />
+    <Content Include="..\..\..\deren-net\apis\Google.Cloud.Logging.V2\Google.Cloud.Logging.Log4Net\bin\Debug\net45\Google.Cloud.Logging.Log4Net.dll.config">
+      <Link>Google.Cloud.Logging.Log4Net.dll.config</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
