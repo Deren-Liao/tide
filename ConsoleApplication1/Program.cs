@@ -36,7 +36,10 @@ namespace ConsoleApplication1
 
         static void Main(string[] args)
         {
-            throw new ArgumentNullException(null);
+            List<int> lint = null;
+            Console.WriteLine($"lint?.count is {lint == null || lint.Count == 0}");
+            Console.WriteLine($"{DateTime.UtcNow:O}");
+            Console.ReadKey();
         }
 
         static void Main3(string[] args)

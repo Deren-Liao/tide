@@ -16,7 +16,8 @@
     </UserControl.Resources>
     <Grid>
 
-        <ctl:DotsProgressBar Width="100"/>
+        <ctl:DotsProgressBar 
+            Width="60"/>
 
     </Grid>
 </UserControl>

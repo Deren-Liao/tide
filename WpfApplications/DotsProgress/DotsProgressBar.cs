@@ -15,23 +15,22 @@
 using System;
 using System.Collections.Generic;
 using System.Windows;
-using System.Windows.Input;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Media.Animation;
-using System.Windows.Threading;
 using System.Windows.Shapes;
 
 namespace GoogleCloudExtension.Controls
 {
     /// <summary>
+    /// Define a control that shows moving dots as progress indicator.
     /// </summary>
     [TemplatePart(Name = "PART_StaticDotsGrid", Type = typeof(UniformGrid))]
     [TemplatePart(Name = "PART_MovingDotsGrid", Type = typeof(UniformGrid))]
     public class DotsProgressBar : Control
     {
         private const int DotsCount = 5;
-        private const int Duration = 1000;     // in milliseconds
+        private const int Duration = 800;     // in milliseconds
         private List<Ellipse> _dots = new List<Ellipse>();
         private UniformGrid _staticGrid;
         private UniformGrid _movingGrid;
