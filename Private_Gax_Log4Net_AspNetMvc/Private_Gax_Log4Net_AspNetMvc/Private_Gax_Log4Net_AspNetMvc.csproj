@@ -249,10 +249,6 @@
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\deren-net\apis\Google.Cloud.DevTools.Common\Google.Cloud.DevTools.Common\Google.Cloud.DevTools.Common.xproj">
-      <Project>{e61c95cb-8357-49a9-8c96-64a4c25697df}</Project>
-      <Name>Google.Cloud.DevTools.Common</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\deren-net\apis\Google.Cloud.Logging.V2\Google.Cloud.Logging.Log4Net\Google.Cloud.Logging.Log4Net.xproj">
       <Project>{b27e7461-3714-44f6-bd2d-e7579a85f759}</Project>
       <Name>Google.Cloud.Logging.Log4Net</Name>
