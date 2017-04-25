@@ -226,7 +226,6 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="source-context.json" />
     <Content Include="packages.config" />
     <Content Include="Views\Peanut\Index.cshtml" />
     <None Include="Web.Debug.config">
