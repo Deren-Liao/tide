@@ -15,8 +15,35 @@ namespace RemotePowershell
     {
         static void Main(string[] args)
         {
-            StartPowershell("35.184.53.125");
+            StartPowershell("104.199.125.11");
         }
+
+        //private static void AnotherExample()
+        //{
+        //    string shellUri = "http://schemas.microsoft.com/powershell/Microsoft.PowerShell";
+        //    string password;
+        //    string user = "deren";
+        //    SecureString secureString = new SecureString();
+        //    password.ToCharArray().ToList().ForEach(p => secureString.AppendChar(p));
+
+        //    PSCredential remoteCredential = new PSCredential(user, secureString);
+        //    WSManConnectionInfo connectionInfo = new WSManConnectionInfo(true, "Ip Address of server", 5985, "/wsman", shellUri, remoteCredential, 1 * 60 * 1000);
+
+        //    string scriptPath = $@"
+        //$Session = New-PSSession -ConfigurationName Microsoft.Exchange -ConnectionUri http://servername/poweshell -Credential {remoteCredential} | Out-String
+        //Import-PSSession $Session";
+
+        //    Runspace runspace = RunspaceFactory.CreateRunspace(connectionInfo);
+        //    connectionInfo.AuthenticationMechanism = AuthenticationMechanism.Basic;
+        //    runspace.Open();
+        //    RunspaceInvoke scriptInvoker = new RunspaceInvoke(runspace);
+        //    Pipeline pipeline = runspace.CreatePipeline();
+        //    string scriptfile = scriptPath;
+        //    Command myCommand = new Command(scriptfile, false);
+        //    pipeline.Commands.Add(myCommand);
+        //    pipeline.Invoke();
+        //    runspace.Close();
+        //}
 
         //private static void StartPowershell(string sRemote)
         //{
@@ -70,12 +97,12 @@ namespace RemotePowershell
 
         private static void StartPowershell(string sRemote)
         {
-            int iRemotePort = 5985;
+            int iRemotePort = 5986;
             string strShellURI = @"http://schemas.microsoft.com/powershell/Microsoft.PowerShell";
             string strAppName = @"/wsman";
             AuthenticationMechanism auth = AuthenticationMechanism.Default;
             string user = "deren";
-            string password = 
+            string password = Console.ReadLine();
 
             SecureString secureString = new SecureString();
             password.ToCharArray().ToList().ForEach(p => secureString.AppendChar(p));
@@ -102,21 +129,27 @@ namespace RemotePowershell
             //psh.Dispose();
             //runspace.Dispose();
 
+string script =
+@"
+cd c:\users\deren\documents\remoteDebugger
+dir
+.\msvsmon.exe /prepcomputer /public
+.\msvsmon.exe /silent 
+";
+
             using (var runSpace = RunspaceFactory.CreateRunspace(connectionInfo))
             {
-                // var p = runSpace.CreatePipeline();
+                var psh = runSpace.CreatePipeline();
                 runSpace.Open();
-                PowerShell psh = PowerShell.Create();
                 Console.WriteLine("Connected to {0}", sRemote);
                 Console.WriteLine("As {0}", user);
-                Console.Write("Command to run: ");
-                var cmd = Console.ReadLine();
-                PSCommand command = new PSCommand();
-                command.AddArgument(@"echo ""aaa""  .\a.txt ");
-                psh.Commands = command;
+                //runSpace.SessionStateProxy.Path.SetLocation(@"c:\users\deren\documents\remoteDebugger");
+                psh.Commands.AddScript(script);
                 var returnValue = psh.Invoke();
                 foreach (var v in returnValue)
                     Console.WriteLine(v.ToString());
+
+                Console.ReadLine();
             }
         }
 

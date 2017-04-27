@@ -3,7 +3,7 @@
 # 35.185.42.18 aspnet-3
 
 $SessionOptions = New-PSSessionOption –SkipCACheck –SkipCNCheck –SkipRevocationCheck
-$session = New-PSSession 104.196.225.68 -UseSSL -SessionOption $SessionOptions -Credential Deren 
+$session = New-PSSession 104.199.125.11 -UseSSL -SessionOption $SessionOptions -Credential Deren 
 #Copy-Item -Path "C:\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\IDE\Remote Debugger\x64\" `
 #    -Destination "C:\Users\deren\Documents\RemoteDebugger" -ToSession $session -Recurse
 Enter-PSSession $session
