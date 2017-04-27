@@ -8,6 +8,8 @@ using System.Management.Automation.Runspaces;
 using System.Management.Automation;
 using System.Security;
 using System.Runtime.InteropServices;
+using System.IO;
+using static System.Console;
 
 namespace RemotePowershell
 {
@@ -15,7 +17,19 @@ namespace RemotePowershell
     {
         static void Main(string[] args)
         {
-            StartPowershell("104.199.125.11");
+            //StartPowershell("35.185.240.69");
+            //WriteLine("Input password");
+            //string password = ReadLine();
+            RemotePowerShellUtils rps = new RemotePowerShellUtils("35.185.240.69", "deren", s_lazySecret.Value);
+            // rps.ExecuteAsync(rps.AddCopyCommands);  --- Done, good
+            //  Console.ReadKey();
+
+
+            //rps.EnterSessionAsync(rps.AddSetupMsvsmonCommands);
+            //Console.ReadKey();
+
+            rps.EnterSessionAsync(rps.AddStartmsvsmonCommands);
+            //Console.ReadKey();
         }
 
         //private static void AnotherExample()
@@ -81,6 +95,24 @@ namespace RemotePowershell
         //    }
         //}
 
+
+
+        private static readonly Lazy<string> s_lazySecret = new Lazy<string>(() => OpenFileGetLine(@".\password.txt"));
+
+        private static string OpenFileGetLine(string relativePath)
+        {
+            using (var sr = new StreamReader(relativePath))
+            {
+                var sec = sr.ReadLine().Trim();
+                if (string.IsNullOrEmpty(sec))
+                {
+                    throw new Exception("Failed to get secret");
+                }
+
+                return sec;
+            }
+        }
+
         static string SecureStringToString(SecureString value)
         {
             IntPtr valuePtr = IntPtr.Zero;
@@ -94,6 +126,12 @@ namespace RemotePowershell
                 Marshal.ZeroFreeGlobalAllocUnicode(valuePtr);
             }
         }
+
+        private static void CopyFiles(string sRemote)
+        {
+
+        }
+
 
         private static void StartPowershell(string sRemote)
         {
@@ -131,10 +169,10 @@ namespace RemotePowershell
 
 string script =
 @"
-cd c:\users\deren\documents\remoteDebugger
-dir
-.\msvsmon.exe /prepcomputer /public
-.\msvsmon.exe /silent 
+#cd c:\users\deren\documents\remoteDebugger
+#dir
+#.\msvsmon.exe /prepcomputer /public
+#.\msvsmon.exe /silent 
 ";
 
             using (var runSpace = RunspaceFactory.CreateRunspace(connectionInfo))
