@@ -45,9 +45,9 @@ namespace StackdriverLogging
                 { "color", "red" }
             };
 
-            if (appendGit && SourceContextFile.GitRevisionId != null)
+            if (appendGit && SourceContext.AppSourceContext?.Git?.RevisionId != null)
             {
-                entryLabels.Add(SourceContextFile.GitRevisionIdLogLabel, SourceContextFile.GitRevisionId);
+                entryLabels.Add(SourceContext.GitRevisionIdLogLabel, SourceContext.AppSourceContext?.Git?.RevisionId);
             }
 
             MonitoredResource resource = new MonitoredResource { Type = "global" };
