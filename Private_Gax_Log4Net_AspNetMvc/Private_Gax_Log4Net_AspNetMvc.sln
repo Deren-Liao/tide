@@ -4,12 +4,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Private_Gax_Log4Net_AspNetMvc", "Private_Gax_Log4Net_AspNetMvc\Private_Gax_Log4Net_AspNetMvc.csproj", "{8683659B-6463-46BF-B427-24AFDD6BB227}"
+	ProjectSection(ProjectDependencies) = postProject
+		{35B8D21D-0253-417F-B171-06BF70AA9485} = {35B8D21D-0253-417F-B171-06BF70AA9485}
+		{B27E7461-3714-44F6-BD2D-E7579A85F759} = {B27E7461-3714-44F6-BD2D-E7579A85F759}
+		{A8382B79-21E7-4AAD-AFF8-AB8707958128} = {A8382B79-21E7-4AAD-AFF8-AB8707958128}
+	EndProjectSection
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Google.Cloud.Logging.Log4Net", "..\..\deren-net\apis\Google.Cloud.Logging.V2\Google.Cloud.Logging.Log4Net\Google.Cloud.Logging.Log4Net.xproj", "{B27E7461-3714-44F6-BD2D-E7579A85F759}"
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Google.Cloud.Logging.Log4Net", "..\..\deren-net\google-cloud-dotnet\apis\Google.Cloud.Logging.V2\Google.Cloud.Logging.Log4Net\Google.Cloud.Logging.Log4Net.xproj", "{B27E7461-3714-44F6-BD2D-E7579A85F759}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Google.Cloud.Logging.Type", "..\..\deren-net\apis\Google.Cloud.Logging.V2\Google.Cloud.Logging.Type\Google.Cloud.Logging.Type.xproj", "{A8382B79-21E7-4AAD-AFF8-AB8707958128}"
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Google.Cloud.Logging.Type", "..\..\deren-net\google-cloud-dotnet\apis\Google.Cloud.Logging.V2\Google.Cloud.Logging.Type\Google.Cloud.Logging.Type.xproj", "{A8382B79-21E7-4AAD-AFF8-AB8707958128}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Google.Cloud.Logging.V2", "..\..\deren-net\apis\Google.Cloud.Logging.V2\Google.Cloud.Logging.V2\Google.Cloud.Logging.V2.xproj", "{35B8D21D-0253-417F-B171-06BF70AA9485}"
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Google.Cloud.Logging.V2", "..\..\deren-net\google-cloud-dotnet\apis\Google.Cloud.Logging.V2\Google.Cloud.Logging.V2\Google.Cloud.Logging.V2.xproj", "{35B8D21D-0253-417F-B171-06BF70AA9485}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
