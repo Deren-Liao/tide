@@ -11,7 +11,7 @@ namespace Private_Gax_Log4Net_AspNetMvc
     {
         public static void WriteLog(ILog logger)
         {
-            logger.Error("This is not error. This is correct");
+            logger.Error("This is not error. This is correct. Monday.");
         }
     }
 }
