@@ -86,7 +86,7 @@ namespace GoogleCloudSamples
 
         public static void ThrowException()
         {
-            ExceptionGenerator.LoopThenException(3, "Write Exception by Stackdriver Logging API");
+            ExceptionGenerator.LoopThenException(9, "Test application to write error through Stackdriver Logging Api");
         }
         // [END sample]
     }

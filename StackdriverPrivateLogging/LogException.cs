@@ -69,9 +69,9 @@ public static class ExceptionalLogging
             { "color", "red" }
         };
 
-        if (SourceContextFile.GitRevisionId != null)
+        if (SourceContext.AppSourceContext?.Git?.RevisionId != null)
         {
-            entryLabels.Add(SourceContextFile.GitRevisionIdLogLabel, SourceContextFile.GitRevisionId);
+            entryLabels.Add(SourceContext.GitRevisionIdLogLabel, SourceContext.AppSourceContext?.Git?.RevisionId);
         }
 
         var client = _client.Value;
