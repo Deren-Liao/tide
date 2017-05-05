@@ -302,3 +302,4 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 /ConsoleApplication/RemotePowershell/RemotePowershell/password.txt
+/ConsoleApplication/credential-helper/credential-helper/password.txt
