@@ -1,0 +1,1 @@
+copy /Y c:\deren-vs\GoogleCloudExtension\GoogleCloudExtension\bin\Debug\*.dll  C:\Users\derenl\AppData\Local\Microsoft\VisualStudio\14.0Exp\Extensions\2zrzxvik.dve
