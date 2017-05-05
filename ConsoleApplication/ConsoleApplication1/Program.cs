@@ -39,6 +39,15 @@ namespace ConsoleApplication1
             List<int> lint = null;
             Console.WriteLine($"lint?.count is {lint == null || lint.Count == 0}");
             Console.WriteLine($"{DateTime.UtcNow:O}");
+
+            AsyncTask.runTaskTest();
+
+            string s;
+            for (int i = 0; i < 3; ++i)
+            {
+                s = AutoPropertyInitializer.PropObj.text;
+            }
+
             Console.ReadKey();
         }
 

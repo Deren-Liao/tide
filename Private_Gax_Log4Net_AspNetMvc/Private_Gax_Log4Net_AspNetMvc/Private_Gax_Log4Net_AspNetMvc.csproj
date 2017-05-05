@@ -43,27 +43,34 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Google.Protobuf">
+    <Reference Include="Google.Api.CommonProtos, Version=1.0.0.0, Culture=neutral, PublicKeyToken=3ec5ea7f18953e47, processorArchitecture=MSIL">
       <HintPath>..\packages\Google.Api.CommonProtos.1.0.0\lib\net45\Google.Api.CommonProtos.dll</HintPath>
       <Private>True</Private>
+    </Reference>
     <Reference Include="Google.Api.Gax, Version=1.0.1.0, Culture=neutral, PublicKeyToken=3ec5ea7f18953e47, processorArchitecture=MSIL">
       <HintPath>..\packages\Google.Api.Gax.1.0.1\lib\net45\Google.Api.Gax.dll</HintPath>
       <Private>True</Private>
+    </Reference>
     <Reference Include="Google.Api.Gax.Grpc, Version=1.0.1.0, Culture=neutral, PublicKeyToken=3ec5ea7f18953e47, processorArchitecture=MSIL">
       <HintPath>..\packages\Google.Api.Gax.Grpc.1.0.1\lib\net45\Google.Api.Gax.Grpc.dll</HintPath>
       <Private>True</Private>
+    </Reference>
     <Reference Include="Google.Apis, Version=1.24.1.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
       <HintPath>..\packages\Google.Apis.1.24.1\lib\net45\Google.Apis.dll</HintPath>
       <Private>True</Private>
+    </Reference>
     <Reference Include="Google.Apis.Auth, Version=1.24.1.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
       <HintPath>..\packages\Google.Apis.Auth.1.24.1\lib\net45\Google.Apis.Auth.dll</HintPath>
       <Private>True</Private>
+    </Reference>
     <Reference Include="Google.Apis.Auth.PlatformServices, Version=1.24.1.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
       <HintPath>..\packages\Google.Apis.Auth.1.24.1\lib\net45\Google.Apis.Auth.PlatformServices.dll</HintPath>
       <Private>True</Private>
+    </Reference>
     <Reference Include="Google.Apis.Core, Version=1.24.1.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
       <HintPath>..\packages\Google.Apis.Core.1.24.1\lib\net45\Google.Apis.Core.dll</HintPath>
       <Private>True</Private>
+    </Reference>
     <Reference Include="Google.Apis.PlatformServices, Version=1.24.1.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
       <HintPath>..\packages\Google.Apis.1.24.1\lib\net45\Google.Apis.PlatformServices.dll</HintPath>
       <Private>True</Private>
@@ -76,6 +83,14 @@
       <HintPath>..\..\..\deren-net\apis\Google.Cloud.Logging.V2\Google.Cloud.Logging.Log4Net\bin\Debug\net45\Google.Cloud.Logging.Log4Net.dll</HintPath>
       <HintPath>..\packages\Google.Cloud.Logging.Type.1.0.0\lib\net45\Google.Cloud.Logging.Type.dll</HintPath>
       <Private>True</Private>
+      <HintPath>..\packages\Google.Cloud.Logging.V2.1.0.0\lib\net45\Google.Cloud.Logging.V2.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Google.Cloud.Logging.Type, Version=1.0.0.0, Culture=neutral, PublicKeyToken=185c282632e132a0, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Cloud.Logging.Type.1.0.0\lib\net45\Google.Cloud.Logging.Type.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Google.Cloud.Logging.V2, Version=1.0.0.0, Culture=neutral, PublicKeyToken=185c282632e132a0, processorArchitecture=MSIL">
       <HintPath>..\packages\Google.Cloud.Logging.V2.1.0.0\lib\net45\Google.Cloud.Logging.V2.dll</HintPath>
       <Private>True</Private>
     </Reference>
@@ -206,8 +221,8 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="packages.config" />
     <Content Include="Views\Peanut\Index.cshtml" />
+    <Content Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
