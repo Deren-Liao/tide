@@ -20,16 +20,18 @@ namespace RemotePowershell
             //StartPowershell("35.185.240.69");
             //WriteLine("Input password");
             //string password = ReadLine();
-            RemotePowerShellUtils rps = new RemotePowerShellUtils("35.185.240.69", "deren", s_lazySecret.Value);
-            // rps.ExecuteAsync(rps.AddCopyCommands);  --- Done, good
+            RemotePowerShellUtils rps = new RemotePowerShellUtils("35.185.74.135", "deren", s_lazySecret.Value);
+            rps.ExecuteAsync(rps.AddCopyCommands);  //--- Done, good
             //  Console.ReadKey();
 
 
             //rps.EnterSessionAsync(rps.AddSetupMsvsmonCommands);
             //Console.ReadKey();
 
-            rps.EnterSessionAsync(rps.AddStartmsvsmonCommands);
+            //rps.EnterSessionAsync(rps.AddStartmsvsmonCommands);            
             //Console.ReadKey();
+
+            // rps.EnterSessionAsync(rps.AddDir);
         }
 
         //private static void AnotherExample()
