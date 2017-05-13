@@ -41,14 +41,14 @@ namespace GoogleCloudExtension.RemotePowerShell
         private const ulong ErrorCodeAccessDenied = 5L;
 
         protected readonly string _computerName;
-        protected readonly string _username;
+        protected readonly string _userName;
         protected readonly SecureString _password;
         protected readonly PSCredential _credential;
 
         public RemoteTarget(string computerName, string username, SecureString password)
         {
             _computerName = computerName;
-            _username = username;
+            _userName = username;
             _password = password;
             _credential = Utils.CreatePSCredential(username, password);
         }
@@ -57,18 +57,17 @@ namespace GoogleCloudExtension.RemotePowerShell
         /// Executes a PowerShell script asynchronously.
         /// </summary>
         public async Task<bool> ExecuteAsync(
-            Action<PowerShell> addCommndsCallback, 
-            CancellationToken cancelToken)
+            Action<PowerShell> addCommndsCallback)
         {
             using (PowerShell powerShell = PowerShell.Create())
             {
                 addCommndsCallback(powerShell);
-                return await WaitComplete(powerShell, cancelToken);
+                return await WaitComplete(powerShell);
             }
         }
 
         public void EnterSessionExecute(
-            string script, 
+            string script,
             CancellationToken cancelToken)
         {
             // TODO: verify script is not null
@@ -106,17 +105,33 @@ namespace GoogleCloudExtension.RemotePowerShell
                 }
 
                 Debug.WriteLine($"Connected to {_computerName}");
-                Debug.WriteLine($"As {_username}");
+                Debug.WriteLine($"As {_userName}");
                 using (PowerShell powerShell = PowerShell.Create())
                 {
                     powerShell.Runspace = runSpace;
                     powerShell.AddScript(script);
-                    var task = WaitComplete(powerShell, cancelToken);
+                    var task = WaitComplete(powerShell);
+                    try
+                    {
+                        Debug.WriteLine($"EnterSessionExecute Task.WaitAll");
+                        Task.WaitAll(new Task[] { task }, cancelToken);
+                        Debug.WriteLine($"EnterSessionExecute Task.WaitAll completes, result code {task.Result}");
+                    }
+                    catch (Exception ex) when (
+                        ex is OperationCanceledException
+                        || ex is ObjectDisposedException
+                        || ex is PSRemotingDataStructureException
+                        || ex is PSRemotingTransportException
+                        || ex is PSRemotingTransportRedirectException
+                        || ex is AggregateException)
+                    {
+                        Debug.WriteLine($"EnterSessionExecute caught exception. {ex}");
+                    }
                 }
             }
         }
 
-        private static async Task<bool> WaitComplete(PowerShell powerShell, CancellationToken cancelToken)
+        private static async Task<bool> WaitComplete(PowerShell powerShell)
         {
             // prepare a new collection to store output stream objects
             PSDataCollection<PSObject> outputCollection = new PSDataCollection<PSObject>();
@@ -171,42 +186,13 @@ namespace GoogleCloudExtension.RemotePowerShell
 
             #endregion
 
-            Action taskAction = () =>
-            {
-                IAsyncResult asyncResult = powerShell.BeginInvoke();
-                PSDataCollection<PSObject> results = null;
-                results = powerShell.EndInvoke(asyncResult);
-                if (results != null)
-                {
-
-                    // Using the PowerShell.EndInvoke method, get the
-                    // results from the IAsyncResult object.
-                    StringBuilder stringBuilder = new StringBuilder();
-                    foreach (PSObject psObject in results)
-                    {
-                        stringBuilder.AppendLine(psObject.ToString());
-                    } // End foreach.
-
-                    Debug.WriteLine(stringBuilder.ToString());
-                }
-            };
-
-            try
-            {
-                await Task.Run(() =>
+            var results = await Task.Factory.FromAsync(
+                powerShell.BeginInvoke(),
+                pResult =>
                 {
                     try
                     {
-                        taskAction();
-                    }
-                    catch (PSRemotingTransportException ex)
-                    {
-                        Debug.WriteLine($"powerShell.EndInvoke exception. {ex}");
-                        var remotingEx = ex as PSRemotingTransportException;
-                        if (remotingEx.ErrorCode == (int)ErrorCodeAccessDenied)
-                        {
-                            throw new RemotePowerShellAccessDeniedException(ex);
-                        }
+                        return powerShell.EndInvoke(pResult);
                     }
                     catch (Exception ex) when (
                         ex is ObjectDisposedException ||
@@ -215,17 +201,18 @@ namespace GoogleCloudExtension.RemotePowerShell
                         ex is PSRemotingTransportException)
                     {
                         Debug.WriteLine($"powerShell.EndInvoke exception. {ex}");
+                        return false;
                     }
-                },
-                cancelToken);
-            }
-            catch (Exception ex) when (
-                ex is TaskCanceledException ||
-                ex is ObjectDisposedException)
+                });
+            // Using the PowerShell.EndInvoke method, get the
+            // results from the IAsyncResult object.
+            StringBuilder stringBuilder = new StringBuilder();
+            foreach (PSObject psObject in results)
             {
-                Debug.WriteLine($"Task run exception. {ex}");
-                return false;
-            }
+                stringBuilder.AppendLine(psObject.ToString());
+            } // End foreach.
+
+            Debug.WriteLine(stringBuilder.ToString());
 
             Debug.WriteLine("Execution has stopped. The pipeline state: " + powerShell.InvocationStateInfo.State);
             return (powerShell.Streams.Error?.Count).GetValueOrDefault() == 0;

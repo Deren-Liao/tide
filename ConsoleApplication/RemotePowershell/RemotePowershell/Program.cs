@@ -20,9 +20,9 @@ namespace RemotePowershell
     {
         static void Main(string[] args)
         {
-            CancellationTokenSource source = new CancellationTokenSource();
+            //CancellationTokenSource source = new CancellationTokenSource();
             RemoteToolInstaller installer = new RemoteToolInstaller("146.148.84.163", "deren", Utils.ConvertToSecureString(s_lazySecret.Value));
-            var t = installer.Install(source.Token);
+            var t = installer.Install();
             t.Wait();
             WriteLine($"task completes, {t.Result}");
             return;

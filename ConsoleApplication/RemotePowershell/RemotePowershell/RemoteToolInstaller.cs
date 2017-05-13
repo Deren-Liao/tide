@@ -32,15 +32,15 @@ namespace GoogleCloudExtension.RemotePowerShell
     public class RemoteToolInstaller : RemoteTarget
     {
         private static string LocalDebuggerPath => @"C:\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\IDE\Remote Debugger\x64\";
-        private string DestinationPath => $@"c:\users\{_username}\documents\RemoteDebugger";
+        private string DestinationPath => $@"c:\users\{_userName}\documents\RemoteDebugger";
 
         public RemoteToolInstaller(string computerName, string username, SecureString password)
             : base (computerName, username, password)
         { }
 
-        public async Task<bool> Install(CancellationToken cancelToken)
+        public async Task<bool> Install()
         {
-            return await ExecuteAsync(AddInstallCommands, cancelToken);
+            return await ExecuteAsync(AddInstallCommands);
         }
 
         private void AddInstallCommands(PowerShell powerShell)
