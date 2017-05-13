@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -11,17 +12,40 @@ using System.Runtime.InteropServices;
 using System.IO;
 using static System.Console;
 
+using GoogleCloudExtension.RemotePowerShell;
+
 namespace RemotePowershell
 {
     class Program
     {
         static void Main(string[] args)
         {
+            RemoteToolSession session = new RemoteToolSession("146.148.84.163", "deren", Utils.ConvertToSecureString(s_lazySecret.Value));
+            int i = 0;
+            while (!session.IsEnded && ++i > 0)
+            {
+                Thread.Sleep(1000);
+                WriteLine("Continue to wait");
+
+                if (i > 20)
+                {
+                    session.Stop();
+                }
+            }
+
+            //string script = Utils.GetScript("RemotePowershell.Resources.EmbededScript.ps1");
+            //WriteLine(script);
+            //WriteLine("Start executing ....");
+            //CancellationTokenSource cancelSource = new CancellationTokenSource();
+            //var target = new RemoteTarget("146.148.84.163", "deren", Utils.ConvertToSecureString(s_lazySecret.Value));
+            //target.EnterSessionExecute(script, cancelSource.Token);
+            //WriteLine($"task completes");
+
             //StartPowershell("35.185.240.69");
             //WriteLine("Input password");
             //string password = ReadLine();
-            RemotePowerShellUtils rps = new RemotePowerShellUtils("35.185.74.135", "deren", s_lazySecret.Value);
-            rps.ExecuteAsync(rps.AddCopyCommands);  //--- Done, good
+            //RemotePowerShellUtils rps = new RemotePowerShellUtils("146.148.84.163", "deren", s_lazySecret.Value);
+            //rps.ExecuteAsync(rps.AddCopyCommands);  //--- Done, good
             //  Console.ReadKey();
 
 
@@ -33,70 +57,6 @@ namespace RemotePowershell
 
             // rps.EnterSessionAsync(rps.AddDir);
         }
-
-        //private static void AnotherExample()
-        //{
-        //    string shellUri = "http://schemas.microsoft.com/powershell/Microsoft.PowerShell";
-        //    string password;
-        //    string user = "deren";
-        //    SecureString secureString = new SecureString();
-        //    password.ToCharArray().ToList().ForEach(p => secureString.AppendChar(p));
-
-        //    PSCredential remoteCredential = new PSCredential(user, secureString);
-        //    WSManConnectionInfo connectionInfo = new WSManConnectionInfo(true, "Ip Address of server", 5985, "/wsman", shellUri, remoteCredential, 1 * 60 * 1000);
-
-        //    string scriptPath = $@"
-        //$Session = New-PSSession -ConfigurationName Microsoft.Exchange -ConnectionUri http://servername/poweshell -Credential {remoteCredential} | Out-String
-        //Import-PSSession $Session";
-
-        //    Runspace runspace = RunspaceFactory.CreateRunspace(connectionInfo);
-        //    connectionInfo.AuthenticationMechanism = AuthenticationMechanism.Basic;
-        //    runspace.Open();
-        //    RunspaceInvoke scriptInvoker = new RunspaceInvoke(runspace);
-        //    Pipeline pipeline = runspace.CreatePipeline();
-        //    string scriptfile = scriptPath;
-        //    Command myCommand = new Command(scriptfile, false);
-        //    pipeline.Commands.Add(myCommand);
-        //    pipeline.Invoke();
-        //    runspace.Close();
-        //}
-
-        //private static void StartPowershell(string sRemote)
-        //{
-        //    string user = "deren";
-        //    string password = @";W6?4D)r*he[g){";
-
-        //    SecureString secureString = new SecureString();
-        //    password.ToCharArray().ToList().ForEach(p => secureString.AppendChar(p));
-        //    var creds = new PSCredential(user, secureString);
-        //    Console.WriteLine(SecureStringToString(secureString));
-
-        //    string shell = "http://schemas.microsoft.com/powershell/Microsoft.PowerShell";
-        //    var targetWsMan = new Uri(string.Format("http://{0}:5985/wsman", sRemote));
-        //    var connectionInfo = new WSManConnectionInfo(targetWsMan, shell, creds);
-        //    AuthenticationMechanism auth = AuthenticationMechanism.Default;
-        //    connectionInfo.AuthenticationMechanism = auth;
-        //    connectionInfo.SkipCACheck = true;
-        //    connectionInfo.SkipCNCheck = true;
-        //    connectionInfo.SkipRevocationCheck = true;
-        //    using (var runSpace = RunspaceFactory.CreateRunspace(connectionInfo))
-        //    {
-        //        // var p = runSpace.CreatePipeline();
-        //        runSpace.Open();
-        //        PowerShell psh = PowerShell.Create();
-        //        Console.WriteLine("Connected to {0}", sRemote);
-        //        Console.WriteLine("As {0}", user);
-        //        Console.Write("Command to run: ");
-        //        var cmd = Console.ReadLine();
-        //        PSCommand command = new PSCommand();
-        //        command.AddArgument(@"echo ""aaa""  .\a.txt ");
-        //        psh.Commands = command;
-        //        var returnValue = psh.Invoke();
-        //        foreach (var v in returnValue)
-        //            Console.WriteLine(v.ToString());
-        //    }
-        //}
-
 
 
         private static readonly Lazy<string> s_lazySecret = new Lazy<string>(() => OpenFileGetLine(@".\password.txt"));
@@ -127,11 +87,6 @@ namespace RemotePowershell
             {
                 Marshal.ZeroFreeGlobalAllocUnicode(valuePtr);
             }
-        }
-
-        private static void CopyFiles(string sRemote)
-        {
-
         }
 
 

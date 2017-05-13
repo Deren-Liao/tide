@@ -13,7 +13,7 @@ using System.Security;
 using System.Runtime.InteropServices;
 
 
-namespace RemotePowershell
+namespace RemotePowershell_copy
 {
     public class RemotePowerShellUtils
     {
@@ -307,7 +307,7 @@ dir;";
                 var remotingEx = ex as PSRemotingTransportException;
                 if (remotingEx.ErrorCode == (int)Win32ErrorCode.ERROR_ACCESS_DENIED)
                 {
-                    throw new RemotePowerShellAccessDeniedException(ex);
+                    //throw new RemotePowerShellAccessDeniedException(ex);
                 }
             }
 
