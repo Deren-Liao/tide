@@ -20,6 +20,13 @@ namespace RemotePowershell
     {
         static void Main(string[] args)
         {
+            CancellationTokenSource source = new CancellationTokenSource();
+            RemoteToolInstaller installer = new RemoteToolInstaller("146.148.84.163", "deren", Utils.ConvertToSecureString(s_lazySecret.Value));
+            var t = installer.Install(source.Token);
+            t.Wait();
+            WriteLine($"task completes, {t.Result}");
+            return;
+
             RemoteToolSession session = new RemoteToolSession("146.148.84.163", "deren", Utils.ConvertToSecureString(s_lazySecret.Value));
             int i = 0;
             while (!session.IsEnded && ++i > 0)
