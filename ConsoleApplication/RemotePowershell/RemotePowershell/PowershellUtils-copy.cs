@@ -6,13 +6,14 @@ using System.Threading.Tasks;
 
 using System.Threading;
 
-using System.Management.Automation.Runspaces;
 using System.Management.Automation;
+using System.Management.Automation.Remoting;
+using System.Management.Automation.Runspaces;
 using System.Security;
 using System.Runtime.InteropServices;
 
 
-namespace RemotePowershell
+namespace RemotePowershell_copy
 {
     public class RemotePowerShellUtils
     {
@@ -95,6 +96,11 @@ namespace RemotePowershell
                 {
                     //TODO: handle/process the output items if required
                     Console.WriteLine(error.ToString());
+
+                    if (error.Exception != null)
+                    {
+                        TranslateException(error.Exception);
+                    }
                 }
             }
         }
@@ -109,10 +115,10 @@ namespace RemotePowershell
 
             powerShell.AddScript(@"$sessionOptions = New-PSSessionOption –SkipCACheck –SkipCNCheck –SkipRevocationCheck");
             powerShell.AddScript($@"$session = New-PSSession {_computerName} -UseSSL -Credential $cred -SessionOption $sessionOptions");
-            powerShell.AddScript(copyScript);
-            //powerShell.AddScript($@"$a = Get-PSSession");
-            //powerShell.AddScript($@"Enter-PSSession $session");
-            powerShell.AddScript(@"dir ");
+
+            //powerShell.AddScript($@".\dir.ps1 ");
+
+            powerShell.AddScript($@" .\InstallStartMsvsmon.ps1 ");
             powerShell.AddScript(@"Remove-PSSession -Session $session");
         }
 
@@ -120,6 +126,7 @@ namespace RemotePowershell
         {
             string script =
             @"
+$ErrorActionPreference = ""Stop""
 cd remoteDebugger
 dir .\msvsmon.exe
 .\msvsmon.exe /prepcomputer /public
@@ -130,13 +137,23 @@ dir .\msvsmon.exe
         public void AddStartmsvsmonCommands(PowerShell powerShell)
         {
             string script =
-            @"
+            @"$ErrorActionPreference = ""Stop""
 $env:computername
 Get-Location
 cd remoteDebugger
 dir .\msvsmon.exe
 .\msvsmon.exe /silent
 ";
+            powerShell.AddScript(script);
+        }
+
+        public void AddDir(PowerShell powerShell)
+        {
+            string script =
+            @"
+$ErrorActionPreference = ""Stop""
+echo test > a.txt 
+dir;";
             powerShell.AddScript(script);
         }
 
@@ -189,7 +206,16 @@ dir .\msvsmon.exe
             using (var runSpace = RunspaceFactory.CreateRunspace(connectionInfo))
             {
                 var psh = runSpace.CreatePipeline();
-                runSpace.Open();
+
+                try
+                {
+                    runSpace.Open();
+                }
+                catch (Exception ex) when (ex is PSRemotingTransportException)
+                {
+                    TranslateException(ex);
+                }
+
 
                 Console.WriteLine("Connected to {0}", _computerName);
                 Console.WriteLine("As {0}", _user);
@@ -243,6 +269,12 @@ dir .\msvsmon.exe
                     {
                         //TODO: handle/process the output items if required
                         Console.WriteLine(error.ToString());
+
+                        // With all exception, throw the first one.
+                        if (error.Exception != null)
+                        {
+                            TranslateException(error.Exception);
+                        }
                     }
 
                     while (true)
@@ -255,6 +287,31 @@ dir .\msvsmon.exe
                     }
                 }
             }
+        }
+
+        public enum Win32ErrorCode : long
+        {
+            ERROR_SUCCESS = 0L,
+            NO_ERROR = 0L,
+            ERROR_INVALID_FUNCTION = 1L,
+            ERROR_FILE_NOT_FOUND = 2L,
+            ERROR_PATH_NOT_FOUND = 3L,
+            ERROR_TOO_MANY_OPEN_FILES = 4L,
+            ERROR_ACCESS_DENIED = 5L,
+        }   
+
+        private void TranslateException(Exception ex)
+        {
+            if (ex is PSRemotingTransportException)
+            {
+                var remotingEx = ex as PSRemotingTransportException;
+                if (remotingEx.ErrorCode == (int)Win32ErrorCode.ERROR_ACCESS_DENIED)
+                {
+                    //throw new RemotePowerShellAccessDeniedException(ex);
+                }
+            }
+
+            throw ex;
         }
     }
 }
