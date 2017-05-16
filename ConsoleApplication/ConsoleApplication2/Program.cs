@@ -26,7 +26,17 @@ namespace ConsoleApplication2
 
         static void Main(string[] args)
         {
-            bool? a = null;
+            do
+            {
+                string sourceString = ReadLine();
+                if (String.IsNullOrWhiteSpace(sourceString))
+                {
+                    return;
+                }
+                WriteLine($"{sourceString.GetHashCode():X}");
+            } while (true);
+
+            bool ? a = null;
             if (a == true)
             {
                 WriteLine("a is true");
