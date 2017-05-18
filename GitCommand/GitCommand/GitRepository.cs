@@ -79,6 +79,14 @@ class RepositoryInformation : IDisposable
         }
     }
 
+    public string RemoteUrl
+    {
+        get
+        {
+            return RunCommand("config --get remote.origin.url");
+        }
+    }
+
     public void Dispose()
     {
         if (!_disposed)
