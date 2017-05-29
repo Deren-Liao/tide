@@ -1,1 +1,1 @@
-copy /Y c:\deren-vs\GoogleCloudExtension\GoogleCloudExtension\bin\Debug\*.dll C:\Users\derenl\AppData\Local\Microsoft\VisualStudio\14.0Exp\Extensions\wm0vivct.e5n
+copy /Y c:\deren-vs\GoogleCloudExtension\GoogleCloudExtension\bin\Debug\*.dll C:\Users\derenl\AppData\Local\Microsoft\VisualStudio\14.0Exp\Extensions\20yrlgau.vkx
