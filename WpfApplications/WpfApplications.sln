@@ -5,6 +5,10 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotsProgress", "DotsProgress\DotsProgress.csproj", "{0029DDD0-D3F4-4CBD-9C6D-C54541C20ED8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfApplication1", "WpfApplication1\WpfApplication1.csproj", "{94565671-9842-46A9-84BB-CC13A362616E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ListViewItemContextMenu", "ListViewItemContextMenu\ListViewItemContextMenu.csproj", "{03B37F59-9E72-4BF6-B69A-900EA4469369}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{0029DDD0-D3F4-4CBD-9C6D-C54541C20ED8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0029DDD0-D3F4-4CBD-9C6D-C54541C20ED8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0029DDD0-D3F4-4CBD-9C6D-C54541C20ED8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{94565671-9842-46A9-84BB-CC13A362616E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94565671-9842-46A9-84BB-CC13A362616E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94565671-9842-46A9-84BB-CC13A362616E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94565671-9842-46A9-84BB-CC13A362616E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{03B37F59-9E72-4BF6-B69A-900EA4469369}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03B37F59-9E72-4BF6-B69A-900EA4469369}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03B37F59-9E72-4BF6-B69A-900EA4469369}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03B37F59-9E72-4BF6-B69A-900EA4469369}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
