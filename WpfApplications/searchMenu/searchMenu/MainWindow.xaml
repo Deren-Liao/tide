@@ -1,0 +1,51 @@
+﻿<Window x:Class="searchMenu.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:controls="clr-namespace:GoogleCloudExtension.Controls"
+        xmlns:local="clr-namespace:searchMenu"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="525">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="./SearchMenuItemResources.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <StackPanel>
+        <!--<Menu VerticalAlignment="Top"
+              HorizontalAlignment="Left"
+              Style="{StaticResource SelectorMenuStyle}"
+              Width="200">
+            <controls:SearchMenuItem Header="toplevelheader" >
+                    <MenuItem Header="t1"/>
+                    <MenuItem Header="t2"/>
+                    <MenuItem Header="t3"/>
+                    <MenuItem Header="t4"/>
+            </controls:SearchMenuItem>
+        </Menu>-->
+
+        <ComboBox  Width="200"
+          IsTextSearchEnabled="True"
+          HorizontalAlignment="Left"
+                   SelectedItem="{Binding SelectedProject,Mode=TwoWay}">
+            <ComboBoxItem>item 1</ComboBoxItem>
+            <ComboBoxItem>xitem 1</ComboBoxItem>
+            <ComboBoxItem>y item 1</ComboBoxItem>
+            <ComboBoxItem>u item 1 deren</ComboBoxItem>
+        </ComboBox>
+
+        <ComboBox  
+            Margin="0,20,20,0"
+            Width="200"
+          IsEditable="True"
+          IsTextSearchEnabled="True"
+          HorizontalAlignment="Left"
+            ItemsSource="{Binding Repositories}"
+            SelectedItem="{Binding SelectedRepository,Mode=TwoWay}">
+        </ComboBox>
+        
+    </StackPanel>
+</Window>
