@@ -36,20 +36,29 @@ public static class CredentialManager
         return new Credential(credential.Type, applicationName, userName, secret);
     }
 
-    public static void WriteCredential(string applicationName, string userName, string secret)
+    /// <summary>
+    /// Write credential to Windows Credential Manager 
+    /// </summary>
+    /// <param name="targetName">
+    /// This can be a remote computer name, a web service address, remote computer IP.
+    /// </param>
+    /// <param name="username">The credential username.</param>
+    /// <param name="password">The credential password.</param>
+    /// <param name="credentialType">Credentrial type</param>
+    /// <param name="persistenceType">Credential persistence type</param>
+    public static bool Write(
+        string targetName, string username, string password,
+        CredentialType credentialType,
+        CredentialPersistence persistenceType)
     {
-        byte[] byteArray = secret == null ? null : Encoding.Unicode.GetBytes(secret);
-        // XP and Vista: 512; 
-        // 7 and above: 5*512
-        if (Environment.OSVersion.Version < new Version(6, 1) /* Windows 7 */)
+        //password.ThrowIfNullOrEmpty(nameof(password));
+        //username.ThrowIfNullOrEmpty(nameof(username));
+        //targetName.ThrowIfNullOrEmpty(nameof(targetName));
+
+        byte[] byteArray = Encoding.Unicode.GetBytes(password);
+        if (byteArray.Length > 512 * 5)
         {
-            if (byteArray != null && byteArray.Length > 512)
-                throw new ArgumentOutOfRangeException("secret", "The secret message has exceeded 512 bytes.");
-        }
-        else
-        {
-            if (byteArray != null && byteArray.Length > 512 * 5)
-                throw new ArgumentOutOfRangeException("secret", "The secret message has exceeded 2560 bytes.");
+            throw new ArgumentOutOfRangeException(nameof(password), "The password has exceeded 2560 bytes.");
         }
 
         CREDENTIAL credential = new CREDENTIAL();
@@ -57,23 +66,33 @@ public static class CredentialManager
         credential.Attributes = IntPtr.Zero;
         credential.Comment = IntPtr.Zero;
         credential.TargetAlias = IntPtr.Zero;
-        credential.Type = CredentialType.Generic;
-        credential.Persist = (uint)CredentialPersistence.LocalMachine;
+        credential.Type = credentialType;   //CredentialType.DomainPassword;
+        credential.Persist = (uint)persistenceType;       //(uint)CredentialPersistence.Enterprise;
         credential.CredentialBlobSize = (uint)(byteArray == null ? 0 : byteArray.Length);
-        credential.TargetName = Marshal.StringToCoTaskMemUni(applicationName);
-        credential.CredentialBlob = Marshal.StringToCoTaskMemUni(secret);
-        credential.UserName = Marshal.StringToCoTaskMemUni(userName ?? Environment.UserName);
+        credential.TargetName = Marshal.StringToCoTaskMemUni(targetName);
+        credential.CredentialBlob = Marshal.StringToCoTaskMemUni(password);
+        credential.UserName = Marshal.StringToCoTaskMemUni(username);
 
-        bool written = CredWrite(ref credential, 0);
-        Marshal.FreeCoTaskMem(credential.TargetName);
-        Marshal.FreeCoTaskMem(credential.CredentialBlob);
-        Marshal.FreeCoTaskMem(credential.UserName);
+        bool written = false;
+
+        try
+        {
+            written = CredWrite(ref credential, 0);
+        }
+        finally
+        {
+            Marshal.FreeCoTaskMem(credential.TargetName);
+            Marshal.FreeCoTaskMem(credential.CredentialBlob);
+            Marshal.FreeCoTaskMem(credential.UserName);
+        }
 
         if (!written)
         {
             int lastError = Marshal.GetLastWin32Error();
             throw new Exception(string.Format("CredWrite failed with the error code {0}.", lastError));
         }
+
+        return written;
     }
 
     public static IReadOnlyList<Credential> EnumerateCrendentials()
@@ -112,7 +131,7 @@ public static class CredentialManager
     [DllImport("Advapi32.dll", EntryPoint = "CredFree", SetLastError = true)]
     static extern bool CredFree([In] IntPtr cred);
 
-    private enum CredentialPersistence : uint
+    public enum CredentialPersistence : uint
     {
         Session = 1,
         LocalMachine,
@@ -120,7 +139,7 @@ public static class CredentialManager
     }
 
     [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
-    private struct CREDENTIAL
+    public struct CREDENTIAL
     {
         public uint Flags;
         public CredentialType Type;
