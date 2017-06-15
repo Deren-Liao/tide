@@ -36,6 +36,9 @@ namespace ConsoleApplication1
 
         static void Main(string[] args)
         {
+            Uri uri = new Uri("https://a.b.c/hffsadf/asf/ewf?how");
+            Console.WriteLine(uri.LocalPath);
+
             List<int> lint = null;
             Console.WriteLine($"lint?.count is {lint == null || lint.Count == 0}");
             Console.WriteLine($"{DateTime.UtcNow:O}");

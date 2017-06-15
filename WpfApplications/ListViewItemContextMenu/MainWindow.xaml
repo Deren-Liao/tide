@@ -4,7 +4,6 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ListViewItemContextMenu"
-        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"         
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance IsDesignTimeCreatable=True,Type=local:MainViewModel}" 
         Title="MainWindow" Height="350" Width="525">
@@ -47,15 +46,12 @@
     
     <Grid>
         <ListView
+            x:Name="ReposList"
             ItemsSource="{Binding Items}"
             SelectedItem="{Binding Selected}"
               ItemContainerStyle="{StaticResource ListItemContainerStyle}"
+            Tag="{Binding DataContext,ElementName=Lst}" 
             >
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="MouseDoubleClick" >
-                    <i:InvokeCommandAction Command="{Binding DoubleClickCommand}" />
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Grid>
@@ -63,7 +59,11 @@
                             <ContextMenu>
                                 <MenuItem Command="Cut" Header="Cut">
                                 </MenuItem>
-                                <MenuItem Command="{Binding CopyCommand}" Header="Copy">
+                                <MenuItem 
+                                    DataContext="{Binding PlacementTarget.Tag, RelativeSource={RelativeSource Self}}"
+                                    Command="{Binding CopyCommand}"
+                                          
+                                          Header="Copy">
                                 </MenuItem>
                                 <MenuItem Command="Paste" Header="Paste">
                                 </MenuItem>

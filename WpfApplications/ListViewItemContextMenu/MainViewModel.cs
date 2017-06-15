@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
+using System.Windows;
 
 using GoogleCloudExtension.Utils;
 
@@ -10,10 +12,10 @@ namespace ListViewItemContextMenu
 {
     public class MainViewModel : ViewModelBase
     {
-        public List<ItemViewModel> Items => _items;
+        public List<ItemModel> Items => _items;
 
-        ItemViewModel _selected;
-        public ItemViewModel Selected
+        ItemModel _selected;
+        public ItemModel Selected
         {
             get { return _selected; }
             set { SetValueAndRaise(out _selected, value); }
@@ -21,15 +23,22 @@ namespace ListViewItemContextMenu
 
         public ProtectedCommand DoubleClickCommand { get; }
 
-        private List<ItemViewModel> _items = new List<ItemViewModel>
+        private List<ItemModel> _items = new List<ItemModel>
         {
-            new ItemViewModel(),
-            new ItemViewModel()
+            new ItemModel("item 1"),
+            new ItemModel("item 2")
         };
+
+        public ICommand CopyCommand = new ProtectedCommand(Copy);
+
 
         public MainViewModel()
         {
-            DoubleClickCommand = new ProtectedCommand(() => Selected?.DoubleClickCommand.Execute(null));
+        }
+
+        private static void Copy()
+        {
+            MessageBox.Show("Copy me " );
         }
     }
 }

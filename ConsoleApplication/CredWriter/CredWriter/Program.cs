@@ -15,22 +15,36 @@ namespace CredWriter
         {
             CredentialManager.Write(
                 "git:https://source.developers.google.com",
-                CredentialType.Generic,
-                CredentialManager.CredentialPersistence.Session);
+                username: "VisualStudioUser",
+                credentialType: CredentialType.Generic,
+                persistenceType: CredentialManager.CredentialPersistence.LocalMachine);
+        }
+
+        private static void SetUrlCredential()
+        {
+            CredentialManager.Write(
+                "git:https://source.developers.google.com/p/pacific-wind/r/hang",
+                username: "VisualStudioUser",
+                credentialType: CredentialType.Generic,
+                persistenceType: CredentialManager.CredentialPersistence.LocalMachine);
         }
 
         private static void SetCredentialAccessToken()
         {
             CredentialManager.Write(
                 "git:https://source.developers.google.com",
-                CredentialType.Generic,
-                CredentialManager.CredentialPersistence.Session);
+                username: "VisualStudioUser",
+                password: "wrong",
+                credentialType: CredentialType.Generic,
+                persistenceType: CredentialManager.CredentialPersistence.LocalMachine);
         }
 
         static void Main(string[] args)
         {
             //SetCredential();
-            SetCredentialAccessToken();
+            //SetCredentialAccessToken();
+            //SetUrlCredential();
+            SetCredential();
         }
     }
 }
