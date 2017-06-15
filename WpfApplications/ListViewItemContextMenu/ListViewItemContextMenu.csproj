@@ -56,7 +56,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="MainViewModel.cs" />
-    <Compile Include="ItemViewModel.cs" />
+    <Compile Include="ItemModel.cs" />
     <Compile Include="ProtectedCommand.cs" />
     <Compile Include="ViewModelBase.cs" />
     <Page Include="MainWindow.xaml">

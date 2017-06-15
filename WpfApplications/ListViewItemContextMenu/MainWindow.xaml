@@ -48,6 +48,7 @@
     <Grid>
         
         <ListView
+            x:Name="ReposList"
             ItemsSource="{Binding Items}"
             SelectedItem="{Binding Selected}"
               ItemContainerStyle="{StaticResource ListItemContainerStyle}" >
@@ -65,7 +66,11 @@
                             <ContextMenu>
                                 <MenuItem Command="Cut" Header="Cut">
                                 </MenuItem>
-                                <MenuItem Command="{Binding CopyCommand}" Header="Copy">
+                                <MenuItem 
+                                    DataContext="{Binding PlacementTarget.Tag, RelativeSource={RelativeSource Self}}"
+                                    Command="{Binding CopyCommand}"
+                                          
+                                          Header="Copy">
                                 </MenuItem>
                                 <MenuItem Command="Paste" Header="Paste">
                                 </MenuItem>

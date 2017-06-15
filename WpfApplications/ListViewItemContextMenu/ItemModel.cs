@@ -10,9 +10,9 @@ using GoogleCloudExtension.Utils;
 
 namespace ListViewItemContextMenu
 {
-    public class ItemViewModel : Model
+    public class ItemModel : Model
     {
-        public string Str1 => "str1";
+        public string Str1 { get; }
         public string Str2 => "str2";
 
         public ProtectedCommand CopyCommand { get; }
@@ -21,8 +21,9 @@ namespace ListViewItemContextMenu
 
         public FontWeight TextWeight => FontWeights.Bold;
 
-        public ItemViewModel()
+        public ItemModel(string name)
         {
+            Str1 = name;
             String.Compare(null, null, StringComparison.OrdinalIgnoreCase);
             CopyCommand = new ProtectedCommand(() => MessageBox.Show("Copy me"));
 

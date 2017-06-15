@@ -68,4 +68,61 @@ namespace GoogleCloudExtension.Utils
             }
         }
     }
+
+    /// <summary>
+    /// This class implements the <seealso cref="ICommand"/> interface and wraps the action for the command
+    /// in <seealso cref="ErrorHandlerUtils.HandleExceptions(Action)"/> to handle the exceptions that could escape.
+    /// </summary>
+    public class ProtectedCommand<T> : ICommand
+    {
+        private bool _canExecuteCommand;
+        private Action<T> _action;
+
+
+        /// <summary>
+        /// Initializes the new instance of ProtectedCommand.
+        /// </summary>
+        /// <param name="handler">The action to execute when executing the command.</param>
+        /// <param name="canExecuteCommand">Whether the command is enabled or not.</param>
+        public ProtectedCommand(Action<T> handler, bool canExecuteCommand = true)
+        {
+            this.CanExecuteCommand = canExecuteCommand;
+            _action = handler;
+        }
+
+        #region ICommand implementation.
+
+        public event EventHandler CanExecuteChanged;
+
+        public bool CanExecute(object parameter)
+        {
+            return CanExecuteCommand;
+        }
+
+        public void Execute(object parameter)
+        {
+            if (parameter is T)
+            {
+                _action.Invoke((T)parameter);
+            }
+        }
+
+        #endregion
+
+        /// <summary>
+        /// Gets/sets whether the command can be executed.
+        /// </summary>
+        public bool CanExecuteCommand
+        {
+            get { return _canExecuteCommand; }
+            set
+            {
+                if (_canExecuteCommand != value)
+                {
+                    _canExecuteCommand = value;
+                    CanExecuteChanged?.Invoke(this, EventArgs.Empty);
+                }
+            }
+        }
+    }
 }
