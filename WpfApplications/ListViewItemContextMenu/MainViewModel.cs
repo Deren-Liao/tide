@@ -29,7 +29,7 @@ namespace ListViewItemContextMenu
 
         public MainViewModel()
         {
-            DoubleClickCommand = new ProtectedCommand(() => Selected?.DoubleClickCommand.Execute(null));
+            DoubleClickCommand = new ProtectedCommand(() => Selected?.OnDoubleClick.Execute(null));
         }
     }
 }

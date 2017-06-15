@@ -32,11 +32,21 @@ namespace AwaitTask
             Task.Run(() => ThrowExceptionAfter(TimeSpan.FromSeconds(2)));
         }
 
+
+        static async Task HereIsATask()
+        {
+            Console.WriteLine("HereIsATask is executed");
+            await Task.Delay(500);
+        }
+
+
         static void Main(string[] args)
         {
             //AsyncCaller();
 
             AsyncCallerNoExceptionHandler();
+
+            Task aTask = HereIsATask();
 
             ConsoleKey k;
             while ((k = Console.ReadKey().Key) != ConsoleKey.X)

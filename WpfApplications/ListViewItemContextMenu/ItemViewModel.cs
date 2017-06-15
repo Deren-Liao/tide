@@ -17,7 +17,7 @@ namespace ListViewItemContextMenu
 
         public ProtectedCommand CopyCommand { get; }
 
-        public ProtectedCommand DoubleClickCommand { get; }
+        public ProtectedCommand OnDoubleClick { get; }
 
         public FontWeight TextWeight => FontWeights.Bold;
 
@@ -26,7 +26,7 @@ namespace ListViewItemContextMenu
             String.Compare(null, null, StringComparison.OrdinalIgnoreCase);
             CopyCommand = new ProtectedCommand(() => MessageBox.Show("Copy me"));
 
-            DoubleClickCommand = new ProtectedCommand(() => MessageBox.Show("Double Click"));
+            OnDoubleClick = new ProtectedCommand(() => MessageBox.Show("Double Click"));
         }
     }
 }

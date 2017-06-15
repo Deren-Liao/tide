@@ -4,7 +4,6 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ListViewItemContextMenu"
-        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"         
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance IsDesignTimeCreatable=True,Type=local:MainViewModel}" 
         Title="MainWindow" Height="350" Width="525">
@@ -45,20 +44,23 @@
         </Style>
     </Window.Resources>
     
+    
     <Grid>
+        
         <ListView
             ItemsSource="{Binding Items}"
             SelectedItem="{Binding Selected}"
-              ItemContainerStyle="{StaticResource ListItemContainerStyle}"
-            >
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="MouseDoubleClick" >
-                    <i:InvokeCommandAction Command="{Binding DoubleClickCommand}" />
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
+              ItemContainerStyle="{StaticResource ListItemContainerStyle}" >
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Grid>
+                        <Grid.InputBindings>
+                            <MouseBinding Gesture="LeftDoubleClick" 
+                                          Command=
+                                          "{Binding DataContext.DoubleClickCommand, RelativeSource ={RelativeSource FindAncestor, 
+                                AncestorType={x:Type ListView}}}"/>
+                        </Grid.InputBindings>
+
                         <Grid.ContextMenu>
                             <ContextMenu>
                                 <MenuItem Command="Cut" Header="Cut">
