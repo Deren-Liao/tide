@@ -34,11 +34,7 @@ namespace ListViewItemContextMenu
 
         public MainViewModel()
         {
-        }
-
-        private static void Copy()
-        {
-            MessageBox.Show("Copy me " );
+            DoubleClickCommand = new ProtectedCommand(() => Selected?.OnDoubleClick.Execute(null));
         }
     }
 }

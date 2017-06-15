@@ -44,17 +44,24 @@
         </Style>
     </Window.Resources>
     
+    
     <Grid>
+        
         <ListView
             x:Name="ReposList"
             ItemsSource="{Binding Items}"
             SelectedItem="{Binding Selected}"
-              ItemContainerStyle="{StaticResource ListItemContainerStyle}"
-            Tag="{Binding DataContext,ElementName=Lst}" 
-            >
+              ItemContainerStyle="{StaticResource ListItemContainerStyle}" >
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Grid>
+                        <Grid.InputBindings>
+                            <MouseBinding Gesture="LeftDoubleClick" 
+                                          Command=
+                                          "{Binding DataContext.DoubleClickCommand, RelativeSource ={RelativeSource FindAncestor, 
+                                AncestorType={x:Type ListView}}}"/>
+                        </Grid.InputBindings>
+
                         <Grid.ContextMenu>
                             <ContextMenu>
                                 <MenuItem Command="Cut" Header="Cut">
