@@ -24,8 +24,44 @@ namespace ConsoleApplication2
             }
         }
 
+        struct strA
+        {
+            public int a;
+        }
+
+        static void LinqEmptyTest()
+        {
+            List<string> l = new List<string>();
+            var lq = l.Where(x => x == "aa");
+            WriteLine(lq);
+        }
+
+        static void ObjectAsString()
+        {
+            bool a = true;
+            object x;
+            x = a as object;
+            WriteLine(x as string);
+            WriteLine(x == null);
+            x = 5 as object;
+            WriteLine(x as string);
+            WriteLine(x == null);
+            var b = new strA { a = 5 };
+            x = b as object;
+            WriteLine(x as string);
+            WriteLine(x == null);
+            strA c = (strA)x;
+            WriteLine(c.a);
+            x = a as object;
+            c = (strA)x;
+        }
+
         static void Main(string[] args)
         {
+            ObjectAsString();
+            return;
+            //LinqEmptyTest();
+
             do
             {
                 string sourceString = ReadLine();

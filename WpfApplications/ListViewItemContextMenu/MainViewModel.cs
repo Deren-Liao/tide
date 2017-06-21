@@ -29,7 +29,7 @@ namespace ListViewItemContextMenu
             new ItemModel("item 2")
         };
 
-        public ICommand CopyCommand = new ProtectedCommand(Copy);
+        //public ICommand CopyCommand = new ProtectedCommand(Copy);
 
 
         public MainViewModel()

@@ -1,0 +1,35 @@
+﻿<Window x:Class="SelectControlTemplate.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SelectControlTemplate"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="525"
+        d:DataContext="{d:DesignInstance {x:Type local:MainViewModel}}" 
+        >
+<Grid>
+        <Border>
+            <Border.Resources>
+                <ComboBox SelectedIndex="0" x:Key="Valid">
+                    <ComboBoxItem>Good</ComboBoxItem>
+                </ComboBox>
+                <ComboBox SelectedIndex="0" x:Key="InValid">
+                    <ComboBoxItem>NotGood</ComboBoxItem>
+                </ComboBox>
+            </Border.Resources>
+            <ContentControl>
+                <ContentControl.Style>
+                    <Style TargetType="ContentControl" >
+                        <Setter Property="Content" Value="{StaticResource Valid}"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding  InValidData}" Value="true">
+                                <Setter Property="Content" Value="{StaticResource InValid}" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </ContentControl.Style>
+            </ContentControl>
+        </Border>
+    </Grid>
+</Window>

@@ -79,13 +79,36 @@ class RepositoryInformation : IDisposable
         }
     }
 
-    public string RemoteUrl
+    public List<string> RemoteUrls
     {
         get
         {
-            return RunCommand("config --get remote.origin.url");
+            List<string> ret = new List<string>();
+            var remotes = GetRemotes;
+            if (remotes != null)
+            {
+                foreach (var origin in remotes)
+                {
+                    var lines = GetLines(RunCommand($"config --get remote.{origin}.url"));
+                    if (lines != null)
+                    {
+                        ret.AddRange(lines);
+                    }
+                }
+            }
+            return ret;
         }
     }
+
+    public IEnumerable<string> GetRemotes
+    {
+        get
+        {
+            var outputs = RunCommand("remote");
+            return GetLines(outputs);
+        }
+    }
+
 
     public void Dispose()
     {
@@ -134,6 +157,9 @@ class RepositoryInformation : IDisposable
             return !String.IsNullOrWhiteSpace(RunCommand("log -1"));
         }
     }
+
+    private IEnumerable<string> GetLines(string outputs) =>
+        outputs?.Split(new string[] { Environment.NewLine, "\n", "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
 
     private string RunCommand(string args)
     {

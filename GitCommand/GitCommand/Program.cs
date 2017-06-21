@@ -18,9 +18,10 @@ namespace GitCommand
 
         static void Main(string[] args)
         {
-            RepositoryInformation repo = RepositoryInformation.GetRepositoryInformationForPath(@"c:\tide");
+            RepositoryInformation repo = RepositoryInformation.GetRepositoryInformationForPath(@"c:\git\wind");
             WriteLine($"{repo.BranchName}");
-            WriteLine($"{repo.RemoteUrl}");
+            WriteLine($"{String.Join(Environment.NewLine, repo.RemoteUrls)}");
+            WriteLine();
             repo.DoesCommitExists(sha);
             repo.GetFileRevision(sha, file, @"c:\tmp\git-command-test");
             var text = repo.ListTree(sha);
