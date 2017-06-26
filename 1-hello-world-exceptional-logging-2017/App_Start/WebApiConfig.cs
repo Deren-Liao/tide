@@ -25,7 +25,7 @@ using System.Web.Http.Routing;
 using log4net;
 using static ExceptionalLogging;
 
-namespace GoogleCloudSamplesEReport
+namespace GoogleCloudSamples
 {
     public class ALoggingException : Exception
     {
@@ -57,7 +57,7 @@ namespace GoogleCloudSamplesEReport
                 {
                     try
                     {
-                        ExceptionGenerator.ThrowException();
+                        ThrowException();
                     }
                     catch (Exception ex) 
                     {
@@ -84,7 +84,10 @@ namespace GoogleCloudSamplesEReport
                 new HelloWorldHandler());
         }
 
-
+        public static void ThrowException()
+        {
+            ExceptionGenerator.LoopThenException(9, "Test application to write error through Stackdriver Logging Api");
+        }
         // [END sample]
     }
 }

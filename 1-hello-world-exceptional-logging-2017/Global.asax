@@ -14,4 +14,4 @@ See the License for the specific language governing permissions and
 limitations under the License.
 --%>
 
-<%@ Application Codebehind="Global.asax.cs" Inherits="GoogleCloudSamplesEReport.WebApiApplication" Language="C#" %>
+<%@ Application Codebehind="Global.asax.cs" Inherits="GoogleCloudSamples.WebApiApplication" Language="C#" %>

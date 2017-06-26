@@ -25,7 +25,7 @@ using System.Web.Http.Routing;
 using log4net;
 using static EReportingApi.EReporting;
 
-namespace GoogleCloudSamples
+namespace GoogleCloudSamplesEReport
 {
     public class ErrorReportingApiTestException : Exception
     {
@@ -58,7 +58,7 @@ namespace GoogleCloudSamples
                 {
                     try
                     {
-                        ThrowException();
+                        EReport.TestXReport();
                     }
                     catch (ErrorReportingApiTestException ex)
                     {

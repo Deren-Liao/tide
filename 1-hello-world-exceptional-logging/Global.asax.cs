@@ -19,7 +19,7 @@ using System.Web;
 using System.Web.Http;
 using System.Web.Routing;
 
-namespace GoogleCloudSamples
+namespace GoogleCloudSamplesEReport
 {
     public class WebApiApplication : System.Web.HttpApplication
     {

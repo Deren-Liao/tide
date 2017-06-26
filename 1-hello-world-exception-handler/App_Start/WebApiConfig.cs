@@ -26,7 +26,7 @@ using log4net;
 using Google.Cloud.Diagnostics.AspNet;
 using System.Web.Http.ExceptionHandling;
 
-namespace GoogleCloudSamples
+namespace GoogleCloudSamplesEReport
 {
     public static class WebApiConfig
     {
@@ -56,7 +56,7 @@ namespace GoogleCloudSamples
 
                 if ((counter%2) == 0)
                 {
-                    ExceptionalStone();
+                    exceptional_handler_test.TestThrow();
                 }
 
                 return Task.FromResult(new HttpResponseMessage()
