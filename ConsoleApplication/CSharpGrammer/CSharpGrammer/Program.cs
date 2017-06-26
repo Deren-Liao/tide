@@ -15,7 +15,13 @@ namespace CSharpGrammer
             for (int i = 0; i < 5; ++i)
             {
                 A._s1 += i.ToString();
-                Console.WriteLine(A.TestString);
+                Console.WriteLine(A.TestStringGet);
+
+
+                string ss = null;
+                Console.WriteLine(ss?.Contains("abc") != true);
+                ss = "babc";
+                Console.WriteLine(ss?.Contains("abc") != true);
             }
         }
     }

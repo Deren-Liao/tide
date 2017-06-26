@@ -16,6 +16,9 @@ namespace SelectControlTemplate
 
         public MainViewModel()
         {
+            string fmt = "https://console.cloud.google.com/code/develop/browse/{0}?project={1}";
+            string url = String.Format(fmt, "name", "id");
+
         }
     }
 }
