@@ -1,0 +1,9 @@
+{
+  "name": "show-node",
+  "version": "0.0.0",
+  "description": "ShowNode",
+  "main": "app.js",
+  "author": {
+    "name": "derenl"
+  }
+}

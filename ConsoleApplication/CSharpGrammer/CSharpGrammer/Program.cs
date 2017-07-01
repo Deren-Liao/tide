@@ -4,12 +4,25 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
+
+
+
+
+
+
+
 namespace CSharpGrammer
 {
     class Program
     {
         static void Main(string[] args)
         {
+            object a = null;
+            if (a is string)
+            {
+                a = "any";
+            }
 
             Class1 A = new Class1("abc");
             for (int i = 0; i < 5; ++i)
