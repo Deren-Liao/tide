@@ -34,8 +34,20 @@ namespace ConsoleApplication1
             Console.WriteLine($"{a?[2]}");
         }
 
+        static void JaonsTest()
+        {
+            string jsonText = @"{ ""data"": ""200"" }";
+            dynamic json = Newtonsoft.Json.JsonConvert.DeserializeObject(jsonText);
+            Console.WriteLine($"{json.data}");
+            int a;
+            Int32.TryParse(json.data.Value, out a);
+        }
+
         static void Main(string[] args)
         {
+            JaonsTest();
+            return;
+
             Uri uri = new Uri("https://a.b.c/hffsadf/asf/ewf?how");
             Console.WriteLine(uri.LocalPath);
 

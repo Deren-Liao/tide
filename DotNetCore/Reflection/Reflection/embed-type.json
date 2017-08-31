@@ -1,0 +1,12 @@
+﻿{
+  "eventId": "141212353787005",
+  "timestamp": "2017-08-15T02:11:30.876Z",
+  "eventType": "providers/cloud.pubsub/eventTypes/topic.publish",
+  "resource": "projects/csharp-functions-test/topics/cloud_function_test_topic",
+  "data": {
+    "E1": "eyJuYW1lIjoiaGVsbG9QdWJTdWIifQ==",
+    "E2": "-1239",
+    "E3": "true"
+  }
+}
+
