@@ -3,8 +3,9 @@ using System.Threading.Tasks;
 
 namespace GoogleCloudFunctions.ClassLibrary1
 {
+    delegate Task Function(UserEvent data);
 
-    public class EmbededType
+    public class UserEvent
     {
         public string E1 { get; set; }
         public int E2 { get; set; }
@@ -16,7 +17,7 @@ namespace GoogleCloudFunctions.ClassLibrary1
         public string F1 { get; set; }
         public int F2 { get; set; }
 
-        public EmbededType F3 { get; set; }
+        public UserEvent F3 { get; set; }
     }
 
     public class Class1
@@ -39,9 +40,9 @@ namespace GoogleCloudFunctions.ClassLibrary1
         //    return Task.FromResult(0);
         //}
 
-        public static Task ProcessEvent(EmbededType data)
+        public static Task ProcessEvent(UserEvent data)
         {
-            Console.WriteLine($"EmbededType: {data}");
+            Console.WriteLine($"UserEvent: {data}");
             return Task.FromResult(0);
         }
     }
